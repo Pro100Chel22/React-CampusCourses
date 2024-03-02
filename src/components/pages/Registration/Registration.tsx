@@ -1,15 +1,16 @@
 import React, {FC} from 'react';
-import {DatePicker, Form, Input, message, Typography} from 'antd';
+import {DatePicker, Form, Input, Typography} from 'antd';
 import dayjs from 'dayjs';
 import MyButton from '../../UI/MyButton/MyButton';
 import classes from './Registration.module.css'
 import {birthdayRules, confirmRules, emailRules, fullNameRules, passwordRules} from "./Validations";
 import {useRegistration} from "./useRegistration";
+import {tooltipRequire, viewDateFormat} from "../../consts/consts";
 
 const {Title} = Typography;
 
 const Registration: FC = () => {
-    const {registrationLoading, form, tooltip, dateFormat, currentDate, registrationHandler} = useRegistration();
+    const {registrationLoading, form, currentDate, registrationHandler} = useRegistration();
 
     console.log("Registration update!");
 
@@ -29,20 +30,20 @@ const Registration: FC = () => {
                         name="fullName"
                         rules={fullNameRules}
                         hasFeedback
-                        tooltip={tooltip}>
-                        <Input placeholder="Ивано Иван Иванович"/>
+                        tooltip={tooltipRequire}>
+                        <Input placeholder="Иванов Иван Иванович"/>
                     </Form.Item>
                     <Form.Item
                         label="День рождения"
                         name="birthDate"
                         rules={birthdayRules}
                         hasFeedback
-                        tooltip={tooltip}>
+                        tooltip={tooltipRequire}>
                         <DatePicker
-                            format={dateFormat}
+                            format={viewDateFormat}
                             className={classes.registrationFormDatePiker}
-                            minDate={dayjs('01.01.1900', dateFormat)}
-                            maxDate={dayjs(currentDate, dateFormat)}
+                            minDate={dayjs('01.01.1900', viewDateFormat)}
+                            maxDate={dayjs(currentDate, viewDateFormat)}
                         />
                     </Form.Item>
                     <Form.Item
@@ -51,7 +52,7 @@ const Registration: FC = () => {
                         name="email"
                         rules={emailRules}
                         hasFeedback
-                        tooltip={tooltip}>
+                        tooltip={tooltipRequire}>
                         <Input/>
                     </Form.Item>
                     <Form.Item
@@ -59,7 +60,7 @@ const Registration: FC = () => {
                         name="password"
                         rules={passwordRules}
                         hasFeedback
-                        tooltip={tooltip}>
+                        tooltip={tooltipRequire}>
                         <Input.Password/>
                     </Form.Item>
                     <Form.Item
@@ -68,7 +69,7 @@ const Registration: FC = () => {
                         dependencies={['password']}
                         hasFeedback
                         rules={confirmRules}
-                        tooltip={tooltip}>
+                        tooltip={tooltipRequire}>
                         <Input.Password/>
                     </Form.Item>
                     <Form.Item>

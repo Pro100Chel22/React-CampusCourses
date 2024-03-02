@@ -1,6 +1,6 @@
 import {useLocation} from "react-router-dom";
-import {useAppDispatch, useAppSelector} from "../../hooks/redux";
-import {logout} from "../../store/reducers/UserReducer/LogoutThunkCreater";
+import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
+import {logout} from "../../../store/reducers/UserReducer/LogoutThunkCreater";
 
 export const useCustomLayout = () => {
     const location = useLocation().pathname;

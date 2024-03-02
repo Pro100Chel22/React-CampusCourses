@@ -1,0 +1,18 @@
+.profileContainer {
+    width: 100%;
+    max-width: 550px;
+}
+
+.profileContainerWrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.profileFormDatePiker {
+    width: 100%;
+}
+
+.profileFormEditButtonContainer {
+    display: flex;
+    justify-content: end;
+}

@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {IErrorResponse, IRoles, IUserProfile} from "../../../types/types";
+import {IErrorResponse, IRoles, IUserProfile, IUserProfileResponse} from "../../../types/types";
 import {registerReducers} from "./RegisterThunkCreater";
 import {loginReducers} from "./LoginThunkCreater";
 import {logoutReducers} from "./LogoutThunkCreater";

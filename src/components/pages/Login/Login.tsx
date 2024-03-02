@@ -4,11 +4,12 @@ import MyButton from '../../UI/MyButton/MyButton';
 import classes from './Login.module.css'
 import {emailRules, passwordRules} from "./Validations";
 import {useLogin} from "./useLogin";
+import {tooltipRequire} from "../../consts/consts";
 
 const {Title} = Typography;
 
 const Login = () => {
-    const {loginLoading, loginHandler, form, tooltip} = useLogin();
+    const {loginLoading, loginHandler, form} = useLogin();
 
     console.log("Login update!");
 
@@ -28,7 +29,7 @@ const Login = () => {
                         name="email"
                         rules={emailRules}
                         hasFeedback
-                        tooltip={tooltip}>
+                        tooltip={tooltipRequire}>
                         <Input/>
                     </Form.Item>
                     <Form.Item
@@ -36,7 +37,7 @@ const Login = () => {
                         name="password"
                         rules={passwordRules}
                         hasFeedback
-                        tooltip={tooltip}>
+                        tooltip={tooltipRequire}>
                         <Input.Password/>
                     </Form.Item>
                     <Form.Item>

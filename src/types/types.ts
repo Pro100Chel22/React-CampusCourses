@@ -1,12 +1,20 @@
+import dayjs from "dayjs";
+
 export interface IGroup {
     id: string
     name: string
 }
 
-export interface IUserProfile {
+export interface IUserProfileResponse {
     fullName: string;
     email: string;
     birthDate: string;
+}
+
+export interface IUserProfile {
+    fullName: string;
+    email: string;
+    birthDate: dayjs.Dayjs;
 }
 
 export interface IRoles {
@@ -16,7 +24,7 @@ export interface IRoles {
 }
 
 export interface IUserProfileRoles {
-    userProfile: IUserProfile,
+    userProfile: IUserProfileResponse,
     roles: IRoles
 }
 

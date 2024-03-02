@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {Route, Routes} from "react-router-dom";
-import CustomLayout from './components/shared/CustomLayout';
+import CustomLayout from './components/pages/shared/CustomLayout';
 import Groups from './components/pages/Groups/Groups';
 import Homepage from "./components/pages/Homepage/Homepage";
 import Login from './components/pages/Login/Login';

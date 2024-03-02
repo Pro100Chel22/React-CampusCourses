@@ -1,5 +1,5 @@
 import axiosInstanceFactory from "./AxiosInstance";
-import {ILogin, IRegistration, IRoles, ITokenResponse, IUserProfile} from "../types/types";
+import {ILogin, IRegistration, IRoles, ITokenResponse, IUserProfileResponse} from "../types/types";
 import {AxiosPromise} from "axios";
 
 const axios = axiosInstanceFactory();
@@ -12,14 +12,14 @@ const login = async (form: ILogin): Promise<AxiosPromise<ITokenResponse>> => {
     return axios.post<ITokenResponse>("login", form);
 }
 
-const logout = async (token: string): Promise<AxiosPromise<IUserProfile>> => {
-    return axios.post<IUserProfile>("logout", {}, {headers: {
+const logout = async (token: string): Promise<AxiosPromise<IUserProfileResponse>> => {
+    return axios.post<IUserProfileResponse>("logout", {}, {headers: {
             Authorization: 'Bearer ' + token,
         }});
 }
 
-const profile = async (token: string): Promise<AxiosPromise<IUserProfile>> => {
-    return axios.get<IUserProfile>("profile", {headers: {
+const profile = async (token: string): Promise<AxiosPromise<IUserProfileResponse>> => {
+    return axios.get<IUserProfileResponse>("profile", {headers: {
             Authorization: 'Bearer ' + token,
         }});
 }
