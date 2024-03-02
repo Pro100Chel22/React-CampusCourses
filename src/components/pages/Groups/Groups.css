@@ -1,0 +1,18 @@
+.GroupContainer {
+    width: 100%;
+    max-width: 900px;
+}
+
+.GroupContainerWrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.groupList {
+    margin-bottom: 15px;
+    max-width: 100%;
+}
+
+.groupButtonCreate {
+    margin-bottom: 15px;
+}

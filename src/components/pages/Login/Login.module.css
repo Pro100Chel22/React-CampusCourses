@@ -1,0 +1,17 @@
+.loginTitle {
+    text-align: center;
+}
+
+.loginWrapper {
+    height: 100%;
+}
+
+.loginFormWrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.loginForm {
+    width: 100%;
+    max-width: 550px;
+}

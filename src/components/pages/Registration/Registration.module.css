@@ -1,0 +1,21 @@
+.registrationTitle {
+    text-align: center;
+}
+
+.registrationWrapper {
+    height: 100%;
+}
+
+.registrationFormWrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.registrationForm {
+    width: 100%;
+    max-width: 550px;
+}
+
+.registrationFormDatePiker {
+    width: 100%;
+}

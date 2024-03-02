@@ -1,0 +1,39 @@
+@media (max-width: 992px) {
+    .remove-padding-lg {
+        padding: 0 !important;
+    }
+}
+
+.marginRightAuto {
+    margin-right: auto !important;
+}
+
+.logo {
+    background: none!important;
+    color: white!important;
+    font-size: 18px;
+}
+
+.marginLeftAuto {
+    margin-left: auto !important;
+}
+
+.mainLayout {
+    background: #f0f2f5;
+    min-height: 100%;
+}
+
+.mainHeader {
+    display: flex;
+    align-items: center;
+}
+
+.mainFooter {
+    text-align: center;
+    background: #ebecef;
+}
+
+.mainContent {
+    padding: 0 48px;
+    height: 100px;
+}
