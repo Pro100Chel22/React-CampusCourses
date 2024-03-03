@@ -9,12 +9,16 @@ import Registration from "./components/pages/Registration/Registration";
 import TeachingCourses from './components/pages/TeachingCourses/TeachingCourses';
 import RequireAuth from "./components/hoc/RequireAuth";
 import RequireNotAuth from "./components/hoc/RequireNotAuth";
-import {useAppDispatch, useAppSelector} from "./hooks/redux";
+import {useAppDispatch} from "./hooks/redux";
 import Profile from "./components/pages/Profile/Profile";
 import {checkAuth} from "./store/reducers/UserReducer/CheckAuthThunkCreater";
 
 const App = () => {
     const dispatch = useAppDispatch();
+
+    // Перенести валидации в директорию consts
+    // Сделать для message статическую функцию обертку для уменьшения
+    // Добавить страницу 404 для неправльных роутов
 
     useEffect(() => {
         dispatch(checkAuth());

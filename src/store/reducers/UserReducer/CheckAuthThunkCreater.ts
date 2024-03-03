@@ -7,7 +7,7 @@ import {AxiosError} from "axios";
 import dayjs from "dayjs";
 import {serverDateFormat} from "../../../components/consts/consts";
 
-export const profileReducers = (builder: ActionReducerMapBuilder<IUserState>) => {
+export const checkAuthReducers = (builder: ActionReducerMapBuilder<IUserState>) => {
     builder.addCase(checkAuth.pending.type, (state) => {
         state.checkingAuth = true;
         state.error = null;
@@ -20,7 +20,7 @@ export const profileReducers = (builder: ActionReducerMapBuilder<IUserState>) =>
         state.profile ={
             fullName: action.payload.userProfile.fullName,
             email: action.payload.userProfile.email,
-            birthDate: dayjs(action.payload.userProfile.birthDate.split("T")[0], serverDateFormat),
+            birthDate: dayjs(action.payload.userProfile.birthDate.split("T")[0], serverDateFormat).format(serverDateFormat),
         };
     });
     builder.addCase(checkAuth.rejected.type, (state, action: PayloadAction<IErrorResponse>) => {

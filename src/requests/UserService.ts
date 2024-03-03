@@ -1,5 +1,5 @@
 import axiosInstanceFactory from "./AxiosInstance";
-import {ILogin, IRegistration, IRoles, ITokenResponse, IUserProfileResponse} from "../types/types";
+import {IEditProfile, ILogin, IRegistration, IRoles, ITokenResponse, IUserProfileResponse} from "../types/types";
 import {AxiosPromise} from "axios";
 
 const axios = axiosInstanceFactory();
@@ -10,6 +10,12 @@ const registration = async (form: IRegistration): Promise<AxiosPromise<ITokenRes
 
 const login = async (form: ILogin): Promise<AxiosPromise<ITokenResponse>> => {
     return axios.post<ITokenResponse>("login", form);
+}
+
+const editProfile = async (form: IEditProfile, token: string): Promise<AxiosPromise<IUserProfileResponse>> => {
+    return axios.put<IUserProfileResponse>("profile", form, {headers: {
+            Authorization: 'Bearer ' + token,
+        }});
 }
 
 const logout = async (token: string): Promise<AxiosPromise<IUserProfileResponse>> => {
@@ -33,6 +39,7 @@ const roles = async (token: string): Promise<AxiosPromise<IRoles>> => {
 export const UserService = {
     registration,
     login,
+    editProfile,
     logout,
     profile,
     roles

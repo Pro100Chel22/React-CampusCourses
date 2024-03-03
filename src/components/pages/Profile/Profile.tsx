@@ -5,12 +5,12 @@ import MyButton from "../../UI/MyButton/MyButton";
 import dayjs from "dayjs";
 import {birthdayRules, fullNameRules} from "./Validations";
 import {useProfile} from "./useProfile";
-import {viewDateFormat} from "../../consts/consts";
+import {serverDateFormat, viewDateFormat} from "../../consts/consts";
 
 const {Title} = Typography;
 
 const Profile = () => {
-    const {editHandler, profile, form, currentDate} = useProfile();
+    const {editHandler, profile, editLoading, form, currentDate} = useProfile();
 
     console.log("Profile update!");
 
@@ -23,7 +23,8 @@ const Profile = () => {
                     form={form}
                     className={classes.loginForm}
                     requiredMark={false}
-                    onFinish={editHandler}>
+                    onFinish={editHandler}
+                    disabled={editLoading}>
                     <Form.Item
                         label="ФИО"
                         name="fullName"
@@ -41,7 +42,7 @@ const Profile = () => {
                         label="День рождения"
                         name="birthDate"
                         rules={birthdayRules}
-                        initialValue={profile?.birthDate}>
+                        initialValue={dayjs(profile?.birthDate, serverDateFormat)}>
                         <DatePicker
                             format={viewDateFormat}
                             className={classes.profileFormDatePiker}
@@ -50,7 +51,7 @@ const Profile = () => {
                         />
                     </Form.Item>
                     <Form.Item className={classes.profileFormEditButtonContainer}>
-                        <MyButton htmlType="submit">Изменить</MyButton>
+                        <MyButton htmlType="submit" loading={editLoading}>Изменить</MyButton>
                     </Form.Item>
                 </Form>
             </div>

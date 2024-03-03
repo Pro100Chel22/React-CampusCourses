@@ -1,5 +1,3 @@
-import dayjs from "dayjs";
-
 export interface IGroup {
     id: string
     name: string
@@ -14,7 +12,7 @@ export interface IUserProfileResponse {
 export interface IUserProfile {
     fullName: string;
     email: string;
-    birthDate: dayjs.Dayjs;
+    birthDate: string;
 }
 
 export interface IRoles {
@@ -40,6 +38,12 @@ export interface ILogin {
     email: string;
     password: string;
 }
+
+export interface IEditProfile {
+    fullName: string,
+    birthDate: string,
+}
+
 
 export interface ITokenResponse {
     token: string;
