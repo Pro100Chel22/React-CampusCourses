@@ -1,59 +1,72 @@
 import React from 'react';
-import {List, Typography} from "antd";
+import {List, Result, Typography} from "antd";
 import MyButton from "../../UI/MyButton/MyButton";
 import MyGroupItem from "../../UI/MyGroupItem/MyGroupItem";
-import './Groups.css'
-import {IGroup} from '../../../types/types'
+import classes from './Groups.module.css'
+import {useGroups} from "./useGroups";
+import MyModalGroupEdit from "../../UI/MyModalGroupEdit/MyModalGroupEdit";
 
 const {Title} = Typography;
 
 const Groups = () => {
-    const data : IGroup[] = [
-        {
-            "id": "bec4728c-4d45-4608-e896-08db4ece065f",
-            "name": "Хихология"
-        },
-        {
-            "id": "79dc8474-69f5-4702-e897-08db4ece065f",
-            "name": "Анекдоты"
-        },
-        {
-            "id": "8bc74c07-8812-4a54-d2ea-08db5ab5db86",
-            "name": "Винкс клуб"
-        },
-        {
-            "id": "8c8fce86-1e46-4df9-7364-08db5b4aaa64",
-            "name": "Гуманитарный 2sdfsdfsdfsdfs2 2dfsdfsdfsdfsdfsdjkk2 2kkkkkkkkkkkkkkkkk2 2kkkkkkkk2 2kkkkkkkksdfsdf2"
-        },
-        {
-            "id": "9f75afbd-1479-458a-30cd-08db5ce6f12c",
-            "name": "Алфавит"
-        },
-        {
-            "id": "9157ca57-c3eb-436f-b29b-08dc320cc7b1",
-            "name": "Всем ку"
-        },
-        {
-            "id": "d20fbacb-319c-4bf0-b29c-08dc320cc7b1",
-            "name": "Мемология"
-        }
-    ];
+    const {
+        formEdit,
+        showModalEditHandler,
+        cancelModalEditHandler,
+        groups,
+        fetchingGroups,
+        deletingGroup,
+        editingGroup,
+        fetchGroupsHandler,
+        groupDeleteHandler,
+        groupEditHandler,
+        roles
+    } = useGroups();
+
+    console.log("Groups update!");
 
     return (
-        <div className="GroupContainerWrapper">
-            <div className="GroupContainer">
-                <Title level={2}>Группы кампусных курсов</Title>
-                <MyButton className="groupButtonCreate">Создать</MyButton>
-                <List
-                    className="groupList"
-                    bordered
-                    dataSource={data}
-                    renderItem={(item) => (
-                        <MyGroupItem group={item}/>
-                    )}
-                />
+        <>
+            <div className={classes.GroupContainerWrapper}>
+                <div className={classes.GroupContainer}>
+                    <Title level={2}>Группы кампусных курсов</Title>
+                    {!!fetchingGroups.error ?
+                        <Result
+                            status="500"
+                            title="500"
+                            subTitle="Извините, что-то пошло не так!"
+                            extra={<MyButton onClick={fetchGroupsHandler}>Повторить попытку</MyButton>}
+                        />
+                        :
+                        <>
+                            {roles.isAdmin ?
+                                <MyButton className={classes.groupButtonCreate}
+                                          disabled={fetchingGroups.loading}>Создать</MyButton>
+                                :
+                                <></>
+                            }
+                            <List
+                                loading={fetchingGroups.loading}
+                                className={classes.groupList}
+                                bordered
+                                dataSource={groups}
+                                renderItem={(item) => (
+                                    <MyGroupItem
+                                        group={item}
+                                        isAdmin={roles.isAdmin}
+                                        onGroupDelete={groupDeleteHandler}
+                                        modalShow={showModalEditHandler}
+                                        disabled={deletingGroup.loading || editingGroup.loading}
+                                    />
+                                )}
+                            />
+                        </>
+                    }
+                </div>
             </div>
-        </div>
+            <MyModalGroupEdit formEdit={formEdit} editingGroup={editingGroup} cancelModalEditHandler={cancelModalEditHandler} groupEditHandler={groupEditHandler}/>
+        </>
+
     );
 };
 

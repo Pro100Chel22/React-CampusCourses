@@ -16,3 +16,21 @@
 .groupButtonCreate {
     margin-bottom: 15px;
 }
+
+.groupModalEdit {
+
+}
+
+.groupButtonEditContainer {
+    display: flex;
+    justify-content: end;
+    margin: 0;
+}
+
+.groupButtonEditSave {
+    margin-left: 6px;
+}
+
+.groupButtonEditCancel {
+
+}
