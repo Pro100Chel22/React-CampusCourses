@@ -1,10 +1,11 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {IErrorResponse, IRoles, IUserProfile} from "../../../types/types";
 import {registerReducers} from "./RegisterThunkCreater";
 import {loginReducers} from "./LoginThunkCreater";
 import {logoutReducers} from "./LogoutThunkCreater";
 import {checkAuthReducers} from "./CheckAuthThunkCreater";
 import {editProfileReducers} from "./EditProfileThunkCreater";
+import {IModalGroup} from "../GroupsReducer/GroupsSlice";
 
 export interface IUserState {
     profile: IUserProfile | null;
@@ -41,7 +42,18 @@ const initialState: IUserState = {
 export const userSlice = createSlice({
     name: "user",
     initialState,
-    reducers: {},
+    reducers: {
+        localLogout(state) {
+            state.token = null;
+            state.profile = null;
+            state.roles = {
+                isTeacher: false,
+                isStudent: false,
+                isAdmin: false
+            };
+            localStorage.removeItem("token");
+        }
+    },
     extraReducers: builder => {
         registerReducers(builder);
         loginReducers(builder);
@@ -52,3 +64,4 @@ export const userSlice = createSlice({
 });
 
 export default userSlice.reducer;
+export const {actions} = userSlice;

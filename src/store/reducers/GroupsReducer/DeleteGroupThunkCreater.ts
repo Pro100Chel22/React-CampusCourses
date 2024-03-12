@@ -18,7 +18,7 @@ export const deleteGroupReducers = (builder: ActionReducerMapBuilder<IGroupsStat
         state.deletingGroup.error = null;
         state.groups = action.payload;
 
-        message.open({duration: 3, type: 'info', content: "Успешное удаление!", key: "deleteGroup"});
+        message.open({duration: 3, type: 'success', content: "Успешное удаление!", key: "deleteGroup"});
     });
     builder.addCase(deleteGroup.rejected.type, (state, action: PayloadAction<IErrorResponse>) => {
         state.deletingGroup.loading = false;
@@ -36,9 +36,8 @@ export const deleteGroup = createAsyncThunk(
     'groups/deleteGroups',
     async (group: IGroup, thunkAPI) => {
         try {
-            const token = thunkSelector(thunkAPI).userReducer.token ?? "";
-            await GroupsService.deleteGroup(group.id, token);
-            const response = await GroupsService.groups(token);
+            await GroupsService.deleteGroup(group.id);
+            const response = await GroupsService.groups();
             return response.data;
         } catch (error) {
             const err = error as AxiosError;

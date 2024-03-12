@@ -32,13 +32,13 @@ export const checkAuthReducers = (builder: ActionReducerMapBuilder<IUserState>) 
 
 export const checkAuth = createAsyncThunk(
     'user/checkAuth',
-    async (params, thunkAPI) => {
+    async (_, thunkAPI) => {
         console.log("checkAuth");
         try {
             const token = thunkSelector(thunkAPI).userReducer.token;
             if (!!token) {
-                const responseProfile = await UserService.profile(token);
-                const responseRoles = await UserService.roles(token);
+                const responseProfile = await UserService.profile();
+                const responseRoles = await UserService.roles();
 
                 const response: IUserProfileRoles = {
                     userProfile: responseProfile.data,

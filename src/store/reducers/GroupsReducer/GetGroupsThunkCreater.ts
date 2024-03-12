@@ -25,8 +25,7 @@ export const getGroups = createAsyncThunk(
     'groups/getGroups',
     async (_, thunkAPI) => {
         try {
-            const token = thunkSelector(thunkAPI).userReducer.token ?? "";
-            const response = await GroupsService.groups(token);
+            const response = await GroupsService.groups();
             console.log(response);
             return response.data;
         } catch (error) {

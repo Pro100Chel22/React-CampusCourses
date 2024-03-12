@@ -25,7 +25,7 @@ export const editProfileReducers = (builder: ActionReducerMapBuilder<IUserState>
             birthDate: dayjs(action.payload.birthDate.split("T")[0], serverDateFormat).format(serverDateFormat),
         };
 
-        message.open({duration: 3, type: 'info', content: "Успешное редактирование!", key: "editeProfile"});
+        message.open({duration: 3, type: 'success', content: "Успешное редактирование!", key: "editeProfile"});
     });
     builder.addCase(editProfile.rejected.type, (state, action: PayloadAction<IErrorResponse>) => {
         state.editLoading = false;
@@ -39,8 +39,7 @@ export const editProfile = createAsyncThunk(
     'user/editeProfile',
     async (editForm: IEditProfile, thunkAPI) => {
         try {
-            const token = thunkSelector(thunkAPI).userReducer.token ?? "";
-            const response = await UserService.editProfile(editForm, token);
+            const response = await UserService.editProfile(editForm);
             console.log(response);
             return response.data;
         } catch (error) {

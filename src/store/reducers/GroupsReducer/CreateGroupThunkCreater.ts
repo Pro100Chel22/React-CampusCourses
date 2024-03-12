@@ -19,7 +19,7 @@ export const createGroupReducers = (builder: ActionReducerMapBuilder<IGroupsStat
         state.groups = action.payload;
         state.modalGroup.typeModalOpen = null;
 
-        message.open({duration: 3, type: 'info', content: "Успешное создание!", key: "createGroup"});
+        message.open({duration: 3, type: 'success', content: "Успешное создание!", key: "createGroup"});
     });
     builder.addCase(createGroups.rejected.type, (state, action: PayloadAction<IErrorResponse>) => {
         state.modalGroup.loading = false;
@@ -33,9 +33,8 @@ export const createGroups = createAsyncThunk(
     'groups/createGroups',
     async (groupName: string, thunkAPI) => {
         try {
-            const token = thunkSelector(thunkAPI).userReducer.token ?? "";
-            await GroupsService.createGroup(groupName, token);
-            const response = await GroupsService.groups(token);
+            await GroupsService.createGroup(groupName);
+            const response = await GroupsService.groups();
             return response.data;
         } catch (error) {
             const err = error as AxiosError;

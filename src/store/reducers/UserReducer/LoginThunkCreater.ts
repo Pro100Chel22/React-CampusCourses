@@ -18,7 +18,7 @@ export const loginReducers = (builder: ActionReducerMapBuilder<IUserState>) => {
         state.token = action.payload.token;
         localStorage.setItem("token", action.payload.token);
 
-        message.open({duration: 3, type: 'info', content: "Успешная авторизация!", key: "login"});
+        message.open({duration: 3, type: 'success', content: "Успешная авторизация!", key: "login"});
     });
     builder.addCase(login.rejected.type, (state, action: PayloadAction<IErrorResponse>) => {
         state.loginLoading = false;

@@ -18,7 +18,7 @@ export const registerReducers = (builder: ActionReducerMapBuilder<IUserState>) =
         state.token = action.payload.token;
         localStorage.setItem("token", action.payload.token);
 
-        message.open({duration: 3, type: 'info', content: "Регистрация прошла успешно!", key: "registration"});
+        message.open({duration: 3, type: 'success', content: "Регистрация прошла успешно!", key: "registration"});
     });
     builder.addCase(register.rejected.type, (state, action: PayloadAction<IErrorResponse>) => {
         state.registrationLoading = false;

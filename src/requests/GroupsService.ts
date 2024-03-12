@@ -4,28 +4,20 @@ import {AxiosPromise} from "axios";
 
 const axios = axiosInstanceFactory();
 
-const groups = async (token: string):  Promise<AxiosPromise<IGroup[]>> => {
-    return axios.get<IGroup[]>("groups", {headers: {
-            Authorization: 'Bearer ' + token,
-        }});
+const groups = async ():  Promise<AxiosPromise<IGroup[]>> => {
+    return axios.get<IGroup[]>("groups");
 }
 
-const deleteGroup = async (groupId: string, token: string):  Promise<AxiosPromise<void>> => {
-    return axios.delete(`groups/${groupId}`, {headers: {
-            Authorization: 'Bearer ' + token,
-        }});
+const deleteGroup = async (groupId: string):  Promise<AxiosPromise<void>> => {
+    return axios.delete(`groups/${groupId}`);
 }
 
-const createGroup = async (name: string, token: string):  Promise<AxiosPromise<IGroup>> => {
-    return axios.post<IGroup>(`groups`, {name: name}, {headers: {
-            Authorization: 'Bearer ' + token,
-        }});
+const createGroup = async (name: string):  Promise<AxiosPromise<IGroup>> => {
+    return axios.post<IGroup>(`groups`, {name: name});
 }
 
-const editGroup = async (group: IGroup, token: string):  Promise<AxiosPromise<IGroup>> => {
-    return axios.put<IGroup>(`groups/${group.id}`, {name: group.name}, {headers: {
-            Authorization: 'Bearer ' + token,
-        }});
+const editGroup = async (group: IGroup):  Promise<AxiosPromise<IGroup>> => {
+    return axios.put<IGroup>(`groups/${group.id}`, {name: group.name});
 }
 
 export const GroupsService = {

@@ -1,6 +1,7 @@
 import {combineReducers, configureStore} from "@reduxjs/toolkit";
 import userReducer from "./reducers/UserReducer/UserSlice";
 import groupsReducer from "./reducers/GroupsReducer/GroupsSlice"
+import {injectStoreToAxiosInstance} from "../requests/AxiosInstance";
 
 const rootReducer = combineReducers({
     userReducer,
@@ -8,9 +9,13 @@ const rootReducer = combineReducers({
 });
 
 const setupStore = () => {
-    return configureStore({
+    const store = configureStore({
         reducer: rootReducer,
     });
+
+    injectStoreToAxiosInstance(store);
+
+    return store;
 };
 
 export type RootState = ReturnType<typeof rootReducer>;

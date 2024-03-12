@@ -12,28 +12,20 @@ const login = async (form: ILogin): Promise<AxiosPromise<ITokenResponse>> => {
     return axios.post<ITokenResponse>("login", form);
 }
 
-const editProfile = async (form: IEditProfile, token: string): Promise<AxiosPromise<IUserProfileResponse>> => {
-    return axios.put<IUserProfileResponse>("profile", form, {headers: {
-            Authorization: 'Bearer ' + token,
-        }});
+const editProfile = async (form: IEditProfile): Promise<AxiosPromise<IUserProfileResponse>> => {
+    return axios.put<IUserProfileResponse>("profile", form);
 }
 
-const logout = async (token: string): Promise<AxiosPromise<IUserProfileResponse>> => {
-    return axios.post<IUserProfileResponse>("logout", {}, {headers: {
-            Authorization: 'Bearer ' + token,
-        }});
+const logout = async (): Promise<AxiosPromise<IUserProfileResponse>> => {
+    return axios.post<IUserProfileResponse>("logout", {});
 }
 
-const profile = async (token: string): Promise<AxiosPromise<IUserProfileResponse>> => {
-    return axios.get<IUserProfileResponse>("profile", {headers: {
-            Authorization: 'Bearer ' + token,
-        }});
+const profile = async (): Promise<AxiosPromise<IUserProfileResponse>> => {
+    return axios.get<IUserProfileResponse>("profile");
 }
 
-const roles = async (token: string): Promise<AxiosPromise<IRoles>> => {
-    return axios.get<IRoles>("roles", {headers: {
-            Authorization: 'Bearer ' + token,
-        }});
+const roles = async (): Promise<AxiosPromise<IRoles>> => {
+    return axios.get<IRoles>("roles");
 }
 
 export const UserService = {
