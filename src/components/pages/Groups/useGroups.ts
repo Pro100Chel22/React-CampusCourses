@@ -1,60 +1,77 @@
 import {useAuth} from "../../../hooks/useAuth";
 import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {getGroups} from "../../../store/reducers/GroupsReducer/GetGroupsThunkCreater";
 import {IGroup} from "../../../types/types";
 import {deleteGroup} from "../../../store/reducers/GroupsReducer/DeleteGroupThunkCreater";
 import {editGroup} from "../../../store/reducers/GroupsReducer/EditeGroupThunkCreater";
 import {useForm} from "antd/es/form/Form";
 import {actions} from "../../../store/reducers/GroupsReducer/GroupsSlice";
+import {ModalGroupType} from "../../UI/MyModalFormGroup/MyModalFormGroup";
+import {createGroups} from "../../../store/reducers/GroupsReducer/CreateGroupThunkCreater";
 
-export interface IGroupEditForm {
+export interface IGroupModalForm {
     groupName: string
 }
 
 export const useGroups = () => {
     const {roles} = useAuth();
-    const {groups, fetchingGroups, deletingGroup, editingGroup} = useAppSelector(state => state.groupsReducer);
+    const {groups, fetchingGroups, deletingGroup, modalGroup} = useAppSelector(state => state.groupsReducer);
     const dispatch = useAppDispatch();
-    const [formEdit] = useForm<IGroupEditForm>();
+    const [formEdit] = useForm<IGroupModalForm>();
+    const [formCreate] = useForm<IGroupModalForm>();
 
-    const showModalEditHandler = (group: IGroup) => {
-        dispatch(actions.setModal({modalOpen: true, group}));
-        formEdit.resetFields();
-        formEdit.setFieldValue("groupName", group.name);
-    };
-
-    const cancelModalEditHandler = () => {
-        dispatch(actions.setModal({modalOpen: false, group: null}));
-    };
-
-    const groupEditHandler = (value: IGroupEditForm) => {
-        dispatch(editGroup({id: editingGroup.group?.id ?? "", name: value.groupName}));
+    const createModalGroup = {
+        formCreate,
+        showModalCreateHandler: () => {
+            dispatch(actions.setModal({typeModalOpen: ModalGroupType.create, group: null}));
+            formCreate.resetFields();
+        },
+        cancelModalCreateHandler: () => {
+            dispatch(actions.setModal({typeModalOpen: null, group: null}));
+        },
+        groupCreateHandler: (value: IGroupModalForm) => {
+            dispatch(createGroups(value.groupName));
+        }
     }
-
-    const fetchGroupsHandler = () => {
-        dispatch(getGroups());
+    const editModalGroup = {
+        formEdit,
+        showModalEditHandler: (group: IGroup) => {
+            dispatch(actions.setModal({typeModalOpen: ModalGroupType.edit, group}));
+            formEdit.resetFields();
+            formEdit.setFieldValue("groupName", group.name);
+        },
+        cancelModalEditHandler: () => {
+            dispatch(actions.setModal({typeModalOpen: null, group: null}));
+        },
+        groupEditHandler: (value: IGroupModalForm) => {
+            dispatch(editGroup({id: modalGroup.group?.id ?? "", name: value.groupName}));
+        }
     }
-
-    const groupDeleteHandler = (group: IGroup) => {
-        dispatch(deleteGroup(group));
+    const fetchGroups = {
+        groups,
+        fetchingGroups,
+        fetchGroupsHandler: () => {
+            dispatch(getGroups());
+        }
+    }
+    const removeGroup = {
+        deletingGroup,
+        groupDeleteHandler: (group: IGroup) => {
+            dispatch(deleteGroup(group));
+        }
     }
 
     useEffect(() => {
-        fetchGroupsHandler();
+        fetchGroups.fetchGroupsHandler();
     }, []);
 
     return {
-        formEdit,
-        showModalEditHandler,
-        cancelModalEditHandler,
-        groups,
-        fetchingGroups,
-        deletingGroup,
-        editingGroup,
-        fetchGroupsHandler,
-        groupDeleteHandler,
-        groupEditHandler,
+        modalGroup,
+        createModalGroup,
+        editModalGroup,
+        fetchGroups,
+        removeGroup,
         roles
     };
 }

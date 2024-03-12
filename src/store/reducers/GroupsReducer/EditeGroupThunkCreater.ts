@@ -8,22 +8,22 @@ import {AxiosError} from "axios";
 
 export const editGroupReducers = (builder: ActionReducerMapBuilder<IGroupsState>) => {
     builder.addCase(editGroup.pending.type, (state) => {
-        state.editingGroup.loading = true;
-        state.editingGroup.error = null;
+        state.modalGroup.loading = true;
+        state.modalGroup.error = null;
 
         message.open({duration: 0, type: 'loading', content: 'Редактирование группы...', key: "deleteGroup"});
     });
     builder.addCase(editGroup.fulfilled.type, (state, action: PayloadAction<IGroup[]>) => {
-        state.editingGroup.loading = false;
-        state.editingGroup.error = null;
+        state.modalGroup.loading = false;
+        state.modalGroup.error = null;
         state.groups = action.payload;
-        state.editingGroup.modalOpen = false;
+        state.modalGroup.typeModalOpen = null;
 
         message.open({duration: 3, type: 'info', content: "Успешное редактирование!", key: "deleteGroup"});
     });
     builder.addCase(editGroup.rejected.type, (state, action: PayloadAction<IErrorResponse>) => {
-        state.editingGroup.loading = false;
-        state.editingGroup.error = action.payload;
+        state.modalGroup.loading = false;
+        state.modalGroup.error = action.payload;
 
         let errorMessage = "Произошла неизвестная ошибка!";
         if(action.payload.status === 404) {

@@ -16,6 +16,12 @@ const deleteGroup = async (groupId: string, token: string):  Promise<AxiosPromis
         }});
 }
 
+const createGroup = async (name: string, token: string):  Promise<AxiosPromise<IGroup>> => {
+    return axios.post<IGroup>(`groups`, {name: name}, {headers: {
+            Authorization: 'Bearer ' + token,
+        }});
+}
+
 const editGroup = async (group: IGroup, token: string):  Promise<AxiosPromise<IGroup>> => {
     return axios.put<IGroup>(`groups/${group.id}`, {name: group.name}, {headers: {
             Authorization: 'Bearer ' + token,
@@ -25,5 +31,6 @@ const editGroup = async (group: IGroup, token: string):  Promise<AxiosPromise<IG
 export const GroupsService = {
     groups,
     deleteGroup,
+    createGroup,
     editGroup
 }

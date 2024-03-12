@@ -4,22 +4,17 @@ import MyButton from "../../UI/MyButton/MyButton";
 import MyGroupItem from "../../UI/MyGroupItem/MyGroupItem";
 import classes from './Groups.module.css'
 import {useGroups} from "./useGroups";
-import MyModalGroupEdit from "../../UI/MyModalGroupEdit/MyModalGroupEdit";
+import MyModalFormGroup, {ModalGroupType} from "../../UI/MyModalFormGroup/MyModalFormGroup";
 
 const {Title} = Typography;
 
 const Groups = () => {
     const {
-        formEdit,
-        showModalEditHandler,
-        cancelModalEditHandler,
-        groups,
-        fetchingGroups,
-        deletingGroup,
-        editingGroup,
-        fetchGroupsHandler,
-        groupDeleteHandler,
-        groupEditHandler,
+        modalGroup,
+        createModalGroup,
+        editModalGroup,
+        fetchGroups,
+        removeGroup,
         roles
     } = useGroups();
 
@@ -30,33 +25,34 @@ const Groups = () => {
             <div className={classes.GroupContainerWrapper}>
                 <div className={classes.GroupContainer}>
                     <Title level={2}>Группы кампусных курсов</Title>
-                    {!!fetchingGroups.error ?
+                    {!!fetchGroups.fetchingGroups.error ?
                         <Result
                             status="500"
                             title="500"
                             subTitle="Извините, что-то пошло не так!"
-                            extra={<MyButton onClick={fetchGroupsHandler}>Повторить попытку</MyButton>}
+                            extra={<MyButton onClick={fetchGroups.fetchGroupsHandler}>Повторить попытку</MyButton>}
                         />
                         :
                         <>
                             {roles.isAdmin ?
                                 <MyButton className={classes.groupButtonCreate}
-                                          disabled={fetchingGroups.loading}>Создать</MyButton>
+                                          disabled={fetchGroups.fetchingGroups.loading}
+                                          onClick={createModalGroup.showModalCreateHandler}>Создать</MyButton>
                                 :
                                 <></>
                             }
                             <List
-                                loading={fetchingGroups.loading}
+                                loading={fetchGroups.fetchingGroups.loading}
                                 className={classes.groupList}
                                 bordered
-                                dataSource={groups}
+                                dataSource={fetchGroups.groups}
                                 renderItem={(item) => (
                                     <MyGroupItem
                                         group={item}
                                         isAdmin={roles.isAdmin}
-                                        onGroupDelete={groupDeleteHandler}
-                                        modalShow={showModalEditHandler}
-                                        disabled={deletingGroup.loading || editingGroup.loading}
+                                        onGroupDelete={removeGroup.groupDeleteHandler}
+                                        modalShow={editModalGroup.showModalEditHandler}
+                                        disabled={removeGroup.deletingGroup.loading || modalGroup.loading}
                                     />
                                 )}
                             />
@@ -64,9 +60,21 @@ const Groups = () => {
                     }
                 </div>
             </div>
-            <MyModalGroupEdit formEdit={formEdit} editingGroup={editingGroup} cancelModalEditHandler={cancelModalEditHandler} groupEditHandler={groupEditHandler}/>
+            <MyModalFormGroup
+                modalForm={editModalGroup.formEdit}
+                modalGroup={modalGroup}
+                cancelModalHandler={editModalGroup.cancelModalEditHandler}
+                groupOnFinishHandler={editModalGroup.groupEditHandler}
+                modalGroupType={ModalGroupType.edit}
+            />
+            <MyModalFormGroup
+                modalForm={createModalGroup.formCreate}
+                modalGroup={modalGroup}
+                cancelModalHandler={createModalGroup.cancelModalCreateHandler}
+                groupOnFinishHandler={createModalGroup.groupCreateHandler}
+                modalGroupType={ModalGroupType.create}
+            />
         </>
-
     );
 };
 

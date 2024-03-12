@@ -1,0 +1,46 @@
+import {IGroupsState} from "./GroupsSlice";
+import {ActionReducerMapBuilder, createAsyncThunk, PayloadAction} from "@reduxjs/toolkit";
+import {IErrorResponse, IGroup} from "../../../types/types";
+import {thunkSelector} from "../../../hooks/redux";
+import {GroupsService} from "../../../requests/GroupsService";
+import {AxiosError} from "axios";
+import {message} from "antd";
+
+export const createGroupReducers = (builder: ActionReducerMapBuilder<IGroupsState>) => {
+    builder.addCase(createGroups.pending.type, (state) => {
+        state.modalGroup.loading = true;
+        state.modalGroup.error = null;
+
+        message.open({duration: 0, type: 'loading', content: 'Создание группы...', key: "createGroup"});
+    });
+    builder.addCase(createGroups.fulfilled.type, (state, action: PayloadAction<IGroup[]>) => {
+        state.modalGroup.loading = false;
+        state.modalGroup.error = null;
+        state.groups = action.payload;
+        state.modalGroup.typeModalOpen = null;
+
+        message.open({duration: 3, type: 'info', content: "Успешное создание!", key: "createGroup"});
+    });
+    builder.addCase(createGroups.rejected.type, (state, action: PayloadAction<IErrorResponse>) => {
+        state.modalGroup.loading = false;
+        state.modalGroup.error = action.payload;
+
+        message.open({duration: 3, type: 'error', content: "Произошла неизвестная ошибка!", key: "createGroup"});
+    });
+}
+
+export const createGroups = createAsyncThunk(
+    'groups/createGroups',
+    async (groupName: string, thunkAPI) => {
+        try {
+            const token = thunkSelector(thunkAPI).userReducer.token ?? "";
+            await GroupsService.createGroup(groupName, token);
+            const response = await GroupsService.groups(token);
+            return response.data;
+        } catch (error) {
+            const err = error as AxiosError;
+            console.log(err);
+            return thunkAPI.rejectWithValue({status: err.response?.status, massage: ""});
+        }
+    }
+);

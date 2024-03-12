@@ -3,6 +3,8 @@ import {IErrorResponse, IGroup} from "../../../types/types";
 import {groupsReducers} from "./GetGroupsThunkCreater";
 import {deleteGroupReducers} from "./DeleteGroupThunkCreater";
 import {editGroupReducers} from "./EditeGroupThunkCreater";
+import {ModalGroupType} from "../../../components/UI/MyModalFormGroup/MyModalFormGroup";
+import {createGroupReducers} from "./CreateGroupThunkCreater";
 
 export interface IGroupsState {
     fetchingGroups: {
@@ -13,10 +15,10 @@ export interface IGroupsState {
         loading: boolean;
         error: IErrorResponse | null;
     }
-    editingGroup: {
+    modalGroup: {
         loading: boolean;
         error: IErrorResponse | null;
-        modalOpen: boolean;
+        typeModalOpen: ModalGroupType | null;
         group: IGroup | null;
     }
     groups: IGroup[];
@@ -31,17 +33,17 @@ const initialState: IGroupsState = {
         loading: false,
         error: null,
     },
-    editingGroup: {
+    modalGroup: {
         loading: false,
         error: null,
-        modalOpen: false,
+        typeModalOpen: null,
         group: null,
     },
     groups: [],
 }
 
-export interface IModalEdit {
-    modalOpen: boolean;
+export interface IModalGroup {
+    typeModalOpen: ModalGroupType | null;
     group: IGroup | null
 }
 
@@ -49,14 +51,15 @@ export const groupsSlice = createSlice({
    name: "groups",
    initialState,
    reducers: {
-       setModal(state, action: PayloadAction<IModalEdit>) {
-           state.editingGroup.modalOpen = action.payload.modalOpen
-           state.editingGroup.group = action.payload.group;
+       setModal(state, action: PayloadAction<IModalGroup>) {
+           state.modalGroup.typeModalOpen = action.payload.typeModalOpen
+           state.modalGroup.group = action.payload.group;
        }
    },
    extraReducers: builder => {
        groupsReducers(builder);
        deleteGroupReducers(builder);
+       createGroupReducers(builder);
        editGroupReducers(builder);
    },
 });
