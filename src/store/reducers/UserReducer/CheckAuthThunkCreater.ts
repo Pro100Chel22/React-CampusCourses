@@ -4,8 +4,10 @@ import {IErrorResponse, IUserProfileRoles} from "../../../types/types";
 import {thunkSelector} from "../../../hooks/redux";
 import {UserService} from "../../../requests/UserService";
 import {AxiosError} from "axios";
+import dayjs from "dayjs";
+import {serverDateFormat} from "../../../components/consts/consts";
 
-export const profileReducers = (builder: ActionReducerMapBuilder<IUserState>) => {
+export const checkAuthReducers = (builder: ActionReducerMapBuilder<IUserState>) => {
     builder.addCase(checkAuth.pending.type, (state) => {
         state.checkingAuth = true;
         state.error = null;
@@ -13,8 +15,13 @@ export const profileReducers = (builder: ActionReducerMapBuilder<IUserState>) =>
     builder.addCase(checkAuth.fulfilled.type, (state, action: PayloadAction<IUserProfileRoles>) => {
         state.checkingAuth = false;
         state.error = null;
-        state.profile = action.payload.userProfile;
         state.roles = action.payload.roles;
+
+        state.profile ={
+            fullName: action.payload.userProfile.fullName,
+            email: action.payload.userProfile.email,
+            birthDate: dayjs(action.payload.userProfile.birthDate.split("T")[0], serverDateFormat).format(serverDateFormat),
+        };
     });
     builder.addCase(checkAuth.rejected.type, (state, action: PayloadAction<IErrorResponse>) => {
         state.checkingAuth = false;

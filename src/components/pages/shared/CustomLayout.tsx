@@ -1,7 +1,7 @@
 import {Layout, Menu} from 'antd';
 import React from 'react';
 import {Link, Outlet} from 'react-router-dom';
-import MyOverflowedIndicator from '../UI/MyOverflowedIndicator/MyOverflowedIndicator';
+import MyOverflowedIndicator from '../../UI/MyOverflowedIndicator/MyOverflowedIndicator';
 import './CustomLayout.css'
 import {useCustomLayout} from "./useCustomLayout";
 

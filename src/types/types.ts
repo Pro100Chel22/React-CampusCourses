@@ -3,6 +3,12 @@ export interface IGroup {
     name: string
 }
 
+export interface IUserProfileResponse {
+    fullName: string;
+    email: string;
+    birthDate: string;
+}
+
 export interface IUserProfile {
     fullName: string;
     email: string;
@@ -16,7 +22,7 @@ export interface IRoles {
 }
 
 export interface IUserProfileRoles {
-    userProfile: IUserProfile,
+    userProfile: IUserProfileResponse,
     roles: IRoles
 }
 
@@ -32,6 +38,12 @@ export interface ILogin {
     email: string;
     password: string;
 }
+
+export interface IEditProfile {
+    fullName: string,
+    birthDate: string,
+}
+
 
 export interface ITokenResponse {
     token: string;

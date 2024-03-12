@@ -25,6 +25,7 @@ export const logoutReducers = (builder: ActionReducerMapBuilder<IUserState>) => 
         if(action.payload.status === 401) {
             state.token = null;
             localStorage.removeItem("token");
+            message.destroy("logout");
         }
         else {
             message.open({duration: 3, type: 'error', content: "Произошла неизвестная ошибка!", key: "logout"});

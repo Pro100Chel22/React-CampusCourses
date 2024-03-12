@@ -3,7 +3,8 @@ import {IErrorResponse, IRoles, IUserProfile} from "../../../types/types";
 import {registerReducers} from "./RegisterThunkCreater";
 import {loginReducers} from "./LoginThunkCreater";
 import {logoutReducers} from "./LogoutThunkCreater";
-import {profileReducers} from "./CheckAuthThunkCreater";
+import {checkAuthReducers} from "./CheckAuthThunkCreater";
+import {editProfileReducers} from "./EditProfileThunkCreater";
 
 export interface IUserState {
     profile: IUserProfile | null;
@@ -11,6 +12,7 @@ export interface IUserState {
     checkingAuth: boolean;
     registrationLoading: boolean;
     loginLoading: boolean;
+    editLoading: boolean;
     error: IErrorResponse | null;
     token: string | null; // если токен есть и не идет проверка авторизации, то пользователь авторизован, если нет токена - не авторизова, если есть токен и идет проварка, то нужно додаться окончание проверки
 }
@@ -20,6 +22,7 @@ const initialState: IUserState = {
     checkingAuth: true,
     registrationLoading: false,
     loginLoading: false,
+    editLoading: false,
     error: null,
     token: localStorage.getItem("token"),
     roles: {
@@ -43,7 +46,8 @@ export const userSlice = createSlice({
         registerReducers(builder);
         loginReducers(builder);
         logoutReducers(builder);
-        profileReducers(builder)
+        checkAuthReducers(builder);
+        editProfileReducers(builder);
     }
 });
 
