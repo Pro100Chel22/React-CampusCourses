@@ -15,6 +15,12 @@ export const logoutReducers = (builder: ActionReducerMapBuilder<IUserState>) => 
     builder.addCase(logout.fulfilled.type, (state, action: PayloadAction<string>) => {
         state.error = null;
         state.token = null;
+        state.profile = null;
+        state.roles = {
+            isTeacher: false,
+            isStudent: false,
+            isAdmin: false
+        };
         localStorage.removeItem("token");
 
         message.open({duration: 3, type: 'info', content: "Выход выполнен!", key: "logout"});
@@ -24,6 +30,12 @@ export const logoutReducers = (builder: ActionReducerMapBuilder<IUserState>) => 
 
         if(action.payload.status === 401) {
             state.token = null;
+            state.profile = null;
+            state.roles = {
+                isTeacher: false,
+                isStudent: false,
+                isAdmin: false
+            };
             localStorage.removeItem("token");
             message.destroy("logout");
         }
