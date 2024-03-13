@@ -53,3 +53,24 @@ export interface IErrorResponse {
     status: number,
     massage: string
 }
+
+export enum CourseStatuses {
+    Created = "Created",
+    OpenForAssigning = "OpenForAssigning",
+    Started = "Started",
+    Finished = "Finished",
+}
+export enum Semesters {
+    Autumn = "Autumn",
+    Spring = "Spring",
+}
+
+export interface ICourse {
+    id: string;
+    name: string;
+    startYear: number;
+    maximumStudentsCount: number;
+    remainingSlotsCount: number;
+    status: CourseStatuses
+    semester: Semesters
+}

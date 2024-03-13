@@ -12,13 +12,13 @@ import RequireNotAuth from "./components/hoc/RequireNotAuth";
 import {useAppDispatch} from "./hooks/redux";
 import Profile from "./components/pages/Profile/Profile";
 import {checkAuth} from "./store/reducers/UserReducer/CheckAuthThunkCreater";
+import GroupCourses from "./components/pages/GroupCourses/GroupCourses";
 
 const App = () => {
     const dispatch = useAppDispatch();
 
     // Перенести валидации в директорию consts
-    // Сделать для message статическую функцию обертку для уменьшения
-    // Добавить страницу 404 для неправльных роутов
+    //
 
     useEffect(() => {
         dispatch(checkAuth());
@@ -32,6 +32,7 @@ const App = () => {
                 <Route path="/" element={<CustomLayout/>}>
                     <Route index element={<Homepage/>}/>
                     <Route path="groups" element={<RequireAuth><Groups/></RequireAuth>}/>
+                    <Route path="groups/:id" element={<RequireAuth><GroupCourses/></RequireAuth>}/>
                     <Route path="courses/my" element={<RequireAuth requiredRoles={{
                         isTeacher: false,
                         isAdmin: false,
