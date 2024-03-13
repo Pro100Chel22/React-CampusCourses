@@ -1,17 +1,16 @@
 import {ActionReducerMapBuilder, createAsyncThunk, PayloadAction} from "@reduxjs/toolkit";
 import {IGroupsState} from "./GroupsSlice";
-import {message} from "antd";
 import {IErrorResponse, IGroup} from "../../../types/types";
-import {thunkSelector} from "../../../hooks/redux";
 import {GroupsService} from "../../../requests/GroupsService";
 import {AxiosError} from "axios";
+import {customNotifications} from "../../../notifications/Notifications";
 
 export const editGroupReducers = (builder: ActionReducerMapBuilder<IGroupsState>) => {
     builder.addCase(editGroup.pending.type, (state) => {
         state.modalGroup.loading = true;
         state.modalGroup.error = null;
 
-        message.open({duration: 0, type: 'loading', content: 'Редактирование группы...', key: "deleteGroup"});
+        customNotifications.loading({massage: 'Редактирование группы...', key: 'editGroup'});
     });
     builder.addCase(editGroup.fulfilled.type, (state, action: PayloadAction<IGroup[]>) => {
         state.modalGroup.loading = false;
@@ -19,7 +18,7 @@ export const editGroupReducers = (builder: ActionReducerMapBuilder<IGroupsState>
         state.groups = action.payload;
         state.modalGroup.typeModalOpen = null;
 
-        message.open({duration: 3, type: 'success', content: "Успешное редактирование!", key: "deleteGroup"});
+        customNotifications.success({massage: 'Успешное редактирование!', key: 'editGroup'});
     });
     builder.addCase(editGroup.rejected.type, (state, action: PayloadAction<IErrorResponse>) => {
         state.modalGroup.loading = false;
@@ -29,7 +28,7 @@ export const editGroupReducers = (builder: ActionReducerMapBuilder<IGroupsState>
         if(action.payload.status === 404) {
             errorMessage = "Группа была удалена другим пользователем!";
         }
-        message.open({duration: 3, type: 'error', content: errorMessage, key: "deleteGroup"});
+        customNotifications.error({massage: errorMessage, key: 'editGroup'});
     });
 }
 

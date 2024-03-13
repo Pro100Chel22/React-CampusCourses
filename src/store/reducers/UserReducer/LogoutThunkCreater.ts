@@ -1,15 +1,15 @@
 import {ActionReducerMapBuilder, createAsyncThunk, PayloadAction} from "@reduxjs/toolkit";
 import {IUserState} from "./UserSlice";
-import {message} from "antd";
 import {IErrorResponse} from "../../../types/types";
 import {UserService} from "../../../requests/UserService";
 import {AxiosError} from "axios";
+import {customNotifications} from "../../../notifications/Notifications";
 
 export const logoutReducers = (builder: ActionReducerMapBuilder<IUserState>) => {
     builder.addCase(logout.pending.type, (state) => {
         state.error = null;
 
-        message.open({duration: 0, type: 'loading', content: 'Выход с аккаунта...', key: "logout"});
+        customNotifications.loading({massage: 'Выход с аккаунта...', key: 'logout'});
     });
     builder.addCase(logout.fulfilled.type, (state, action: PayloadAction<string>) => {
         state.error = null;
@@ -22,7 +22,7 @@ export const logoutReducers = (builder: ActionReducerMapBuilder<IUserState>) => 
         };
         localStorage.removeItem("token");
 
-        message.open({duration: 3, type: 'success', content: "Выход выполнен!", key: "logout"});
+        customNotifications.success({massage: 'Выход выполнен!', key: 'logout'});
     });
     builder.addCase(logout.rejected.type, (state, action: PayloadAction<IErrorResponse>) => {
         state.error = action.payload;
@@ -36,10 +36,10 @@ export const logoutReducers = (builder: ActionReducerMapBuilder<IUserState>) => 
                 isAdmin: false
             };
             localStorage.removeItem("token");
-            message.destroy("logout");
+            customNotifications.destroy('logout');
         }
         else {
-            message.open({duration: 3, type: 'error', content: "Произошла неизвестная ошибка!", key: "logout"});
+            customNotifications.error({massage: 'Произошла неизвестная ошибка!', key: 'logout'});
         }
     });
 }

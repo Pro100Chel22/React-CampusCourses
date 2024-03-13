@@ -1,7 +1,7 @@
 import axios, {AxiosInstance} from "axios";
 import {AppStore} from "../store/store";
 import {actions} from "../store/reducers/UserReducer/UserSlice";
-import {message} from "antd";
+import {customNotifications} from "../notifications/Notifications";
 
 const BASE_URL: string = "https://camp-courses.api.kreosoft.space";
 
@@ -37,7 +37,7 @@ const axiosInstanceFactory = (useToken: boolean = true): AxiosInstance => {
                 if (error.response.status === 401) {
                     localStore?.dispatch(actions.localLogout());
 
-                    message.open({duration: 3, type: 'info', content: "Ваша сессия закончилась", key: "logout"});
+                    customNotifications.info({massage: 'Ваша сессия закончилась', key: 'logout'});
                 }
                 return Promise.reject(error);
             }

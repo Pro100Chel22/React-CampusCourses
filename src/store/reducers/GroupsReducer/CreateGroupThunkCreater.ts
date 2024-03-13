@@ -1,17 +1,16 @@
 import {IGroupsState} from "./GroupsSlice";
 import {ActionReducerMapBuilder, createAsyncThunk, PayloadAction} from "@reduxjs/toolkit";
 import {IErrorResponse, IGroup} from "../../../types/types";
-import {thunkSelector} from "../../../hooks/redux";
 import {GroupsService} from "../../../requests/GroupsService";
 import {AxiosError} from "axios";
-import {message} from "antd";
+import {customNotifications} from "../../../notifications/Notifications";
 
 export const createGroupReducers = (builder: ActionReducerMapBuilder<IGroupsState>) => {
     builder.addCase(createGroups.pending.type, (state) => {
         state.modalGroup.loading = true;
         state.modalGroup.error = null;
 
-        message.open({duration: 0, type: 'loading', content: 'Создание группы...', key: "createGroup"});
+        customNotifications.loading({massage: 'Создание группы...', key: 'createGroup'});
     });
     builder.addCase(createGroups.fulfilled.type, (state, action: PayloadAction<IGroup[]>) => {
         state.modalGroup.loading = false;
@@ -19,13 +18,13 @@ export const createGroupReducers = (builder: ActionReducerMapBuilder<IGroupsStat
         state.groups = action.payload;
         state.modalGroup.typeModalOpen = null;
 
-        message.open({duration: 3, type: 'success', content: "Успешное создание!", key: "createGroup"});
+        customNotifications.success({massage: 'Успешное создание!', key: 'createGroup'});
     });
     builder.addCase(createGroups.rejected.type, (state, action: PayloadAction<IErrorResponse>) => {
         state.modalGroup.loading = false;
         state.modalGroup.error = action.payload;
 
-        message.open({duration: 3, type: 'error', content: "Произошла неизвестная ошибка!", key: "createGroup"});
+        customNotifications.error({massage: 'Произошла неизвестная ошибка!', key: 'createGroup'});
     });
 }
 
