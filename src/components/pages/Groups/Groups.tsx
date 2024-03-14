@@ -5,6 +5,7 @@ import MyGroupItem from "../../UI/MyGroupItem/MyGroupItem";
 import classes from './Groups.module.css'
 import {useGroups} from "./useGroups";
 import MyModalFormGroup, {ModalGroupType} from "../../UI/MyModalFormGroup/MyModalFormGroup";
+import FetchingResult from "../../hoc/FetchingResult";
 
 const {Title} = Typography;
 
@@ -24,40 +25,34 @@ const Groups = () => {
         <>
             <div className={classes.GroupContainerWrapper}>
                 <div className={classes.GroupContainer}>
-                    <Title level={2}>Группы кампусных курсов</Title>
-                    {!!fetchGroups.fetchingGroups.error ?
-                        <Result
-                            status="500"
-                            title="500"
-                            subTitle="Извините, что-то пошло не так!"
-                            extra={<MyButton onClick={fetchGroups.fetchGroupsHandler}>Повторить попытку</MyButton>}
+                    <FetchingResult
+                        error={fetchGroups.fetchingGroups.error}
+                        errorResultChildren={<MyButton onClick={fetchGroups.fetchGroupsHandler}>Повторить попытку</MyButton>}
+                    >
+                        <Title level={2}>Группы кампусных курсов</Title>
+                        {roles.isAdmin ?
+                            <MyButton className={classes.groupButtonCreate}
+                                      disabled={fetchGroups.fetchingGroups.loading}
+                                      onClick={createModalGroup.showModalCreateHandler}>Создать</MyButton>
+                            :
+                            <></>
+                        }
+                        <List
+                            loading={fetchGroups.fetchingGroups.loading}
+                            className={classes.groupList}
+                            bordered
+                            dataSource={fetchGroups.groups}
+                            renderItem={(item) => (
+                                <MyGroupItem
+                                    group={item}
+                                    isAdmin={roles.isAdmin}
+                                    onGroupDelete={removeGroup.groupDeleteHandler}
+                                    modalShow={editModalGroup.showModalEditHandler}
+                                    disabled={removeGroup.deletingGroup.loading || modalGroup.loading}
+                                />
+                            )}
                         />
-                        :
-                        <>
-                            {roles.isAdmin ?
-                                <MyButton className={classes.groupButtonCreate}
-                                          disabled={fetchGroups.fetchingGroups.loading}
-                                          onClick={createModalGroup.showModalCreateHandler}>Создать</MyButton>
-                                :
-                                <></>
-                            }
-                            <List
-                                loading={fetchGroups.fetchingGroups.loading}
-                                className={classes.groupList}
-                                bordered
-                                dataSource={fetchGroups.groups}
-                                renderItem={(item) => (
-                                    <MyGroupItem
-                                        group={item}
-                                        isAdmin={roles.isAdmin}
-                                        onGroupDelete={removeGroup.groupDeleteHandler}
-                                        modalShow={editModalGroup.showModalEditHandler}
-                                        disabled={removeGroup.deletingGroup.loading || modalGroup.loading}
-                                    />
-                                )}
-                            />
-                        </>
-                    }
+                    </FetchingResult>
                 </div>
             </div>
             <MyModalFormGroup

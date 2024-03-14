@@ -8,63 +8,6 @@
     justify-content: center;
 }
 
-.coursesList {
-    margin-bottom: 15px;
-    max-width: 100%;
-}
-
 .courseButtonCreate {
     margin-bottom: 15px;
-}
-
-.courseContainer {
-    width: 100%;
-}
-
-.courseTopContainer {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-}
-
-.courseTitle {
-    overflow: hidden;
-    white-space: nowrap;
-    font-size: 1.3rem;
-    flex-grow: 1;
-}
-
-.courseStatusContainer {
-    display: flex;
-    margin-left: 6px;
-    align-items: center;
-}
-
-.courseMainInfo{
-    font-size: 0.95rem;
-}
-
-.courseSecondInfo{
-    font-size: 0.8rem;
-    color: #727272;
-}
-
-@media (max-width: 576px) {
-    .courseTopContainer {
-        display: block;
-    }
-
-    .courseTitle {
-        overflow: unset;
-        white-space: normal;
-        overflow-wrap: break-word;
-        margin-bottom: 3px;
-        font-size: 1.3rem;
-        display: block;
-    }
-
-    .courseStatusContainer {
-        display: block;
-        margin-left: 0;
-    }
 }
