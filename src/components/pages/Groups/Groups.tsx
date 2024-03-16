@@ -1,5 +1,5 @@
 import React from 'react';
-import {List, Result, Typography} from "antd";
+import {List, Typography} from "antd";
 import MyButton from "../../UI/MyButton/MyButton";
 import MyGroupItem from "../../UI/MyGroupItem/MyGroupItem";
 import classes from './Groups.module.css'
@@ -72,7 +72,6 @@ const Groups = () => {
         </>
     );
 };
-
 
 /* login
 {

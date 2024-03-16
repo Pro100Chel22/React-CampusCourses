@@ -44,7 +44,6 @@ export interface IEditProfile {
     birthDate: string,
 }
 
-
 export interface ITokenResponse {
     token: string;
 }

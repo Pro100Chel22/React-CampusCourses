@@ -3,6 +3,7 @@ import classes from './MyCoursesList.module.css';
 import {List} from "antd";
 import MyCourseStatus from "../MyCourseStatus/MyCourseStatus";
 import {ICourse} from "../../../types/types";
+import {semesters} from "../../consts/consts";
 
 export interface IMyCoursesList {
     courses: ICourse [];
@@ -24,7 +25,7 @@ const MyCoursesList: FC<IMyCoursesList> = ({courses}) => {
                             </div>
                             <div className={classes.courseInfoWrapper}>
                                 <div className={classes.courseMainInfo}>Учебный год - {item.startYear}</div>
-                                <div className={classes.courseMainInfo}>Семестр {item.semester}</div>
+                                <div className={classes.courseMainInfo}>Семестр - {semesters[item.semester].massage}</div>
                                 <div className={classes.courseSecondInfo}>Мест всего - {item.maximumStudentsCount}</div>
                                 <div className={classes.courseSecondInfo}>Мест свободно - {item.remainingSlotsCount}</div>
                             </div>
