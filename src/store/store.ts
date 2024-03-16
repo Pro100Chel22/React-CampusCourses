@@ -1,11 +1,13 @@
 import {combineReducers, configureStore} from "@reduxjs/toolkit";
 import userReducer from "./reducers/UserReducer/UserSlice";
 import groupsReducer from "./reducers/GroupsReducer/GroupsSlice"
+import coursesReducer from "./reducers/GroupCoursesReducer/GroupCoursesSlice"
 import {injectStoreToAxiosInstance} from "../requests/AxiosInstance";
 
 const rootReducer = combineReducers({
     userReducer,
-    groupsReducer
+    groupsReducer,
+    coursesReducer,
 });
 
 const setupStore = () => {

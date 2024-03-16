@@ -3,6 +3,7 @@ import MyButton from "../MyButton/MyButton";
 import {List} from "antd";
 import classes from "./MyGroupItem.module.css";
 import {IGroup} from "../../../types/types";
+import {Link} from "react-router-dom";
 
 export interface IMyGroupItem {
     group: IGroup;
@@ -12,16 +13,28 @@ export interface IMyGroupItem {
     disabled: boolean;
 }
 
-const MyGroupItem : FC<IMyGroupItem> = ({group, isAdmin, onGroupDelete, disabled, modalShow}) => {
+const MyGroupItem: FC<IMyGroupItem> = ({group, isAdmin, onGroupDelete, disabled, modalShow}) => {
     return (
         <List.Item>
             <div className={classes.GroupItemContainer}>
-                <div className={classes.GroupTitle}>{group.name}</div>
+                <Link to={`/groups/${group.id}`} className={classes.GroupTitle}>{group.name}</Link>
                 <div className={classes.GroupButtonsContainer}>
                     {isAdmin ?
                         <>
-                            <MyButton className={classes.GroupButtonEdit} onClick={() => modalShow(group)} disabled={disabled}>Редактировать</MyButton>
-                            <MyButton className={classes.GroupButtonDelete} onClick={() => onGroupDelete(group)} disabled={disabled}>Удалить</MyButton>
+                            <MyButton
+                                className={classes.GroupButtonEdit}
+                                onClick={() => modalShow(group)}
+                                disabled={disabled}
+                            >
+                                Редактировать
+                            </MyButton>
+                            <MyButton
+                                className={classes.GroupButtonDelete}
+                                onClick={() => onGroupDelete(group)}
+                                disabled={disabled}
+                            >
+                                Удалить
+                            </MyButton>
                         </>
                         :
                         <></>

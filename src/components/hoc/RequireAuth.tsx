@@ -6,7 +6,7 @@ import {IRoles} from "../../types/types";
 
 export interface IRequireAuth {
     children: React.ReactElement;
-    requiredRoles?: IRoles
+    requiredRoles?: IRoles; // Если роль отмечена true, то пользователь должен иметь эту роль
 }
 
 const RequireAuth: FC<IRequireAuth> = ({children, requiredRoles}) => {

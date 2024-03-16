@@ -3,7 +3,6 @@ import {IErrorResponse, IGroup} from "../../../types/types";
 import {AxiosError} from "axios";
 import {IGroupsState} from "./GroupsSlice";
 import {GroupsService} from "../../../requests/GroupsService";
-import {thunkSelector} from "../../../hooks/redux";
 
 export const groupsReducers = (builder: ActionReducerMapBuilder<IGroupsState>) => {
     builder.addCase(getGroups.pending.type, (state) => {
