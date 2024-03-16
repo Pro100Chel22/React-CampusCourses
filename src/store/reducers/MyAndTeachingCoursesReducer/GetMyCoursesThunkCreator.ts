@@ -25,7 +25,7 @@ export const myCoursesReducers = (builder: ActionReducerMapBuilder<IMyAndTeachin
 }
 
 export const getMyCourses = createAsyncThunk(
-    'groups/getMyCourses',
+    'courses/getMyCourses',
     async (_, thunkAPI) => {
         try {
             const responseCourses = await CoursesService.myCourses();

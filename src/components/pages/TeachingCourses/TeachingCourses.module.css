@@ -1,0 +1,10 @@
+.coursesContainer {
+    width: 100%;
+    max-width: 900px;
+    margin: 20px 0;
+}
+
+.coursesContainerWrapper {
+    display: flex;
+    justify-content: center;
+}

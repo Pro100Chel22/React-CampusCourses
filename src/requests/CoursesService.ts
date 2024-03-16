@@ -12,7 +12,12 @@ const myCourses = async ():  Promise<AxiosPromise<ICourse[]>> => {
     return axios.get<ICourse[]>(`courses/my`);
 }
 
+const teachingCourses = async ():  Promise<AxiosPromise<ICourse[]>> => {
+    return axios.get<ICourse[]>(`courses/teaching`);
+}
+
 export const CoursesService = {
     courses,
-    myCourses
+    myCourses,
+    teachingCourses,
 }
