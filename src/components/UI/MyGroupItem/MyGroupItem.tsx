@@ -1,8 +1,9 @@
 import React, {FC} from 'react';
 import MyButton from "../MyButton/MyButton";
-import {List} from "antd";
+import {List, Popconfirm} from "antd";
 import classes from "./MyGroupItem.module.css";
 import {IGroup} from "../../../types/types";
+import {QuestionCircleOutlined} from "@ant-design/icons";
 
 export interface IMyGroupItem {
     group: IGroup;
@@ -13,6 +14,10 @@ export interface IMyGroupItem {
 }
 
 const MyGroupItem : FC<IMyGroupItem> = ({group, isAdmin, onGroupDelete, disabled, modalShow}) => {
+    const confirm = () => {
+        onGroupDelete(group);
+    }
+
     return (
         <List.Item>
             <div className={classes.GroupItemContainer}>
@@ -21,7 +26,14 @@ const MyGroupItem : FC<IMyGroupItem> = ({group, isAdmin, onGroupDelete, disabled
                     {isAdmin ?
                         <>
                             <MyButton className={classes.GroupButtonEdit} onClick={() => modalShow(group)} disabled={disabled}>Редактировать</MyButton>
-                            <MyButton className={classes.GroupButtonDelete} onClick={() => onGroupDelete(group)} disabled={disabled}>Удалить</MyButton>
+                            <Popconfirm
+                                onConfirm={confirm}
+                                title={`Удаление группы "${group.name}"`}
+                                description="Вы уверены, что хотите удалить эту группу?"
+                                icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+                            >
+                                <MyButton className={classes.GroupButtonDelete} disabled={disabled}>Удалить</MyButton>
+                            </Popconfirm>
                         </>
                         :
                         <></>
