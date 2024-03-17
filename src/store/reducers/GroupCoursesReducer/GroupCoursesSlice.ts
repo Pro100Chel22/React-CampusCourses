@@ -1,8 +1,13 @@
 import {ICourse, IErrorResponse} from "../../../types/types";
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {coursesReducers} from "./GetCoursesThunkCreator";
 
 export interface ICoursesState {
+    modalCourseCreation: {
+        loading: boolean;
+        error: IErrorResponse | null;
+        isOpen: boolean;
+    };
     fetchingCourses: {
         loading: boolean;
         error: IErrorResponse | null;
@@ -12,6 +17,11 @@ export interface ICoursesState {
 }
 
 const initialState: ICoursesState = {
+    modalCourseCreation: {
+        loading: false,
+        error: null,
+        isOpen: false,
+    },
     fetchingCourses: {
         loading: false,
         error:  null,
@@ -20,10 +30,18 @@ const initialState: ICoursesState = {
     courses: [],
 }
 
+export interface ICourseCreationModal {
+    isOpen: boolean;
+}
+
 export const coursesSlice = createSlice({
     name: "courses",
     initialState,
-    reducers: {},
+    reducers: {
+        setCourseCreationModal: (state, action: PayloadAction<ICourseCreationModal>) => {
+            state.modalCourseCreation.isOpen = action.payload.isOpen;
+        }
+    },
     extraReducers: builder => {
         coursesReducers(builder);
     },
