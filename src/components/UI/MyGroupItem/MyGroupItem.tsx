@@ -1,9 +1,10 @@
 import React, {FC} from 'react';
 import MyButton from "../MyButton/MyButton";
-import {List} from "antd";
+import {List, Popconfirm} from "antd";
 import classes from "./MyGroupItem.module.css";
 import {IGroup} from "../../../types/types";
 import {Link} from "react-router-dom";
+import {QuestionCircleOutlined} from "@ant-design/icons";
 
 export interface IMyGroupItem {
     group: IGroup;
@@ -13,7 +14,11 @@ export interface IMyGroupItem {
     disabled: boolean;
 }
 
-const MyGroupItem: FC<IMyGroupItem> = ({group, isAdmin, onGroupDelete, disabled, modalShow}) => {
+const MyGroupItem : FC<IMyGroupItem> = ({group, isAdmin, onGroupDelete, disabled, modalShow}) => {
+    const confirm = () => {
+        onGroupDelete(group);
+    }
+
     return (
         <List.Item>
             <div className={classes.GroupItemContainer}>
@@ -28,13 +33,19 @@ const MyGroupItem: FC<IMyGroupItem> = ({group, isAdmin, onGroupDelete, disabled,
                             >
                                 Редактировать
                             </MyButton>
-                            <MyButton
-                                className={classes.GroupButtonDelete}
-                                onClick={() => onGroupDelete(group)}
-                                disabled={disabled}
+                            <Popconfirm
+                                onConfirm={confirm}
+                                title={`Удаление группы "${group.name}"`}
+                                description="Вы уверены, что хотите удалить эту группу?"
+                                icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
                             >
-                                Удалить
-                            </MyButton>
+                                <MyButton
+                                    className={classes.GroupButtonDelete}
+                                    disabled={disabled}
+                                >
+                                    Удалить
+                                </MyButton>
+                            </Popconfirm>
                         </>
                         :
                         <></>
