@@ -1,4 +1,4 @@
-import {ICourse, IErrorResponse} from "../../../types/types";
+import {ICourse, IErrorResponse, IUser} from "../../../types/types";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {coursesReducers} from "./GetCoursesThunkCreator";
 
@@ -7,6 +7,7 @@ export interface ICoursesState {
         loading: boolean;
         error: IErrorResponse | null;
         isOpen: boolean;
+        usersForCourseCreation: IUser[];
     };
     fetchingCourses: {
         loading: boolean;
@@ -21,6 +22,7 @@ const initialState: ICoursesState = {
         loading: false,
         error: null,
         isOpen: false,
+        usersForCourseCreation: [],
     },
     fetchingCourses: {
         loading: false,

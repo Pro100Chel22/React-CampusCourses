@@ -73,3 +73,8 @@ export interface ICourse {
     status: CourseStatuses
     semester: Semesters
 }
+
+export interface IUser {
+    id: string;
+    fullName: string;
+}
