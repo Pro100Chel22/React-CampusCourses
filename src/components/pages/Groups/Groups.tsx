@@ -73,10 +73,4 @@ const Groups = () => {
     );
 };
 
-/* login
-{
-  "email": "gymboss@gachi.com",
-  "password": "B0yNextD00r"
-}
-*/
 export default Groups;
