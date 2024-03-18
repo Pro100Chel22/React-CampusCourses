@@ -8,7 +8,7 @@ export const statuses = {
     [CourseStatuses.Started]: {color: "#108ee9", message: "В процессе обучения"},
     [CourseStatuses.Finished]: {color: "#f50", message: "Закрыт"},
     [CourseStatuses.OpenForAssigning]: {color: "#87d068", message: "Открыт для записи"},
-    [CourseStatuses.Created]: {color: "#939393", message: "Создан"},
+    [CourseStatuses.Created]: {color: "#737373", message: "Создан"},
 }
 
 export const semesters = {

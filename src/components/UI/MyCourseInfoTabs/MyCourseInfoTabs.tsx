@@ -4,22 +4,26 @@ import MyButton from "../MyButton/MyButton";
 import classes from "./MyCourseInfoTabs.module.css"
 import MyNotification from "../MyNotification/MyNotification";
 import {INotification} from "../../../types/types";
+// @ts-ignore
+import ReactHtmlParser from 'html-react-parser';
 
 export interface IMyCourseInfoTabs {
     notifications: INotification[];
+    requirements: string;
+    annotations: string;
 }
 
-const MyCourseInfoTabs: FC<IMyCourseInfoTabs> = ({notifications}) => {
+const MyCourseInfoTabs: FC<IMyCourseInfoTabs> = ({notifications, requirements, annotations}) => {
     const tabs = [
         {
             label: "Требования к курсу",
             key: "1",
-            children: (<><p></p><h2><span style={{fontFamily: "monospace"}}>dlfjds</span></h2></>),
+            children: ReactHtmlParser(requirements),
         },
         {
             label: "Аннотация",
             key: "2",
-            children: (<p>Chipi Chapa1212</p>),
+            children: ReactHtmlParser(annotations),
         },
         {
             label: "Уведомления",
@@ -30,6 +34,11 @@ const MyCourseInfoTabs: FC<IMyCourseInfoTabs> = ({notifications}) => {
                     {notifications.map((item, index) => {
                         return (<MyNotification message={item.text} isImportant={item.isImportant} isLast={notifications.length - 1 === index} key={index}/>)
                     })}
+                    {notifications.length === 0 ?
+                        <div className={classes.noNotification}>Уведомлений пока что нет</div>
+                        :
+                        <></>
+                    }
                 </>
             ),
         },

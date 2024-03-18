@@ -123,7 +123,7 @@ export interface ITeacher {
     isMain: boolean;
 }
 
-export interface ICourseDetail {
+export interface ICourseDetails {
     id: string;
     name: string;
     startYear: number;
