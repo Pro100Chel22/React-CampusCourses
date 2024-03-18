@@ -64,13 +64,13 @@ const MyModalFormGroupCreation: FC<IMyModalFormGroupCreation> = ({modalCourseCre
                         rules={startYearRules}
                         label="Год начала курса"
                         name="startYear">
-                        <InputNumber style={{width: "100%"}}/>
+                        <InputNumber className={classes.inputWidth} />
                     </Form.Item>
                     <Form.Item
                         rules={maximumStudentsCountRules}
                         label="Общее количество мест"
                         name="maximumStudentsCount">
-                        <InputNumber style={{width: "100%"}}/>
+                        <InputNumber className={classes.inputWidth}/>
                     </Form.Item>
                     <Form.Item
                         rules={semesterRules}

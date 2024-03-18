@@ -12,12 +12,24 @@ export const startYearRules: Rule[] = [
     {
         required: true,
         message: 'Введите год начала курса',
+    },
+    {
+        type: 'number',
+        min: 2000,
+        max: 2029,
+        message: 'Год начала обучения в кампусе должен быть между 2000 и 2029 годами!'
     }
 ];
 export const maximumStudentsCountRules: Rule[] = [
     {
         required: true,
         message: 'Введите количество мест',
+    },
+    {
+        type: 'number',
+        min: 1,
+        max: 200,
+        message: 'Максимальное количество учащихся должно составлять от 1 до 200!'
     }
 ];
 export const semesterRules: Rule[] = [
@@ -53,3 +65,4 @@ export const setQuillRules = (quillRef: React.RefObject<ReactQuill>, errorMessag
 
     return requirementsRules;
 }
+

@@ -1,4 +1,3 @@
-import {SelectProps} from "antd";
 import {useRef} from "react";
 import ReactQuill from "react-quill";
 import {useAppSelector} from "../../../hooks/redux";

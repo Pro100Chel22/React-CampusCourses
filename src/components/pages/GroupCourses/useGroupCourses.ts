@@ -5,8 +5,9 @@ import {useEffect} from "react";
 import {getCourses} from "../../../store/reducers/GroupCoursesReducer/GetCoursesThunkCreator";
 import {useForm} from "antd/es/form/Form";
 import {actions} from "../../../store/reducers/GroupCoursesReducer/GroupCoursesSlice";
-import {Semesters} from "../../../types/types";
+import {ICreateCourse, Semesters} from "../../../types/types";
 import {Modal} from "antd";
+import {createCourse} from "../../../store/reducers/GroupCoursesReducer/CreateCourseThunkCreator";
 
 export interface ICourseCreationModalForm {
     name: string;
@@ -45,14 +46,17 @@ export const useGroupCourses = () => {
     };
 
     const courseCreationOnFinishHandler = (value: ICourseCreationModalForm) => {
-        console.log(value);
-        console.log(value.name);
-        console.log(value.startYear);
-        console.log(value.maximumStudentsCount);
-        console.log(value.semester);
-        console.log(value.requirements);
-        console.log(value.annotations);
-        console.log(value.mainTeacherId);
+        // const createCourseRequest: ICreateCourse = {
+        //     name: value.name,
+        //     startYear: value.startYear,
+        //     maximumStudentsCount: value.maximumStudentsCount,
+        //     semester: value.semester,
+        //     requirements: value.requirements,
+        //     annotations: value.annotations,
+        //     mainTeacherId: value.mainTeacherId,
+        // }
+
+        dispatch(createCourse({createCourseForm: value, groupId: id ?? ""}));
     };
 
     const showCourseCreationModal = () => {

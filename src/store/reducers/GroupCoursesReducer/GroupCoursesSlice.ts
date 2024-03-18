@@ -1,6 +1,7 @@
 import {ICourse, IErrorResponse, IUser} from "../../../types/types";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {coursesReducers} from "./GetCoursesThunkCreator";
+import {createCoursesReducers} from "./CreateCourseThunkCreator";
 
 export interface ICoursesState {
     modalCourseCreation: {
@@ -46,6 +47,7 @@ export const coursesSlice = createSlice({
     },
     extraReducers: builder => {
         coursesReducers(builder);
+        createCoursesReducers(builder);
     },
 });
 
