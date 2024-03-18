@@ -6,11 +6,12 @@ import MyButton from "../../UI/MyButton/MyButton";
 import FetchingResult from "../../hoc/FetchingResult";
 import LoadingLayer from "../../hoc/LoadingLayer";
 import MyCoursesList from "../../UI/MyCoursesList/MyCoursesList";
+import MyModalFormGroupCreation from "../../UI/MyModalFormGroupCreation/MyModalFormGroupCreation";
 
 const {Title} = Typography;
 
 const GroupCourses: FC = () => {
-    const {groupInfo, roles} = useGroupCourses();
+    const {modalCourseCreation, showCourseCreationModal, formCourseCreation, courseCreationOnFinishHandler, cancelCourseCreationModalHandler, groupInfo, roles} = useGroupCourses();
 
     console.log("GroupCoursesReducer update!");
 
@@ -22,7 +23,7 @@ const GroupCourses: FC = () => {
                         <FetchingResult error={groupInfo.fetchingCourses.error}>
                             <Title level={2}>Группа - {groupInfo.groupName}</Title>
                             {roles.isAdmin ?
-                                <MyButton className={classes.courseButtonCreate}>Создать курс</MyButton>
+                                <MyButton className={classes.courseButtonCreate} onClick={showCourseCreationModal}>Создать курс</MyButton>
                                 :
                                 <></>
                             }
@@ -31,6 +32,12 @@ const GroupCourses: FC = () => {
                     </LoadingLayer>
                 </div>
             </div>
+            <MyModalFormGroupCreation
+                modalCourseCreation={modalCourseCreation}
+                cancelModalHandler={cancelCourseCreationModalHandler}
+                courseOnFinishHandler={courseCreationOnFinishHandler}
+                modalForm={formCourseCreation}
+            />
         </>
     );
 };

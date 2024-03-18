@@ -1,0 +1,21 @@
+.courseCreationFormModal {
+
+}
+
+.courseCreationModalButtonContainer {
+    display: flex;
+    justify-content: end;
+    margin: 0;
+}
+
+.courseCreationModalButtonSave {
+    margin-left: 6px;
+}
+
+.courseCreationModalButtonCancel {
+
+}
+
+.inputWidth {
+    width: 100%;
+}

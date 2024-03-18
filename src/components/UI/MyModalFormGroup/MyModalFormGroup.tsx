@@ -3,8 +3,11 @@ import {Form, FormInstance, Input, Modal} from "antd";
 import classes from "./MyModalFormGroup.module.css";
 import {groupNameRules} from "../../pages/Groups/Validations";
 import MyButton from "../MyButton/MyButton";
-import {IGroupModalForm} from "../../pages/Groups/useGroups";
 import {IErrorResponse, IGroup} from "../../../types/types";
+
+export interface IGroupModalForm {
+    groupName: string
+}
 
 export interface IMyModalGroupEdit {
     modalGroup: {

@@ -73,3 +73,18 @@ export interface ICourse {
     status: CourseStatuses
     semester: Semesters
 }
+
+export interface ICreateCourse {
+    name: string;
+    startYear: number;
+    maximumStudentsCount: number;
+    semester: Semesters;
+    requirements: string;
+    annotations: string;
+    mainTeacherId: string;
+}
+
+export interface IUser {
+    id: string;
+    fullName: string;
+}
