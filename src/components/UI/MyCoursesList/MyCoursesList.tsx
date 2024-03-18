@@ -7,14 +7,16 @@ import {semesters} from "../../consts/consts";
 
 export interface IMyCoursesList {
     courses: ICourse [];
+    loading?: boolean;
 }
 
-const MyCoursesList: FC<IMyCoursesList> = ({courses}) => {
+const MyCoursesList: FC<IMyCoursesList> = ({courses, loading}) => {
     return (
         <>
             <List
                 className={classes.coursesList}
                 bordered
+                loading={loading}
                 dataSource={courses}
                 renderItem={(item) => (
                     <List.Item>
@@ -32,12 +34,11 @@ const MyCoursesList: FC<IMyCoursesList> = ({courses}) => {
                         </div>
                     </List.Item>
                 )}
-
             >
                 {courses.length === 0 ?
                     <List.Item>
                         <div className={classes.noCoursesContainer}>
-                            <div className={classes.noCourses}>В этой группе еще нет курсов</div>
+                            <div className={classes.noCourses}>Здесь пока еще нет курсов</div>
                         </div>
                     </List.Item>
                     :
