@@ -13,12 +13,10 @@ import {useAppDispatch} from "./hooks/redux";
 import Profile from "./components/pages/Profile/Profile";
 import {checkAuth} from "./store/reducers/UserReducer/CheckAuthThunkCreater";
 import GroupCourses from "./components/pages/GroupCourses/GroupCourses";
+import CourseDetail from "./components/pages/CourseDetail/CourseDetail";
 
 const App = () => {
     const dispatch = useAppDispatch();
-
-    // Перенести валидации в директорию consts
-    //
 
     useEffect(() => {
         dispatch(checkAuth());
@@ -43,6 +41,7 @@ const App = () => {
                         isAdmin: false,
                         isStudent: false
                     }}><TeachingCourses/></RequireAuth>}/>
+                    <Route path="courses/:id" element={<RequireAuth><CourseDetail/></RequireAuth>}/>
                     <Route path="registration" element={<RequireNotAuth><Registration/></RequireNotAuth>}/>
                     <Route path="login" element={<RequireNotAuth><Login/></RequireNotAuth>}/>
                     <Route path="profile" element={<RequireAuth><Profile/></RequireAuth>}/>

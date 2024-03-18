@@ -3,6 +3,7 @@ import {Button} from "antd";
 import classes from "./MyButton.module.css";
 import {ButtonHTMLType, ButtonType} from "antd/es/button";
 import {BaseButtonProps} from "antd/es/button/button";
+import {SizeType} from "antd/es/config-provider/SizeContext";
 
 export interface IMyButton {
     children?: React.ReactNode;
@@ -12,7 +13,8 @@ export interface IMyButton {
     onClick?: React.MouseEventHandler<HTMLElement>;
     loading?: boolean;
     disabled?: boolean;
-    type?: ButtonType
+    type?: ButtonType;
+    size?: SizeType;
 }
 
 const MyButton: FC<IMyButton> = ({
@@ -23,7 +25,8 @@ const MyButton: FC<IMyButton> = ({
      onClick,
      loading,
      disabled,
-     type
+     type,
+     size
 }) => {
     let buttonType = type
     if(buttonType === undefined) {
@@ -32,7 +35,7 @@ const MyButton: FC<IMyButton> = ({
 
     return (
         <Button onClick={onClick} style={style} type={buttonType} className={`${classes.MyButtonRadius} ${className}`}
-                htmlType={htmlType} loading={loading} disabled={disabled}>
+                htmlType={htmlType} loading={loading} disabled={disabled} size={size}>
             {children}
         </Button>
     );

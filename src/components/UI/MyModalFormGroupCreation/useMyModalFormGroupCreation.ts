@@ -25,7 +25,8 @@ export const useMyModalFormGroupCreation = () => {
     const buttonText = "Создать курс";
 
     const customFilterOption = (inputValue: string, option?: React.ReactElement) => {
-        const value = option?.props.children.toLowerCase();
+        // @ts-ignore
+        const value = option?.children.toLowerCase();
         inputValue = inputValue.toLowerCase();
 
         return value?.includes(inputValue);

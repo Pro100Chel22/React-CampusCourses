@@ -1,0 +1,36 @@
+.courseDetailContainerWrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.courseDetailContainer {
+    width: 100%;
+    max-width: 1200px;
+}
+
+.infoList {
+    border-radius: 5px;
+}
+
+.infoListItem {
+    display: flex;
+}
+
+.courseTopContainer {
+    display: flex;
+    margin: 10px 0;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.title {
+    margin: 0 3px 0 0;
+}
+
+.firstTabsContainer {
+    margin-top: 30px;
+}
+
+.editButton {
+    background: #e1a522 !important;
+}

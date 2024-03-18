@@ -88,3 +88,53 @@ export interface IUser {
     id: string;
     fullName: string;
 }
+
+export interface INotification {
+    text: string;
+    isImportant: boolean;
+}
+
+export enum StudentStatuses {
+    InQueue = "InQueue",
+    Accepted = "Accepted",
+    Declined = "Declined",
+}
+
+export enum StudentMarks {
+    NotDefined = "NotDefined",
+    Passed = "Passed",
+    Failed = "Failed",
+}
+
+
+
+export interface IStudent {
+    id: string;
+    name: string;
+    email: string;
+    status: StudentStatuses;
+    midtermResult: StudentMarks;
+    finalResult: StudentMarks;
+}
+
+export interface ITeacher {
+    name: string;
+    email: string;
+    isMain: boolean;
+}
+
+export interface ICourseDetail {
+    id: string;
+    name: string;
+    startYear: number;
+    maximumStudentsCount: number;
+    studentsEnrolledCount: number;
+    studentsInQueueCount: number;
+    requirements: string;
+    annotations: string;
+    status: CourseStatuses;
+    semester: Semesters;
+    students: IStudent[];
+    teachers: ITeacher[];
+    notifications: INotification[];
+}

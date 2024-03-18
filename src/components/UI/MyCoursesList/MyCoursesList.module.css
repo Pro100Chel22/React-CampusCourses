@@ -28,6 +28,7 @@
 
 .courseMainInfo{
     font-size: 0.95rem;
+    color: black;
 }
 
 .courseSecondInfo{
@@ -71,4 +72,12 @@
 .noCourses {
     font-size: 1.4rem;
     text-align: center;
+}
+
+.courseLink {
+    color: black;
+}
+
+.courseItem {
+    display: block !important;
 }
