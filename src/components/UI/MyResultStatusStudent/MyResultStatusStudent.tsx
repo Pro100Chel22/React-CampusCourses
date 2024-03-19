@@ -9,7 +9,7 @@ export interface IMyResultStatusStudent {
 }
 
 const MyResultStatusStudent: FC<IMyResultStatusStudent> = ({status}) => {
-    return (<Tag color={marks[status].color} className={classes.tag}>{marks[status].message}</Tag>);
+    return (<Tag color={marks[status ?? "NotDefined"].color} className={classes.tag}>{marks[status ?? "NotDefined"].message}</Tag>);
 };
 
 export default MyResultStatusStudent;

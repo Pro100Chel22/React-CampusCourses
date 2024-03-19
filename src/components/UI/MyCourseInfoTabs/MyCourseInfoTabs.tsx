@@ -12,9 +12,10 @@ export interface IMyCourseInfoTabs {
     notifications: INotification[];
     requirements: string;
     annotations: string;
+    thisCourseRoles: any;
 }
 
-const MyCourseInfoTabs: FC<IMyCourseInfoTabs> = ({notifications, requirements, annotations}) => {
+const MyCourseInfoTabs: FC<IMyCourseInfoTabs> = ({notifications, requirements, annotations, thisCourseRoles}) => {
     const tabs = [
         {
             label: "Требования к курсу",
@@ -31,7 +32,11 @@ const MyCourseInfoTabs: FC<IMyCourseInfoTabs> = ({notifications, requirements, a
             key: "3",
             children: (
                 <>
-                    <MyButton className={classes.createNotificationButton}>Создать уведомление</MyButton>
+                    {thisCourseRoles.isTeacherOrAdminThisCourse?
+                        <MyButton className={classes.createNotificationButton}>Создать уведомление</MyButton>
+                        :
+                        <></>
+                    }
                     {notifications.map((item, index) => {
                         return (<MyNotification message={item.text} isImportant={item.isImportant} isLast={notifications.length - 1 === index} key={index}/>)
                     })}

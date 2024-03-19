@@ -13,7 +13,7 @@ import MyCourseUsersTabs from "../../UI/MyCourseUsersTabs/MyCourseUsersTabs";
 const {Title} = Typography;
 
 const CourseDetail = () => {
-    const {courseDetails, fetchingCourse} = useCourseDetail();
+    const {courseDetails, fetchingCourse, rolesThisCourse, canSignUp} = useCourseDetail();
 
     console.log("CourseDetail update!");
 
@@ -25,15 +25,30 @@ const CourseDetail = () => {
                         <Title level={2}>{courseDetails.name}</Title>
                         <div className={classes.courseTopContainer}>
                             <Title level={4} className={classes.title}>Основные данные курса</Title>
-                            <MyButton className={classes.editButton} size="large">Редактировать</MyButton>
+                            {rolesThisCourse.isTeacherOrAdminThisCourse ?
+                                <MyButton className={classes.editButton} size="large">Редактировать</MyButton>
+                                :
+                                <></>
+                            }
                         </div>
                         <div>
                             <List
                                 className={classes.infoList}
                                 bordered>
                                 <List.Item className={classes.infoListItem}>
-                                    <MyCourseInfoItem title={"Статус курса"} value={courseDetails.status.message} style={{color: courseDetails.status.color}} flex={"1"}/>
-                                    <MyButton className={classes.editButton} size="large">Изменить</MyButton>
+                                    <div className={classes.topInfoListItem}>
+                                        <MyCourseInfoItem title={"Статус курса"} value={courseDetails.status.message} style={{color: courseDetails.status.color}} flex={"1"}/>
+                                        {rolesThisCourse.isTeacherOrAdminThisCourse ?
+                                            <MyButton className={classes.editButton} size="large">Изменить</MyButton>
+                                            :
+                                            <></>
+                                        }
+                                        {canSignUp ?
+                                            <MyButton className={classes.singUpButton} size="large">Записаться на курс</MyButton>
+                                            :
+                                            <></>
+                                        }
+                                    </div>
                                 </List.Item>
                                 <List.Item className={classes.infoListItem}>
                                     <MyCourseInfoItem title={"Учебный год"} value={courseDetails.yearStart} flex={"1"}/>
@@ -49,10 +64,19 @@ const CourseDetail = () => {
                             </List>
                         </div>
                         <div className={classes.infoTabsContainer}>
-                            <MyCourseInfoTabs notifications={courseDetails.notifications} annotations={courseDetails.annotations} requirements={courseDetails.requirements}/>
+                            <MyCourseInfoTabs
+                                notifications={courseDetails.notifications}
+                                annotations={courseDetails.annotations}
+                                requirements={courseDetails.requirements}
+                                thisCourseRoles={rolesThisCourse}
+                            />
                         </div>
                         <div className={classes.usersTabsContainer}>
-                            <MyCourseUsersTabs students={courseDetails.students} teachers={courseDetails.teachers}/>
+                            <MyCourseUsersTabs
+                                students={courseDetails.students}
+                                teachers={courseDetails.teachers}
+                                thisCourseRoles={rolesThisCourse}
+                            />
                         </div>
                     </FetchingResult>
                 </LoadingLayer>

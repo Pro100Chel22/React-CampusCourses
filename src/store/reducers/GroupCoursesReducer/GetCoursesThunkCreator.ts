@@ -38,13 +38,14 @@ export const getCourses = createAsyncThunk(
             const responseGroups = await GroupsService.groups();
 
             const isAdmin = thunkSelector(thunkAPI).userReducer.roles.isAdmin;
-            let responseUsers: any;
+
+            let responseUsers: IUser[] = [];
             if(isAdmin) {
-                responseUsers = await CoursesService.usersForCourseCreation();
+                responseUsers = (await CoursesService.usersForCourseCreation()).data;
             }
 
-            console.log({courses: responseCourses.data, groups: responseGroups.data, users: responseUsers.data});
-            return {courses: responseCourses.data, group: responseGroups.data.filter(item => item.id === groupId)[0], users: responseUsers.data};
+            console.log({courses: responseCourses.data, groups: responseGroups.data, users: responseUsers}, 1);
+            return {courses: responseCourses.data, group: responseGroups.data.filter(item => item.id === groupId)[0], users: responseUsers};
         } catch (error) {
             const err = error as AxiosError;
             return thunkAPI.rejectWithValue({status: err.response?.status, massage: ""});
