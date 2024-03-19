@@ -27,7 +27,11 @@
     margin: 0 3px 0 0 !important;
 }
 
-.firstTabsContainer {
+.infoTabsContainer {
+    margin-top: 30px;
+}
+
+.usersTabsContainer {
     margin-top: 30px;
 }
 

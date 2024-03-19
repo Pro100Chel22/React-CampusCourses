@@ -6,3 +6,9 @@
     font-size: 1rem;
     text-align: center;
 }
+
+@media (min-width: 455px) {
+    .ant-tabs-nav-operations {
+        display: none !important;
+    }
+}

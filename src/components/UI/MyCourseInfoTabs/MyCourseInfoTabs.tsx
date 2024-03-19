@@ -2,6 +2,7 @@ import React, {FC} from 'react';
 import {Tabs} from "antd";
 import MyButton from "../MyButton/MyButton";
 import classes from "./MyCourseInfoTabs.module.css"
+import './MyCourseInfoTabs.css'
 import MyNotification from "../MyNotification/MyNotification";
 import {INotification} from "../../../types/types";
 // @ts-ignore
@@ -51,6 +52,7 @@ const MyCourseInfoTabs: FC<IMyCourseInfoTabs> = ({notifications, requirements, a
                 type="card"
                 size="large"
                 items={tabs}
+                className={"myCourseInfoTabs"}
             />
         </>
     );

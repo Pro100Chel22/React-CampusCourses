@@ -106,8 +106,6 @@ export enum StudentMarks {
     Failed = "Failed",
 }
 
-
-
 export interface IStudent {
     id: string;
     name: string;

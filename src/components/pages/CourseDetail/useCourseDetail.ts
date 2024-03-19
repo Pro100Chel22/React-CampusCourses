@@ -23,6 +23,8 @@ export const useCourseDetail = () => {
         notifications: course?.notifications ?? [],
         requirements: course?.requirements ?? "",
         annotations: course?.annotations ?? "",
+        students: course?.students ?? [],
+        teachers: course?.teachers ?? [],
     }
 
     useEffect(() => {

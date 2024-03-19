@@ -1,4 +1,4 @@
-import {CourseStatuses, Semesters} from "../../types/types";
+import {CourseStatuses, Semesters, StudentMarks} from "../../types/types";
 
 export const viewDateFormat = "DD.MM.YYYY";
 export const serverDateFormat = "YYYY-MM-DD";
@@ -14,4 +14,10 @@ export const statuses = {
 export const semesters = {
     [Semesters.Autumn]: {massage: "Осенний"},
     [Semesters.Spring]: {massage: "Весенний"},
+}
+
+export const marks = {
+    [StudentMarks.Failed]: {color: "#e12222", message: "зафейлена"},
+    [StudentMarks.Passed]: {color: "#87d068", message: "успешно пройдена"},
+    [StudentMarks.NotDefined]: {color: "#737373", message: "отметки нет"},
 }

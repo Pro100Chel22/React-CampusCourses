@@ -8,6 +8,7 @@ import MyCourseInfoItem from "../../UI/MyCourseInfoItem/MyCourseInfoItem";
 import MyCourseInfoTabs from "../../UI/MyCourseInfoTabs/MyCourseInfoTabs";
 import FetchingResult from '../../hoc/FetchingResult';
 import LoadingLayer from '../../hoc/LoadingLayer';
+import MyCourseUsersTabs from "../../UI/MyCourseUsersTabs/MyCourseUsersTabs";
 
 const {Title} = Typography;
 
@@ -47,8 +48,11 @@ const CourseDetail = () => {
                                 </List.Item>
                             </List>
                         </div>
-                        <div className={classes.firstTabsContainer}>
+                        <div className={classes.infoTabsContainer}>
                             <MyCourseInfoTabs notifications={courseDetails.notifications} annotations={courseDetails.annotations} requirements={courseDetails.requirements}/>
+                        </div>
+                        <div className={classes.usersTabsContainer}>
+                            <MyCourseUsersTabs students={courseDetails.students} teachers={courseDetails.teachers}/>
                         </div>
                     </FetchingResult>
                 </LoadingLayer>
