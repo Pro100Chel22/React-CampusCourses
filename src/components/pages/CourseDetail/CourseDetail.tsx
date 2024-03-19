@@ -9,79 +9,90 @@ import MyCourseInfoTabs from "../../UI/MyCourseInfoTabs/MyCourseInfoTabs";
 import FetchingResult from '../../hoc/FetchingResult';
 import LoadingLayer from '../../hoc/LoadingLayer';
 import MyCourseUsersTabs from "../../UI/MyCourseUsersTabs/MyCourseUsersTabs";
+import MyModalFormAddTeacher from "../../UI/MyModalFormAddTeacher/MyModalFormAddTeacher";
 
 const {Title} = Typography;
 
 const CourseDetail = () => {
-    const {courseDetails, fetchingCourse, rolesThisCourse, canSignUp} = useCourseDetail();
+    const {fetchCourse, addTeacherModal} = useCourseDetail();
 
     console.log("CourseDetail update!");
 
     return (
-        <div className={classes.courseDetailContainerWrapper}>
-            <div className={classes.courseDetailContainer}>
-                <LoadingLayer isLoading={fetchingCourse.loading}>
-                    <FetchingResult error={fetchingCourse.error}>
-                        <Title level={2}>{courseDetails.name}</Title>
-                        <div className={classes.courseTopContainer}>
-                            <Title level={4} className={classes.title}>Основные данные курса</Title>
-                            {rolesThisCourse.isTeacherOrAdminThisCourse ?
-                                <MyButton className={classes.editButton} size="large">Редактировать</MyButton>
-                                :
-                                <></>
-                            }
-                        </div>
-                        <div>
-                            <List
-                                className={classes.infoList}
-                                bordered>
-                                <List.Item className={classes.infoListItem}>
-                                    <div className={classes.topInfoListItem}>
-                                        <MyCourseInfoItem title={"Статус курса"} value={courseDetails.status.message} style={{color: courseDetails.status.color}} flex={"1"}/>
-                                        {rolesThisCourse.isTeacherOrAdminThisCourse ?
-                                            <MyButton className={classes.editButton} size="large">Изменить</MyButton>
-                                            :
-                                            <></>
-                                        }
-                                        {canSignUp ?
-                                            <MyButton className={classes.singUpButton} size="large">Записаться на курс</MyButton>
-                                            :
-                                            <></>
-                                        }
-                                    </div>
-                                </List.Item>
-                                <List.Item className={classes.infoListItem}>
-                                    <MyCourseInfoItem title={"Учебный год"} value={courseDetails.yearStart} flex={"1"}/>
-                                    <MyCourseInfoItem title={"Семестр"} value={courseDetails.semester.massage} flex={"1"}/>
-                                </List.Item>
-                                <List.Item className={classes.infoListItem}>
-                                    <MyCourseInfoItem title={"Всего мест"} value={courseDetails.maximumStudentsCount} flex={"1"}/>
-                                    <MyCourseInfoItem title={"Студентов зачислено"} value={courseDetails.acceptedStudents} flex={"1"}/>
-                                </List.Item>
-                                <List.Item className={classes.infoListItem}>
-                                    <MyCourseInfoItem title={"Заявок на рассмотрении"} value={courseDetails.inQueueStudents} flex={"1"}/>
-                                </List.Item>
-                            </List>
-                        </div>
-                        <div className={classes.infoTabsContainer}>
-                            <MyCourseInfoTabs
-                                notifications={courseDetails.notifications}
-                                annotations={courseDetails.annotations}
-                                requirements={courseDetails.requirements}
-                                thisCourseRoles={rolesThisCourse}
-                            />
-                        </div>
-                        <div className={classes.usersTabsContainer}>
-                            <MyCourseUsersTabs
-                                students={courseDetails.students}
-                                teachers={courseDetails.teachers}
-                                thisCourseRoles={rolesThisCourse}
-                            />
-                        </div>
-                    </FetchingResult>
-                </LoadingLayer>
+        <>
+            <div className={classes.courseDetailContainerWrapper}>
+                <div className={classes.courseDetailContainer}>
+                    <LoadingLayer isLoading={fetchCourse.fetchingCourse.loading}>
+                        <FetchingResult error={fetchCourse.fetchingCourse.error}>
+                            <Title level={1}>{fetchCourse.courseDetails.name}</Title>
+                            <div className={classes.courseTopContainer}>
+                                <Title level={4} className={classes.title}>Основные данные курса</Title>
+                                {fetchCourse.rolesThisCourse.isTeacherOrAdminThisCourse ?
+                                    <MyButton className={classes.editButton} size="large">Редактировать</MyButton>
+                                    :
+                                    <></>
+                                }
+                            </div>
+                            <div>
+                                <List
+                                    className={classes.infoList}
+                                    bordered>
+                                    <List.Item className={classes.infoListItem}>
+                                        <div className={classes.topInfoListItem}>
+                                            <MyCourseInfoItem title={"Статус курса"} value={fetchCourse.courseDetails.status.message} style={{color: fetchCourse.courseDetails.status.color}} flex={"1"}/>
+                                            {fetchCourse.rolesThisCourse.isTeacherOrAdminThisCourse ?
+                                                <MyButton className={classes.editButton} size="large">Изменить</MyButton>
+                                                :
+                                                <></>
+                                            }
+                                            {fetchCourse.canSignUp ?
+                                                <MyButton className={classes.singUpButton} size="large">Записаться на курс</MyButton>
+                                                :
+                                                <></>
+                                            }
+                                        </div>
+                                    </List.Item>
+                                    <List.Item className={classes.infoListItem}>
+                                        <MyCourseInfoItem title={"Учебный год"} value={fetchCourse.courseDetails.yearStart} flex={"1"}/>
+                                        <MyCourseInfoItem title={"Семестр"} value={fetchCourse.courseDetails.semester.massage} flex={"1"}/>
+                                    </List.Item>
+                                    <List.Item className={classes.infoListItem}>
+                                        <MyCourseInfoItem title={"Всего мест"} value={fetchCourse.courseDetails.maximumStudentsCount} flex={"1"}/>
+                                        <MyCourseInfoItem title={"Студентов зачислено"} value={fetchCourse.courseDetails.acceptedStudents} flex={"1"}/>
+                                    </List.Item>
+                                    <List.Item className={classes.infoListItem}>
+                                        <MyCourseInfoItem title={"Заявок на рассмотрении"} value={fetchCourse.courseDetails.inQueueStudents} flex={"1"}/>
+                                    </List.Item>
+                                </List>
+                            </div>
+                            <div className={classes.infoTabsContainer}>
+                                <MyCourseInfoTabs
+                                    notifications={fetchCourse.courseDetails.notifications}
+                                    annotations={fetchCourse.courseDetails.annotations}
+                                    requirements={fetchCourse.courseDetails.requirements}
+                                    thisCourseRoles={fetchCourse.rolesThisCourse}
+                                />
+                            </div>
+                            <div className={classes.usersTabsContainer}>
+                                <MyCourseUsersTabs
+                                    students={fetchCourse.courseDetails.students}
+                                    teachers={fetchCourse.courseDetails.teachers}
+                                    thisCourseRoles={fetchCourse.rolesThisCourse}
+                                    showAddTeacherModal={addTeacherModal.showModal}
+                                />
+                            </div>
+                        </FetchingResult>
+                    </LoadingLayer>
+                </div>
             </div>
-        </div>
+            <MyModalFormAddTeacher
+                isOpen={addTeacherModal.isOpen}
+                cancelModalHandler={addTeacherModal.cancelModalHandler}
+                onFinishHandler={addTeacherModal.onFinishHandler}
+                modalForm={addTeacherModal.modalForm}
+                users={addTeacherModal.users}
+            />
+        </>
     );
 };
 

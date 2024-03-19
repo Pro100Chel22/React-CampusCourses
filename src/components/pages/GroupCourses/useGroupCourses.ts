@@ -8,16 +8,7 @@ import {actions} from "../../../store/reducers/GroupCoursesReducer/GroupCoursesS
 import {ICreateCourse, Semesters} from "../../../types/types";
 import {Modal} from "antd";
 import {createCourse} from "../../../store/reducers/GroupCoursesReducer/CreateCourseThunkCreator";
-
-export interface ICourseCreationModalForm {
-    name: string;
-    startYear: number;
-    maximumStudentsCount: number;
-    semester: Semesters;
-    requirements: string;
-    annotations: string;
-    mainTeacherId: string;
-}
+import {ICourseCreationModalForm} from "../../UI/MyModalFormGroupCreation/MyModalFormGroupCreation";
 
 export const useGroupCourses = () => {
     const {id} = useParams();
@@ -46,16 +37,6 @@ export const useGroupCourses = () => {
     };
 
     const courseCreationOnFinishHandler = (value: ICourseCreationModalForm) => {
-        // const createCourseRequest: ICreateCourse = {
-        //     name: value.name,
-        //     startYear: value.startYear,
-        //     maximumStudentsCount: value.maximumStudentsCount,
-        //     semester: value.semester,
-        //     requirements: value.requirements,
-        //     annotations: value.annotations,
-        //     mainTeacherId: value.mainTeacherId,
-        // }
-
         dispatch(createCourse({createCourseForm: value, groupId: id ?? ""}));
     };
 

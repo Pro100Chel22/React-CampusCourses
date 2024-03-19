@@ -12,9 +12,10 @@ export interface IMyCourseUsersTabs {
     students: IStudent[];
     teachers: ITeacher[];
     thisCourseRoles: IRolesThisCourse;
+    showAddTeacherModal: any;
 }
 
-const MyCourseUsersTabs: FC<IMyCourseUsersTabs> = ({students, teachers, thisCourseRoles}) => {
+const MyCourseUsersTabs: FC<IMyCourseUsersTabs> = ({students, teachers, thisCourseRoles, showAddTeacherModal}) => {
     const tabs = [
         {
             label: "Преподаватели",
@@ -22,7 +23,7 @@ const MyCourseUsersTabs: FC<IMyCourseUsersTabs> = ({students, teachers, thisCour
             children: (
                 <>
                     {thisCourseRoles.isMainTeacherOrAdminThisCourse ?
-                        <MyButton className={classes.addTeacherButton}>Добавить преподавателя</MyButton>
+                        <MyButton className={classes.addTeacherButton} onClick={showAddTeacherModal}>Добавить преподавателя</MyButton>
                         :
                         <></>
                     }

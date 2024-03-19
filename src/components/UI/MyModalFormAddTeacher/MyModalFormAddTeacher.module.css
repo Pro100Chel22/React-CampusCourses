@@ -1,0 +1,17 @@
+.addTeacherFormModal {
+
+}
+
+.addTeacherModalButtonContainer {
+    display: flex;
+    justify-content: end;
+    margin: 0;
+}
+
+.addTeacherButtonSave {
+    margin-left: 6px;
+}
+
+.addTeacherModalButtonCancel {
+
+}

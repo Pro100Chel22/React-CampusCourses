@@ -6,7 +6,6 @@ import {IErrorResponse, Semesters} from "../../../types/types";
 import {semesters} from "../../consts/consts";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import {ICourseCreationModalForm} from "../../pages/GroupCourses/useGroupCourses";
 import {
     courseNameRules,
     mainTeacherIdRules,
@@ -26,6 +25,16 @@ export interface IMyModalFormGroupCreation {
     cancelModalHandler: any;
     courseOnFinishHandler: any;
     modalForm: FormInstance<ICourseCreationModalForm>;
+}
+
+export interface ICourseCreationModalForm {
+    name: string;
+    startYear: number;
+    maximumStudentsCount: number;
+    semester: Semesters;
+    requirements: string;
+    annotations: string;
+    mainTeacherId: string;
 }
 
 const MyModalFormGroupCreation: FC<IMyModalFormGroupCreation> = ({modalCourseCreation, cancelModalHandler, courseOnFinishHandler, modalForm}) => {
