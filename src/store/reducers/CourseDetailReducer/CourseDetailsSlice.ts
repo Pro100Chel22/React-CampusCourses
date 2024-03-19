@@ -2,6 +2,15 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {ICourseDetails, IErrorResponse, IUser} from "../../../types/types";
 import {courseDetailsReducers} from "./GetCourseDetailsThunkCreator";
 import {addTeacherToCourseReducers} from "./AddTeacherToCourseThunkCreator";
+import {createNotificationReducers} from "./CreateNotificationThunkCreator";
+import {changeCourseStatusReducers} from "./ChangeStatusThunkCreator";
+import {deleteCourseReducers} from "./DeleteCourseThunkCreator";
+
+export enum courseModalType {
+    addTeacher,
+    createNotification,
+    changeCourseStatus,
+}
 
 export interface ICourseDetailsState {
     fetchingCourse: {
@@ -9,10 +18,10 @@ export interface ICourseDetailsState {
         error: IErrorResponse | null;
         usersForAddTeacher: IUser [];
     }
-    modalAddTeacher: {
+    modal: {
         loading: boolean;
         error: IErrorResponse | null;
-        isOpen: boolean;
+        modalTypeOpen: courseModalType | null;
     };
     course: ICourseDetails | null;
 }
@@ -23,16 +32,16 @@ const initialState: ICourseDetailsState = {
         error: null,
         usersForAddTeacher: [],
     },
-    modalAddTeacher: {
+    modal: {
         loading: false,
         error: null,
-        isOpen: false,
+        modalTypeOpen: null,
     },
     course: null,
 }
 
 export interface IAddTeacherModal {
-    isOpen: boolean;
+    modalTypeOpen: courseModalType | null;
 }
 
 export const courseDetailsSlice = createSlice({
@@ -40,12 +49,15 @@ export const courseDetailsSlice = createSlice({
     initialState,
     reducers: {
         setCourseCreationModal: (state, action: PayloadAction<IAddTeacherModal>) => {
-            state.modalAddTeacher.isOpen = action.payload.isOpen;
+            state.modal.modalTypeOpen = action.payload.modalTypeOpen;
         }
     },
     extraReducers: builder => {
         courseDetailsReducers(builder);
         addTeacherToCourseReducers(builder);
+        createNotificationReducers(builder);
+        changeCourseStatusReducers(builder);
+        deleteCourseReducers(builder);
     },
 });
 

@@ -1,9 +1,9 @@
 import React, {FC} from 'react';
 import {Form, FormInstance, Input, Modal} from "antd";
 import classes from "./MyModalFormGroup.module.css";
-import {groupNameRules} from "../../pages/Groups/Validations";
-import MyButton from "../MyButton/MyButton";
-import {IErrorResponse, IGroup} from "../../../types/types";
+import {groupNameRules} from "../../../pages/Groups/Validations";
+import MyButton from "../../MyButton/MyButton";
+import {IErrorResponse, IGroup} from "../../../../types/types";
 
 export interface IGroupModalForm {
     groupName: string

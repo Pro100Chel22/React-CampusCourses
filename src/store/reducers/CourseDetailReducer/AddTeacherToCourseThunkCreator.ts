@@ -12,22 +12,22 @@ export interface IAddTeacherToCourse {
 
 export const addTeacherToCourseReducers = (builder: ActionReducerMapBuilder<ICourseDetailsState>) => {
     builder.addCase(addTeacherToCourse.pending.type, (state) => {
-        state.modalAddTeacher.loading = true;
-        state.modalAddTeacher.error = null;
+        state.modal.loading = true;
+        state.modal.error = null;
 
         customNotifications.loading({massage: 'Добавление преподавателя...', key: 'addTeacher'});
     });
     builder.addCase(addTeacherToCourse.fulfilled.type, (state, action: PayloadAction<ICourseDetails>) => {
-        state.modalAddTeacher.loading = false;
-        state.modalAddTeacher.error = null;
-        state.modalAddTeacher.isOpen = false;
+        state.modal.loading = false;
+        state.modal.error = null;
+        state.modal.modalTypeOpen = null;
         state.course = action.payload;
 
         customNotifications.success({massage: 'Успешное добавление преподавателя!', key: 'addTeacher'});
     });
     builder.addCase(addTeacherToCourse.rejected.type, (state, action: PayloadAction<IErrorResponse>) => {
-        state.modalAddTeacher.loading = false;
-        state.modalAddTeacher.error = action.payload;
+        state.modal.loading = false;
+        state.modal.error = action.payload;
 
         let message = "Произошла неизвестная ошибка!";
         if(action.payload.status === 400) {

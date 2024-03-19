@@ -1,6 +1,6 @@
 import {useRef} from "react";
 import ReactQuill from "react-quill";
-import {useAppSelector} from "../../../hooks/redux";
+import {useAppSelector} from "../../../../hooks/redux";
 
 const quillModules  = {
     toolbar: [

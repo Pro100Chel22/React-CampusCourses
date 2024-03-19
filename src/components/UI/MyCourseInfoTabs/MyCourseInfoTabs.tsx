@@ -13,9 +13,10 @@ export interface IMyCourseInfoTabs {
     requirements: string;
     annotations: string;
     thisCourseRoles: any;
+    showCreateNotificationModal: any;
 }
 
-const MyCourseInfoTabs: FC<IMyCourseInfoTabs> = ({notifications, requirements, annotations, thisCourseRoles}) => {
+const MyCourseInfoTabs: FC<IMyCourseInfoTabs> = ({notifications, requirements, annotations, thisCourseRoles, showCreateNotificationModal}) => {
     const tabs = [
         {
             label: "Требования к курсу",
@@ -33,7 +34,7 @@ const MyCourseInfoTabs: FC<IMyCourseInfoTabs> = ({notifications, requirements, a
             children: (
                 <>
                     {thisCourseRoles.isTeacherOrAdminThisCourse?
-                        <MyButton className={classes.createNotificationButton}>Создать уведомление</MyButton>
+                        <MyButton className={classes.createNotificationButton} onClick={showCreateNotificationModal}>Создать уведомление</MyButton>
                         :
                         <></>
                     }

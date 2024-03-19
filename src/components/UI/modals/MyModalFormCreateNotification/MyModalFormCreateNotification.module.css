@@ -1,0 +1,17 @@
+.createNotificationFormModal {
+
+}
+
+.createNotificationModalButtonContainer {
+    display: flex;
+    justify-content: end;
+    margin: 0;
+}
+
+.createNotificationButtonSave {
+    margin-left: 6px;
+}
+
+.createNotificationModalButtonCancel {
+
+}

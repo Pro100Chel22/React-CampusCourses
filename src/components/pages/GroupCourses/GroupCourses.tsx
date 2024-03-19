@@ -6,7 +6,7 @@ import MyButton from "../../UI/MyButton/MyButton";
 import FetchingResult from "../../hoc/FetchingResult";
 import LoadingLayer from "../../hoc/LoadingLayer";
 import MyCoursesList from "../../UI/MyCoursesList/MyCoursesList";
-import MyModalFormGroupCreation from "../../UI/MyModalFormGroupCreation/MyModalFormGroupCreation";
+import MyModalFormGroupCreation from "../../UI/modals/MyModalFormGroupCreation/MyModalFormGroupCreation";
 
 const {Title} = Typography;
 

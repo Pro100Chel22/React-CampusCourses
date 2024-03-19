@@ -1,13 +1,14 @@
 import React, {FC} from 'react';
 import classes from './MyModalFormAddTeacher.module.css';
 import {Form, FormInstance, Modal, Select} from "antd";
-import MyButton from "../MyButton/MyButton";
-import {Rule} from "antd/lib/form";
-import {IUser} from "../../../types/types";
+import MyButton from "../../MyButton/MyButton";
+import {IUser} from "../../../../types/types";
 import {useMyModalFormAddTeacher} from "./useMyModalFormAddTeacher";
+import {courseModalType} from "../../../../store/reducers/CourseDetailReducer/CourseDetailsSlice";
+import {teacherIdRules} from "./Validations";
 
 export interface IMyModalFormAddTeacher {
-    isOpen: boolean;
+    modalTypeOpen: courseModalType | null;
     cancelModalHandler: any;
     onFinishHandler: any;
     modalForm: FormInstance<IFormAddTeacher>;
@@ -18,14 +19,7 @@ export interface IFormAddTeacher {
     teacherId: string;
 }
 
-export const teacherIdRules: Rule[] = [
-    {
-        required: true,
-        message: 'Выберите основного учителя',
-    }
-];
-
-const MyModalFormAddTeacher: FC<IMyModalFormAddTeacher> = ({isOpen, cancelModalHandler, onFinishHandler, modalForm, users}) => {
+const MyModalFormAddTeacher: FC<IMyModalFormAddTeacher> = ({modalTypeOpen, cancelModalHandler, onFinishHandler, modalForm, users}) => {
     const {customFilterOption  } = useMyModalFormAddTeacher();
 
     const title = "Добавление преподавателя на курс";
@@ -35,7 +29,7 @@ const MyModalFormAddTeacher: FC<IMyModalFormAddTeacher> = ({isOpen, cancelModalH
         <>
             <Modal
                 centered
-                open={isOpen}
+                open={modalTypeOpen === courseModalType.addTeacher}
                 footer={false}
                 onCancel={cancelModalHandler}
                 title={title}

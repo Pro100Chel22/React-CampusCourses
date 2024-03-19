@@ -9,12 +9,21 @@ import MyCourseInfoTabs from "../../UI/MyCourseInfoTabs/MyCourseInfoTabs";
 import FetchingResult from '../../hoc/FetchingResult';
 import LoadingLayer from '../../hoc/LoadingLayer';
 import MyCourseUsersTabs from "../../UI/MyCourseUsersTabs/MyCourseUsersTabs";
-import MyModalFormAddTeacher from "../../UI/MyModalFormAddTeacher/MyModalFormAddTeacher";
+import MyModalFormAddTeacher from "../../UI/modals/MyModalFormAddTeacher/MyModalFormAddTeacher";
+import MyModalFormCreateNotification from "../../UI/modals/MyModalFormCreateNotification/MyModalFormCreateNotification";
+import MyModalFormChangeStatus from "../../UI/modals/MyModalFormChangeStatus/MyModalFormChangeStatus";
 
 const {Title} = Typography;
 
 const CourseDetail = () => {
-    const {fetchCourse, addTeacherModal} = useCourseDetail();
+    const {
+        fetchCourse,
+        addTeacherModal,
+        creatNotification,
+        changeCourseStatus,
+        modalTypeOpen,
+        deleteCourse,
+    } = useCourseDetail();
 
     console.log("CourseDetail update!");
 
@@ -27,11 +36,18 @@ const CourseDetail = () => {
                             <Title level={1}>{fetchCourse.courseDetails.name}</Title>
                             <div className={classes.courseTopContainer}>
                                 <Title level={4} className={classes.title}>Основные данные курса</Title>
-                                {fetchCourse.rolesThisCourse.isTeacherOrAdminThisCourse ?
-                                    <MyButton className={classes.editButton} size="large">Редактировать</MyButton>
-                                    :
-                                    <></>
-                                }
+                                <div>
+                                    {fetchCourse.rolesThisCourse.isTeacherOrAdminThisCourse ?
+                                        <MyButton className={classes.editButton} size="large">Редактировать</MyButton>
+                                        :
+                                        <></>
+                                    }
+                                    {fetchCourse.rolesThisCourse.isAdmin ?
+                                        <MyButton className={classes.deleteButton} size="large" onClick={deleteCourse}>Удалить</MyButton>
+                                        :
+                                        <></>
+                                    }
+                                </div>
                             </div>
                             <div>
                                 <List
@@ -41,7 +57,7 @@ const CourseDetail = () => {
                                         <div className={classes.topInfoListItem}>
                                             <MyCourseInfoItem title={"Статус курса"} value={fetchCourse.courseDetails.status.message} style={{color: fetchCourse.courseDetails.status.color}} flex={"1"}/>
                                             {fetchCourse.rolesThisCourse.isTeacherOrAdminThisCourse ?
-                                                <MyButton className={classes.editButton} size="large">Изменить</MyButton>
+                                                <MyButton className={classes.editButton} size="large" onClick={changeCourseStatus.showModal}>Изменить</MyButton>
                                                 :
                                                 <></>
                                             }
@@ -71,6 +87,7 @@ const CourseDetail = () => {
                                     annotations={fetchCourse.courseDetails.annotations}
                                     requirements={fetchCourse.courseDetails.requirements}
                                     thisCourseRoles={fetchCourse.rolesThisCourse}
+                                    showCreateNotificationModal={creatNotification.showModal}
                                 />
                             </div>
                             <div className={classes.usersTabsContainer}>
@@ -86,11 +103,24 @@ const CourseDetail = () => {
                 </div>
             </div>
             <MyModalFormAddTeacher
-                isOpen={addTeacherModal.isOpen}
+                modalTypeOpen={modalTypeOpen}
                 cancelModalHandler={addTeacherModal.cancelModalHandler}
                 onFinishHandler={addTeacherModal.onFinishHandler}
                 modalForm={addTeacherModal.modalForm}
                 users={addTeacherModal.users}
+            />
+            <MyModalFormCreateNotification
+                modalTypeOpen={modalTypeOpen}
+                cancelModalHandler={creatNotification.cancelModalHandler}
+                onFinishHandler={creatNotification.onFinishHandler}
+                modalForm={creatNotification.modalForm}
+            />
+            <MyModalFormChangeStatus
+                modalTypeOpen={modalTypeOpen}
+                cancelModalHandler={changeCourseStatus.cancelModalHandler}
+                onFinishHandler={changeCourseStatus.onFinishHandler}
+                modalForm={changeCourseStatus.modalForm}
+                startValue={changeCourseStatus.startValue}
             />
         </>
     );

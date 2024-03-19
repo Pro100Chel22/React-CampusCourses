@@ -40,6 +40,11 @@
     background: #e1a522 !important;
 }
 
+.deleteButton {
+    margin-left: 5px;
+    background: #e12222 !important;
+}
+
 .singUpButton {
     background: #12b444 !important;
     margin-left: 5px;

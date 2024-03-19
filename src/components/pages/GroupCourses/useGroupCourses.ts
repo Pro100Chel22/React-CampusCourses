@@ -8,7 +8,7 @@ import {actions} from "../../../store/reducers/GroupCoursesReducer/GroupCoursesS
 import {ICreateCourse, Semesters} from "../../../types/types";
 import {Modal} from "antd";
 import {createCourse} from "../../../store/reducers/GroupCoursesReducer/CreateCourseThunkCreator";
-import {ICourseCreationModalForm} from "../../UI/MyModalFormGroupCreation/MyModalFormGroupCreation";
+import {ICourseCreationModalForm} from "../../UI/modals/MyModalFormGroupCreation/MyModalFormGroupCreation";
 
 export const useGroupCourses = () => {
     const {id} = useParams();

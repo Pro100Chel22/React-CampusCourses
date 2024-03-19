@@ -1,9 +1,9 @@
 import React, {FC} from 'react';
 import classes from './MyModalFormGroupCreation.module.css'
 import {Form, FormInstance, Input, InputNumber, Modal, Radio, Select} from "antd";
-import MyButton from "../MyButton/MyButton";
-import {IErrorResponse, Semesters} from "../../../types/types";
-import {semesters} from "../../consts/consts";
+import MyButton from "../../MyButton/MyButton";
+import {IErrorResponse, Semesters} from "../../../../types/types";
+import {semesters} from "../../../consts/consts";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import {

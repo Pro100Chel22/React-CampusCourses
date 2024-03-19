@@ -4,7 +4,7 @@ import MyButton from "../../UI/MyButton/MyButton";
 import MyGroupItem from "../../UI/MyGroupItem/MyGroupItem";
 import classes from './Groups.module.css'
 import {useGroups} from "./useGroups";
-import MyModalFormGroup, {ModalGroupType} from "../../UI/MyModalFormGroup/MyModalFormGroup";
+import MyModalFormGroup, {ModalGroupType} from "../../UI/modals/MyModalFormGroup/MyModalFormGroup";
 import FetchingResult from "../../hoc/FetchingResult";
 
 const {Title} = Typography;
