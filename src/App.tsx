@@ -12,6 +12,7 @@ import RequireNotAuth from "./components/hoc/RequireNotAuth";
 import {useAppDispatch} from "./hooks/redux";
 import Profile from "./components/pages/Profile/Profile";
 import {checkAuth} from "./store/reducers/UserReducer/CheckAuthThunkCreater";
+import NotFound from "./components/pages/NotFound/NotFound";
 
 const App = () => {
     const dispatch = useAppDispatch();
@@ -45,6 +46,7 @@ const App = () => {
                     <Route path="registration" element={<RequireNotAuth><Registration/></RequireNotAuth>}/>
                     <Route path="login" element={<RequireNotAuth><Login/></RequireNotAuth>}/>
                     <Route path="profile" element={<RequireAuth><Profile/></RequireAuth>}/>
+                    <Route path="*" element={<NotFound/>}/>
                 </Route>
             </Routes>
         </div>
