@@ -44,6 +44,11 @@ const setStatus = async (courseId: string, studentId: string, status: StudentSta
     });
 }
 
+const signUpToCourse = async (courseId: string):  Promise<AxiosPromise> => {
+    return axios.post(`courses/${courseId}/sign-up`);
+}
+
+
 export const CourseDetailService = {
     courseDetails,
     addTeacherToCourse,
@@ -52,4 +57,5 @@ export const CourseDetailService = {
     deleteCourse,
     setMarks,
     setStatus,
+    signUpToCourse,
 }

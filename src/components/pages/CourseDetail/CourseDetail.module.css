@@ -46,8 +46,8 @@
 }
 
 .singUpButton {
-    background: #12b444 !important;
     margin-left: 5px;
+    background: #12b444 !important;
 }
 
 .topInfoListItem {
@@ -55,9 +55,23 @@
     display: flex;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 520px) {
+    .courseTopContainer {
+        display: block;
+    }
+
+    .deleteButton {
+        margin-left: 0;
+        background: #e12222 !important;
+    }
+
     .topInfoListItem {
         display: block;
+    }
+
+    .editButton {
+        margin-right: 5px;
+        margin-top: 5px;
     }
 
     .singUpButton {

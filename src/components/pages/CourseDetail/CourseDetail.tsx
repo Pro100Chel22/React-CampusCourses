@@ -25,6 +25,7 @@ const CourseDetail = () => {
         modalTypeOpen,
         editMark,
         editStatus,
+        signUp,
         deleteCourse,
     } = useCourseDetail();
 
@@ -65,7 +66,7 @@ const CourseDetail = () => {
                                                 <></>
                                             }
                                             {fetchCourse.canSignUp ?
-                                                <MyButton className={classes.singUpButton} size="large">Записаться на курс</MyButton>
+                                                <MyButton className={classes.singUpButton} size="large" onClick={signUp.do} disabled={signUp.loading}>Записаться на курс</MyButton>
                                                 :
                                                 <></>
                                             }

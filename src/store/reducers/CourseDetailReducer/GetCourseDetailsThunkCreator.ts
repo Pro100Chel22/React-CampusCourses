@@ -1,6 +1,6 @@
 import {ActionReducerMapBuilder, createAsyncThunk, PayloadAction} from "@reduxjs/toolkit";
 import {ICourseDetailsState} from "./CourseDetailsSlice";
-import {ICourseDetails, IErrorResponse, IUser} from "../../../types/types";
+import {ICourse, ICourseDetails, IErrorResponse, IUser} from "../../../types/types";
 import {CourseDetailService} from "../../../requests/CourseDetailService";
 import {AxiosError} from "axios";
 import {CoursesService} from "../../../requests/CoursesService";
@@ -14,6 +14,7 @@ export const courseDetailsReducers = (builder: ActionReducerMapBuilder<ICourseDe
         state.fetchingCourse.loading = false;
         state.fetchingCourse.error = null;
         state.course = action.payload.course;
+        state.myCourse = action.payload.myCourses;
         state.fetchingCourse.usersForAddTeacher = action.payload.users;
     });
     builder.addCase(getCourseDetails.rejected.type, (state, action: PayloadAction<IErrorResponse>) => {
@@ -29,6 +30,7 @@ export interface IGetCourseDetails {
 
 export interface IGetCourseDetailsResponse {
     course: ICourseDetails;
+    myCourses: ICourse [];
     users: IUser[];
 }
 
@@ -37,15 +39,15 @@ export const getCourseDetails = createAsyncThunk(
     async (request: IGetCourseDetails, thunkAPI) => {
         try {
             const responseCourse = await CourseDetailService.courseDetails(request.courseId);
+            const responseMyCourses = await CoursesService.myCourses();
 
             let responseUsers: IUser[] = [];
             if(request.loadUsers) {
                 responseUsers = (await CoursesService.usersForCourseCreation()).data;
             }
+            console.log({course: responseCourse.data, myCourses: responseMyCourses.data, users: responseUsers});
 
-            console.log({course: responseCourse.data, users: responseUsers});
-
-            return {course: responseCourse.data, users: responseUsers};
+            return {course: responseCourse.data, myCourses: responseMyCourses.data, users: responseUsers};
         } catch (error) {
             const err = error as AxiosError;
             return thunkAPI.rejectWithValue({status: err.response?.status, massage: ""});

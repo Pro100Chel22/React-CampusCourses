@@ -17,11 +17,13 @@ import {deleteCourseDetail} from "../../../store/reducers/CourseDetailReducer/De
 import {IFormEditStudentMarks} from "../../UI/modals/MyModalFormEditStudentMarks/MyModalFormEditStudentMarks";
 import {editStudentMark} from "../../../store/reducers/CourseDetailReducer/EditStudentMarkThunkCreator";
 import {editStudentStatus} from "../../../store/reducers/CourseDetailReducer/EditStudentStatusThunkCreator";
+import {signUpToCourse} from "../../../store/reducers/CourseDetailReducer/SignUpToCourseThunkCreator";
 
 export interface IRolesThisCourse {
     isTeacherOrAdminThisCourse: boolean;
     isMainTeacherOrAdminThisCourse: boolean;
     isStudentThisCourse: boolean;
+    isOnlyTeacherThisCourse: boolean;
     isAdmin: boolean;
     userEmail: string;
 }
@@ -32,7 +34,9 @@ export const useCourseDetail = () => {
         fetchingCourse,
         modal,
         editingStudentMark,
-        editingStudentStatus
+        editingStudentStatus,
+        myCourse,
+        signUpingToCourse,
     } = useAppSelector(state => state.courseDetailReducer);
     const dispatch = useAppDispatch();
     const {id} = useParams();
@@ -46,12 +50,13 @@ export const useCourseDetail = () => {
     const rolesThisCourse: IRolesThisCourse = {
         isTeacherOrAdminThisCourse: !!course?.teachers.find(teacher => teacher.email === profile?.email) || roles.isAdmin,
         isMainTeacherOrAdminThisCourse: !!course?.teachers.find(teacher => teacher.email === profile?.email && teacher.isMain) || roles.isAdmin,
-        isStudentThisCourse: !!course?.students.find(student => student.email === profile?.email),
+        isStudentThisCourse: !!myCourse.find(course => course.id === id),
+        isOnlyTeacherThisCourse: !!course?.teachers.find(teacher => teacher.email === profile?.email),
         isAdmin: roles.isAdmin,
         userEmail: profile?.email ?? "",
     }
     const fetchCourse = {
-        canSignUp: course?.status === CourseStatuses.OpenForAssigning && !rolesThisCourse.isStudentThisCourse && !rolesThisCourse.isTeacherOrAdminThisCourse,
+        canSignUp: course?.status === CourseStatuses.OpenForAssigning && !rolesThisCourse.isStudentThisCourse && !rolesThisCourse.isOnlyTeacherThisCourse,
         courseDetails: courseToCourseDetail(course),
         rolesThisCourse,
         fetchingCourse,
@@ -133,6 +138,12 @@ export const useCourseDetail = () => {
         loading: editingStudentStatus.loading,
         courseId: id ?? "",
     };
+    const signUp = {
+        do: () => {
+            dispatch(signUpToCourse(id ?? ""));
+        },
+        loading: signUpingToCourse.loading,
+    }
 
     const deleteCourse = () => {
         dispatch(deleteCourseDetail({courseId: id ?? "", callbackRedirect: () => { navigate("/groups"); }}))
@@ -142,7 +153,7 @@ export const useCourseDetail = () => {
         dispatch(getCourseDetails({courseId: id ?? "", loadUsers: rolesThisCourse.isMainTeacherOrAdminThisCourse}));
     }, []);
 
-    return {fetchCourse, addTeacherModal, creatNotification, changeCourseStatus, editMark, editStatus, deleteCourse, modalTypeOpen: modal.modalTypeOpen,};
+    return {fetchCourse, addTeacherModal, creatNotification, changeCourseStatus, editMark, editStatus, signUp, deleteCourse, modalTypeOpen: modal.modalTypeOpen,};
 }
 
 const courseToCourseDetail = (course: ICourseDetails | null) => {
@@ -153,7 +164,7 @@ const courseToCourseDetail = (course: ICourseDetails | null) => {
         semester: semesters[course?.semester ?? "Autumn"],
         maximumStudentsCount: course?.maximumStudentsCount.toString() ?? "",
         acceptedStudents: course?.students.filter(student => student.status === StudentStatuses.Accepted).length.toString() ?? "",
-        inQueueStudents: course?.students.filter(student => student.status !== StudentStatuses.InQueue).length.toString() ?? "",
+        inQueueStudents: course?.students.filter(student => student.status === StudentStatuses.InQueue).length.toString() ?? "",
         notifications: [...(course?.notifications ?? [])].reverse(),
         requirements: course?.requirements ?? "",
         annotations: course?.annotations ?? "",

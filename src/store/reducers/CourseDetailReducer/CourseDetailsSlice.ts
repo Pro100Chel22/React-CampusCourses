@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {ICourseDetails, IErrorResponse, IUser, MarkType, StudentMarks} from "../../../types/types";
+import {ICourse, ICourseDetails, IErrorResponse, IUser, MarkType, StudentMarks} from "../../../types/types";
 import {courseDetailsReducers} from "./GetCourseDetailsThunkCreator";
 import {addTeacherToCourseReducers} from "./AddTeacherToCourseThunkCreator";
 import {createNotificationReducers} from "./CreateNotificationThunkCreator";
@@ -7,6 +7,7 @@ import {changeCourseStatusReducers} from "./ChangeStatusThunkCreator";
 import {deleteCourseReducers} from "./DeleteCourseThunkCreator";
 import {editStudentMarkReducers} from "./EditStudentMarkThunkCreator";
 import {editStudentStatusReducers} from "./EditStudentStatusThunkCreator";
+import {signUpToCourseReducers} from "./SignUpToCourseThunkCreator";
 
 export enum courseModalType {
     addTeacher,
@@ -36,7 +37,12 @@ export interface ICourseDetailsState {
         loading: boolean;
         error: IErrorResponse | null;
     };
+    signUpingToCourse: {
+        loading: boolean;
+        error: IErrorResponse | null;
+    }
     course: ICourseDetails | null;
+    myCourse: ICourse [];
 }
 
 const initialState: ICourseDetailsState = {
@@ -59,7 +65,12 @@ const initialState: ICourseDetailsState = {
         loading: false,
         error: null,
     },
+    signUpingToCourse: {
+        loading: false,
+        error: null,
+    },
     course: null,
+    myCourse: [],
 }
 
 export interface IModal {
@@ -96,6 +107,7 @@ export const courseDetailsSlice = createSlice({
         deleteCourseReducers(builder);
         editStudentMarkReducers(builder);
         editStudentStatusReducers(builder);
+        signUpToCourseReducers(builder);
     },
 });
 

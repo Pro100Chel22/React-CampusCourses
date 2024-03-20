@@ -7,6 +7,10 @@
     text-align: center;
 }
 
+.badgeWidth {
+  min-width: 30px;
+}
+
 @media (min-width: 455px) {
     .ant-tabs-nav-operations {
         display: none !important;

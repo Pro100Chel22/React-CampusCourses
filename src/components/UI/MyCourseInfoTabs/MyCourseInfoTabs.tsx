@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {Tabs} from "antd";
+import {Badge, Tabs} from "antd";
 import MyButton from "../MyButton/MyButton";
 import classes from "./MyCourseInfoTabs.module.css"
 import './MyCourseInfoTabs.css'
@@ -17,6 +17,9 @@ export interface IMyCourseInfoTabs {
 }
 
 const MyCourseInfoTabs: FC<IMyCourseInfoTabs> = ({notifications, requirements, annotations, thisCourseRoles, showCreateNotificationModal}) => {
+    const countImportantNotification =
+        notifications.filter(notification => notification.isImportant).length;
+
     const tabs = [
         {
             label: "Требования к курсу",
@@ -29,7 +32,7 @@ const MyCourseInfoTabs: FC<IMyCourseInfoTabs> = ({notifications, requirements, a
             children: ReactHtmlParser(annotations),
         },
         {
-            label: "Уведомления",
+            label:  (<>Уведомления <Badge count={countImportantNotification} className={classes.badgeWidth}/></>),
             key: "3",
             children: (
                 <>

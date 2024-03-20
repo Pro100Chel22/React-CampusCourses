@@ -23,7 +23,13 @@ export const editStudentStatusReducers = (builder: ActionReducerMapBuilder<ICour
         state.editingStudentStatus.loading = false;
         state.editingStudentStatus.error = action.payload;
 
-        customNotifications.error({massage: 'Произошла неизвестная ошибка!', key: 'editStatus'});
+        let message = "Произошла неизвестная ошибка!";
+        if(action.payload.massage === "Maximum student count reached.") {
+            message = "Все места в этом курсе уже заняты!";
+        }
+        console.log(action.payload.massage)
+
+        customNotifications.error({massage: message, key: 'editStatus'});
     });
 }
 
@@ -43,7 +49,9 @@ export const editStudentStatus = createAsyncThunk(
             return responseCourse.data;
         } catch (error) {
             const err = error as AxiosError;
-            return thunkAPI.rejectWithValue({status: err.response?.status, massage: ""});
+            console.log(err);
+            // @ts-ignore
+            return thunkAPI.rejectWithValue({status: err.response?.status, massage: err.response?.data?.message});
         }
     }
 );
