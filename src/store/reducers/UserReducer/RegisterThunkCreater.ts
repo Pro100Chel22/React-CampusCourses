@@ -2,15 +2,15 @@ import {ActionReducerMapBuilder, createAsyncThunk, PayloadAction} from "@reduxjs
 import {IErrorResponse, IRegistration, ITokenResponse} from "../../../types/types";
 import {UserService} from "../../../requests/UserService";
 import {AxiosError} from "axios";
-import {message} from "antd";
 import {IUserState} from "./UserSlice";
+import {customNotifications} from "../../../notifications/Notifications";
 
 export const registerReducers = (builder: ActionReducerMapBuilder<IUserState>) => {
     builder.addCase(register.pending.type, (state) => {
         state.registrationLoading = true;
         state.error = null;
 
-        message.open({duration: 0, type: 'loading', content: 'Отправка формы...', key: "registration"});
+        customNotifications.loading({massage: 'Отправка формы...', key: 'registration'});
     });
     builder.addCase(register.fulfilled.type, (state, action: PayloadAction<ITokenResponse>) => {
         state.registrationLoading = false;
@@ -18,7 +18,7 @@ export const registerReducers = (builder: ActionReducerMapBuilder<IUserState>) =
         state.token = action.payload.token;
         localStorage.setItem("token", action.payload.token);
 
-        message.open({duration: 3, type: 'info', content: "Регистрация прошла успешно!", key: "registration"});
+        customNotifications.success({massage: 'Регистрация прошла успешно!', key: 'registration'});
     });
     builder.addCase(register.rejected.type, (state, action: PayloadAction<IErrorResponse>) => {
         state.registrationLoading = false;
@@ -28,7 +28,7 @@ export const registerReducers = (builder: ActionReducerMapBuilder<IUserState>) =
         if(action.payload.status === 409) {
             errorMessage = "Пользователь с таким email уже существует!";
         }
-        message.open({duration: 3, type: 'error', content: errorMessage, key: "registration"});
+        customNotifications.error({massage: errorMessage, key: 'registration'});
     });
 }
 

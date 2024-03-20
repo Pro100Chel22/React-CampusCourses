@@ -1,33 +1,45 @@
 import {ActionReducerMapBuilder, createAsyncThunk, PayloadAction} from "@reduxjs/toolkit";
 import {IUserState} from "./UserSlice";
-import {message} from "antd";
 import {IErrorResponse} from "../../../types/types";
-import {thunkSelector} from "../../../hooks/redux";
 import {UserService} from "../../../requests/UserService";
 import {AxiosError} from "axios";
+import {customNotifications} from "../../../notifications/Notifications";
 
 export const logoutReducers = (builder: ActionReducerMapBuilder<IUserState>) => {
     builder.addCase(logout.pending.type, (state) => {
         state.error = null;
 
-        message.open({duration: 0, type: 'loading', content: 'Выход с аккаунта...', key: "logout"});
+        customNotifications.loading({massage: 'Выход с аккаунта...', key: 'logout'});
     });
     builder.addCase(logout.fulfilled.type, (state, action: PayloadAction<string>) => {
         state.error = null;
         state.token = null;
+        state.profile = null;
+        state.roles = {
+            isTeacher: false,
+            isStudent: false,
+            isAdmin: false
+        };
         localStorage.removeItem("token");
 
-        message.open({duration: 3, type: 'info', content: "Выход выполнен!", key: "logout"});
+        customNotifications.success({massage: 'Выход выполнен!', key: 'logout'});
     });
     builder.addCase(logout.rejected.type, (state, action: PayloadAction<IErrorResponse>) => {
         state.error = action.payload;
 
         if(action.payload.status === 401) {
             state.token = null;
+            state.profile = null;
+            state.roles = {
+                isTeacher: false,
+                isStudent: false,
+                isAdmin: false
+            };
             localStorage.removeItem("token");
+            customNotifications.destroy('logout');
         }
         else {
-            message.open({duration: 3, type: 'error', content: "Произошла неизвестная ошибка!", key: "logout"});
+            customNotifications.error({massage: 'Произошла неизвестная ошибка!', key: 'logout'});
         }
     });
 }
@@ -35,10 +47,8 @@ export const logoutReducers = (builder: ActionReducerMapBuilder<IUserState>) => 
 export const logout = createAsyncThunk(
     'user/logout',
     async (_, thunkAPI) => {
-        const token = thunkSelector(thunkAPI).userReducer.token ?? "";
-
         try {
-            const response = await UserService.logout(token);
+            const response = await UserService.logout();
             return response.data;
         } catch (error) {
             const err = error as AxiosError;

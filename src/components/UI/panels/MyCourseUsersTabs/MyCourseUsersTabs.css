@@ -1,0 +1,5 @@
+@media (min-width: 280px) {
+    .myCourseUsersTabs > .ant-tabs-nav > .ant-tabs-nav-operations {
+        display: none !important;
+    }
+}

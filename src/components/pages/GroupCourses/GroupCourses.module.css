@@ -1,0 +1,13 @@
+.coursesContainer {
+    width: 100%;
+    max-width: 900px;
+}
+
+.coursesContainerWrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.courseButtonCreate {
+    margin-bottom: 15px;
+}

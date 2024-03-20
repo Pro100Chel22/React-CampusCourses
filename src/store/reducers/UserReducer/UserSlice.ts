@@ -1,9 +1,11 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {IErrorResponse, IRoles, IUserProfile} from "../../../types/types";
 import {registerReducers} from "./RegisterThunkCreater";
 import {loginReducers} from "./LoginThunkCreater";
 import {logoutReducers} from "./LogoutThunkCreater";
-import {profileReducers} from "./CheckAuthThunkCreater";
+import {checkAuthReducers} from "./CheckAuthThunkCreater";
+import {editProfileReducers} from "./EditProfileThunkCreater";
+import {IModalGroup} from "../GroupsReducer/GroupsSlice";
 
 export interface IUserState {
     profile: IUserProfile | null;
@@ -11,6 +13,7 @@ export interface IUserState {
     checkingAuth: boolean;
     registrationLoading: boolean;
     loginLoading: boolean;
+    editLoading: boolean;
     error: IErrorResponse | null;
     token: string | null; // если токен есть и не идет проверка авторизации, то пользователь авторизован, если нет токена - не авторизова, если есть токен и идет проварка, то нужно додаться окончание проверки
 }
@@ -20,6 +23,7 @@ const initialState: IUserState = {
     checkingAuth: true,
     registrationLoading: false,
     loginLoading: false,
+    editLoading: false,
     error: null,
     token: localStorage.getItem("token"),
     roles: {
@@ -38,13 +42,26 @@ const initialState: IUserState = {
 export const userSlice = createSlice({
     name: "user",
     initialState,
-    reducers: {},
+    reducers: {
+        localLogout(state) {
+            state.token = null;
+            state.profile = null;
+            state.roles = {
+                isTeacher: false,
+                isStudent: false,
+                isAdmin: false
+            };
+            localStorage.removeItem("token");
+        }
+    },
     extraReducers: builder => {
         registerReducers(builder);
         loginReducers(builder);
         logoutReducers(builder);
-        profileReducers(builder)
+        checkAuthReducers(builder);
+        editProfileReducers(builder);
     }
 });
 
 export default userSlice.reducer;
+export const {actions} = userSlice;

@@ -1,0 +1,17 @@
+.groupFormModal {
+
+}
+
+.groupModalButtonContainer {
+    display: flex;
+    justify-content: end;
+    margin: 0;
+}
+
+.groupModalButtonSave {
+    margin-left: 6px;
+}
+
+.groupModalButtonCancel {
+
+}

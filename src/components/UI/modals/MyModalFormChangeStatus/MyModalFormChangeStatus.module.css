@@ -1,0 +1,9 @@
+.changeStatusModalButtonContainer {
+    display: flex;
+    justify-content: end;
+    margin: 0;
+}
+
+.changeStatusModalButtonSave {
+    margin-left: 6px;
+}

@@ -1,0 +1,49 @@
+.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab { /* For tabs border */
+    border-color: #e6e6e6;
+    border-bottom-color: #d9d9d9;
+    background: #f0f2f5;
+    word-wrap: anywhere;
+}
+
+.ant-tabs-top > .ant-tabs-nav::before { /* For the line to the right and close to the tabs */
+    border-color: #d9d9d9;
+}
+
+.ant-tabs > .ant-tabs-nav { /* So that there is no gap between the content and tabs */
+    margin-bottom: 0;
+}
+
+.ant-tabs-content-holder {
+    padding: 15px;
+    border: 1px solid #d9d9d9; /* Border for the content part */
+    border-top: transparent; /* Remove the top border so that there is no overlap*/
+    border-end-start-radius: 5px;
+    border-end-end-radius: 5px;
+}
+
+:where(.css-dev-only-do-not-override-1xg9z9n).ant-tabs-card.ant-tabs-top >.ant-tabs-nav .ant-tabs-tab-active, :where(.css-dev-only-do-not-override-1xg9z9n).ant-tabs-card.ant-tabs-top >div>.ant-tabs-nav .ant-tabs-tab-active {
+    border-color: #aaaaaa;
+    border-bottom-color: #f0f2f5;
+}
+
+:where(.css-dev-only-do-not-override-1xg9z9n).ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: black !important;
+}
+
+.ant-tabs-tab-btn {
+    color: black !important;
+}
+
+.ant-tabs-nav-list {
+    width: 100%;
+}
+
+.ant-tabs-tab {
+    flex: 1;
+}
+
+.ant-tabs-nav-operations {
+    border: 1px solid #d9d9d9;
+    border-start-start-radius: 5px;
+    border-start-end-radius: 5px;
+}

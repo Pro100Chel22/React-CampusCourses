@@ -3,14 +3,15 @@ import {IErrorResponse, ILogin, ITokenResponse} from "../../../types/types";
 import {UserService} from "../../../requests/UserService";
 import {AxiosError} from "axios";
 import {IUserState} from "./UserSlice";
-import {message} from "antd";
+import {customNotifications} from "../../../notifications/Notifications";
+
 
 export const loginReducers = (builder: ActionReducerMapBuilder<IUserState>) => {
     builder.addCase(login.pending.type, (state) => {
         state.loginLoading = true;
         state.error = null;
 
-        message.open({duration: 0, type: 'loading', content: 'Отправка формы...', key: "login"});
+        customNotifications.loading({massage: 'Отправка формы...', key: 'login'});
     });
     builder.addCase(login.fulfilled.type, (state, action: PayloadAction<ITokenResponse>) => {
         state.loginLoading = false;
@@ -18,7 +19,7 @@ export const loginReducers = (builder: ActionReducerMapBuilder<IUserState>) => {
         state.token = action.payload.token;
         localStorage.setItem("token", action.payload.token);
 
-        message.open({duration: 3, type: 'info', content: "Успешная авторизация!", key: "login"});
+        customNotifications.success({massage: 'Успешная авторизация!', key: 'login'});
     });
     builder.addCase(login.rejected.type, (state, action: PayloadAction<IErrorResponse>) => {
         state.loginLoading = false;
@@ -28,7 +29,7 @@ export const loginReducers = (builder: ActionReducerMapBuilder<IUserState>) => {
         if(action.payload.status === 400) {
             errorMessage = "Неверный логин или пароль!";
         }
-        message.open({duration: 3, type: 'error', content: errorMessage, key: "login"});
+        customNotifications.error({massage: errorMessage, key: 'login'});
     });
 }
 

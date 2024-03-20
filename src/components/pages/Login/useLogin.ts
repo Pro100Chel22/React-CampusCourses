@@ -13,8 +13,6 @@ export const useLogin = () => {
     const dispatch = useAppDispatch();
     const {loginLoading} = useAppSelector(state => state.userReducer);
 
-    const tooltip = "Это поле обязательное";
-
     const loginHandler = (value: ILoginForm) => {
         dispatch(login({
             email: value.email,
@@ -23,5 +21,5 @@ export const useLogin = () => {
 
     };
 
-    return {loginLoading, loginHandler, form, tooltip};
+    return {loginLoading, loginHandler, form};
 }

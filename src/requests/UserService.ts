@@ -1,5 +1,5 @@
 import axiosInstanceFactory from "./AxiosInstance";
-import {ILogin, IRegistration, IRoles, ITokenResponse, IUserProfile} from "../types/types";
+import {IEditProfile, ILogin, IRegistration, IRoles, ITokenResponse, IUserProfileResponse} from "../types/types";
 import {AxiosPromise} from "axios";
 
 const axios = axiosInstanceFactory();
@@ -12,27 +12,26 @@ const login = async (form: ILogin): Promise<AxiosPromise<ITokenResponse>> => {
     return axios.post<ITokenResponse>("login", form);
 }
 
-const logout = async (token: string): Promise<AxiosPromise<IUserProfile>> => {
-    return axios.post<IUserProfile>("logout", {}, {headers: {
-            Authorization: 'Bearer ' + token,
-        }});
+const editProfile = async (form: IEditProfile): Promise<AxiosPromise<IUserProfileResponse>> => {
+    return axios.put<IUserProfileResponse>("profile", form);
 }
 
-const profile = async (token: string): Promise<AxiosPromise<IUserProfile>> => {
-    return axios.get<IUserProfile>("profile", {headers: {
-            Authorization: 'Bearer ' + token,
-        }});
+const logout = async (): Promise<AxiosPromise<IUserProfileResponse>> => {
+    return axios.post<IUserProfileResponse>("logout", {});
 }
 
-const roles = async (token: string): Promise<AxiosPromise<IRoles>> => {
-    return axios.get<IRoles>("roles", {headers: {
-            Authorization: 'Bearer ' + token,
-        }});
+const profile = async (): Promise<AxiosPromise<IUserProfileResponse>> => {
+    return axios.get<IUserProfileResponse>("profile");
+}
+
+const roles = async (): Promise<AxiosPromise<IRoles>> => {
+    return axios.get<IRoles>("roles");
 }
 
 export const UserService = {
     registration,
     login,
+    editProfile,
     logout,
     profile,
     roles

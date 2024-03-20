@@ -1,0 +1,5 @@
+@media (min-width: 455px) {
+    .myCourseInfoTabs > .ant-tabs-nav > .ant-tabs-nav-operations {
+        display: none !important;
+    }
+}
