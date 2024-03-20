@@ -13,6 +13,7 @@ import MyModalFormAddTeacher from "../../UI/modals/MyModalFormAddTeacher/MyModal
 import MyModalFormCreateNotification from "../../UI/modals/MyModalFormCreateNotification/MyModalFormCreateNotification";
 import MyModalFormChangeStatus from "../../UI/modals/MyModalFormChangeStatus/MyModalFormChangeStatus";
 import MyModalFormEditStudentMarks from "../../UI/modals/MyModalFormEditStudentMarks/MyModalFormEditStudentMarks";
+import MyModalFormEditCourse from "../../UI/modals/MyModalFormEditCourse/MyModalFormEditCourse";
 
 const {Title} = Typography;
 
@@ -26,6 +27,7 @@ const CourseDetail = () => {
         editMark,
         editStatus,
         signUp,
+        editCourse,
         deleteCourse,
     } = useCourseDetail();
 
@@ -42,7 +44,7 @@ const CourseDetail = () => {
                                 <Title level={4} className={classes.title}>Основные данные курса</Title>
                                 <div>
                                     {fetchCourse.rolesThisCourse.isTeacherOrAdminThisCourse ?
-                                        <MyButton className={classes.editButton} size="large">Редактировать</MyButton>
+                                        <MyButton className={classes.editButton} size="large" onClick={editCourse.showModal}>Редактировать</MyButton>
                                         :
                                         <></>
                                     }
@@ -138,6 +140,16 @@ const CourseDetail = () => {
                 onFinishHandler={editMark.onFinishHandler}
                 modalForm={editMark.modalForm}
                 startValue={editMark.startValue}
+            />
+            <MyModalFormEditCourse
+                modalCourseEdit={editCourse.modal}
+                cancelModalHandler={editCourse.cancelModalHandler}
+                courseOnFinishHandler={editCourse.onFinishHandler}
+                courseOnFinishHandlerForTeacher={editCourse.onFinishHandlerForTeacher}
+                modalForm={editCourse.modalForm}
+                modalFormForTeacher={editCourse.modalFormForTeacher}
+                isForTeacher={editCourse.isForTeacher}
+                setFieldsCallback={editCourse.setFieldsCallback}
             />
         </>
     );

@@ -1,0 +1,13 @@
+.courseFormButtonContainer {
+    display: flex;
+    justify-content: end;
+    margin: 0;
+}
+
+.courseFormButtonSave {
+    margin-left: 6px;
+}
+
+.inputWidth {
+    width: 100%;
+}

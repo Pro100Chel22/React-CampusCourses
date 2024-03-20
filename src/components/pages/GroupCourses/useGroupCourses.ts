@@ -5,17 +5,16 @@ import {useEffect} from "react";
 import {getCourses} from "../../../store/reducers/GroupCoursesReducer/GetCoursesThunkCreator";
 import {useForm} from "antd/es/form/Form";
 import {actions} from "../../../store/reducers/GroupCoursesReducer/GroupCoursesSlice";
-import {ICreateCourse, Semesters} from "../../../types/types";
 import {Modal} from "antd";
 import {createCourse} from "../../../store/reducers/GroupCoursesReducer/CreateCourseThunkCreator";
-import {ICourseCreationModalForm} from "../../UI/modals/MyModalFormGroupCreation/MyModalFormGroupCreation";
+import {ICourseFormValues} from "../../UI/others/MyCourseForm/MyCourseForm";
 
 export const useGroupCourses = () => {
     const {id} = useParams();
     const {roles} = useAuth();
     const {courses, groupName, fetchingCourses, modalCourseCreation} = useAppSelector(state => state.coursesReducer);
     const dispatch = useAppDispatch();
-    const [formCourseCreation] = useForm<ICourseCreationModalForm>();
+    const [formCourseCreation] = useForm<ICourseFormValues>();
 
     const groupInfo = {
         groupName,
@@ -36,7 +35,7 @@ export const useGroupCourses = () => {
         });
     };
 
-    const courseCreationOnFinishHandler = (value: ICourseCreationModalForm) => {
+    const courseCreationOnFinishHandler = (value: ICourseFormValues) => {
         dispatch(createCourse({createCourseForm: value, groupId: id ?? ""}));
     };
 

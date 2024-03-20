@@ -6,7 +6,7 @@ import MyButton from "../../UI/others/MyButton/MyButton";
 import FetchingResult from "../../hoc/FetchingResult";
 import LoadingLayer from "../../hoc/LoadingLayer";
 import MyCoursesList from "../../UI/panels/MyCoursesList/MyCoursesList";
-import MyModalFormGroupCreation from "../../UI/modals/MyModalFormGroupCreation/MyModalFormGroupCreation";
+import MyModalFormCourseCreation from "../../UI/modals/MyModalFormCourseCreation/MyModalFormCourseCreation";
 
 const {Title} = Typography;
 
@@ -32,7 +32,7 @@ const GroupCourses: FC = () => {
                     </LoadingLayer>
                 </div>
             </div>
-            <MyModalFormGroupCreation
+            <MyModalFormCourseCreation
                 modalCourseCreation={modalCourseCreation}
                 cancelModalHandler={cancelCourseCreationModalHandler}
                 courseOnFinishHandler={courseCreationOnFinishHandler}

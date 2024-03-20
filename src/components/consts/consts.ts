@@ -27,3 +27,17 @@ export const studentStatuses  = {
     [StudentStatuses.Accepted]: {color: "#87d068", message: "принят в группу"},
     [StudentStatuses.Declined]: {color: "#e12222", message: "отклонен"},
 }
+
+export const quillModules  = {
+    toolbar: [
+        [{ font: [] }],
+        [{ header: [1, 2, 3, 4, 5, 6, false] }],
+        ["bold", "italic", "underline", "strike"],
+        [{ color: [] }, { background: [] }],
+        [{ script:  "sub" }, { script:  "super" }],
+        ["blockquote", "code-block"],
+        [{ list:  "ordered" }, { list:  "bullet" }],
+        ["link", "image", "video"],
+        ["clean"],
+    ],
+};

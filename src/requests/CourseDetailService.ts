@@ -2,7 +2,7 @@ import axiosInstanceFactory from "./AxiosInstance";
 import {AxiosPromise} from "axios";
 import {
     CourseStatuses,
-    ICourseDetails,
+    ICourseDetails, IEditCourse, IEditCourseForTeacher,
     INotification,
     IStudentMark,
     StudentStatuses
@@ -48,6 +48,13 @@ const signUpToCourse = async (courseId: string):  Promise<AxiosPromise> => {
     return axios.post(`courses/${courseId}/sign-up`);
 }
 
+const editeCourseForTeacher = async (courseId: string, newCourseInfoForTeacher: IEditCourseForTeacher):  Promise<AxiosPromise<ICourseDetails>> => {
+    return axios.put<ICourseDetails>(`courses/${courseId}/requirements-and-annotations`, newCourseInfoForTeacher);
+}
+
+const editeCourse = async (courseId: string, newCourseInfo: IEditCourse):  Promise<AxiosPromise<ICourseDetails>> => {
+    return axios.put<ICourseDetails>(`courses/${courseId}`, newCourseInfo);
+}
 
 export const CourseDetailService = {
     courseDetails,
@@ -58,4 +65,6 @@ export const CourseDetailService = {
     setMarks,
     setStatus,
     signUpToCourse,
+    editeCourse,
+    editeCourseForTeacher,
 }

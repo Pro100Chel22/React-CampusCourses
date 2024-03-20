@@ -18,6 +18,9 @@ import {IFormEditStudentMarks} from "../../UI/modals/MyModalFormEditStudentMarks
 import {editStudentMark} from "../../../store/reducers/CourseDetailReducer/EditStudentMarkThunkCreator";
 import {editStudentStatus} from "../../../store/reducers/CourseDetailReducer/EditStudentStatusThunkCreator";
 import {signUpToCourse} from "../../../store/reducers/CourseDetailReducer/SignUpToCourseThunkCreator";
+import {ICourseFormForTeacherValues} from "../../UI/others/MyCourseFormForTeacher/MyCourseFormForTeacher";
+import {ICourseFormValues} from "../../UI/others/MyCourseForm/MyCourseForm";
+import {editCourseInfo} from "../../../store/reducers/CourseDetailReducer/EditCourseInfoThunkCreator";
 
 export interface IRolesThisCourse {
     isTeacherOrAdminThisCourse: boolean;
@@ -45,7 +48,28 @@ export const useCourseDetail = () => {
     const [creatNotificationModalForm] = useForm<IFormCreateNotification>();
     const [changeStatusModalForm] = useForm<IFormChangeStatus>();
     const [editMarkModalForm] = useForm<IFormEditStudentMarks>();
+    const [editCourseModalForm] = useForm<ICourseFormValues>();
+    const [editCourseForTeacherModalForm] = useForm<ICourseFormForTeacherValues>();
     const navigate = useNavigate();
+
+    let isFirstCall = true;
+    const setFieldsCallback = () => {
+        if (rolesThisCourse.isAdmin) {
+            editCourseModalForm.setFieldsValue({
+                name: course?.name,
+                startYear: course?.startYear,
+                maximumStudentsCount: course?.maximumStudentsCount,
+                semester: course?.semester,
+                requirements: course?.requirements,
+                annotations: course?.annotations,
+            });
+        } else {
+            editCourseForTeacherModalForm.setFieldsValue({
+                annotations: course?.annotations,
+                requirements: course?.requirements,
+            });
+        }
+    };
 
     const rolesThisCourse: IRolesThisCourse = {
         isTeacherOrAdminThisCourse: !!course?.teachers.find(teacher => teacher.email === profile?.email) || roles.isAdmin,
@@ -70,7 +94,6 @@ export const useCourseDetail = () => {
             dispatch(actions.setCourseModal({modalTypeOpen: null}));
         },
         onFinishHandler: (values: IFormAddTeacher) => {
-            console.log(values.teacherId);
             dispatch(addTeacherToCourse({courseId: id ?? "", userId: values.teacherId}))
         },
         modalForm: addTeacherModalForm,
@@ -99,7 +122,6 @@ export const useCourseDetail = () => {
             dispatch(actions.setCourseModal({modalTypeOpen: null}));
         },
         onFinishHandler: (values: IFormChangeStatus) => {
-            console.log(values);
             dispatch(changeStatusCourse({courseId: id ?? "", status: values.status}));
         },
         modalForm: changeStatusModalForm,
@@ -118,7 +140,6 @@ export const useCourseDetail = () => {
             dispatch(actions.setEditMarkModal({markType: null, studentId: "", currentMark: null}));
         },
         onFinishHandler: (values: IFormEditStudentMarks) => {
-            console.log(values);
             dispatch(editStudentMark({
                 courseId: id ?? "",
                 studentId: editingStudentMark.studentId,
@@ -144,6 +165,27 @@ export const useCourseDetail = () => {
         },
         loading: signUpingToCourse.loading,
     }
+    const editCourse = {
+        showModal() {
+            if (!isFirstCall) setFieldsCallback();
+            isFirstCall = false;
+            dispatch(actions.setCourseModal({modalTypeOpen: courseModalType.editCourse}));
+        },
+        cancelModalHandler: () => {
+            dispatch(actions.setCourseModal({modalTypeOpen: null}));
+        },
+        onFinishHandler: (values: ICourseFormForTeacherValues) => {
+            dispatch(editCourseInfo({courseId: id ?? "", courseInfo: values, isForTeacher: false}));
+        },
+        onFinishHandlerForTeacher: (values: ICourseFormValues) => {
+            dispatch(editCourseInfo({courseId: id ?? "", courseInfo: values, isForTeacher: true}));
+        },
+        setFieldsCallback,
+        modal: modal,
+        modalForm: editCourseModalForm,
+        modalFormForTeacher: editCourseForTeacherModalForm,
+        isForTeacher: !rolesThisCourse.isAdmin,
+    }
 
     const deleteCourse = () => {
         dispatch(deleteCourseDetail({courseId: id ?? "", callbackRedirect: () => { navigate("/groups"); }}))
@@ -151,9 +193,9 @@ export const useCourseDetail = () => {
 
     useEffect(() => {
         dispatch(getCourseDetails({courseId: id ?? "", loadUsers: rolesThisCourse.isMainTeacherOrAdminThisCourse}));
-    }, []);
+    }, [rolesThisCourse.isMainTeacherOrAdminThisCourse]);
 
-    return {fetchCourse, addTeacherModal, creatNotification, changeCourseStatus, editMark, editStatus, signUp, deleteCourse, modalTypeOpen: modal.modalTypeOpen,};
+    return {fetchCourse, addTeacherModal, creatNotification, changeCourseStatus, editMark, editStatus, signUp, editCourse, deleteCourse, modalTypeOpen: modal.modalTypeOpen, requirements: course?.requirements};
 }
 
 const courseToCourseDetail = (course: ICourseDetails | null) => {

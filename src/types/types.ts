@@ -150,3 +150,18 @@ export interface IStudentMark {
 export interface IStudentStatus {
     status: StudentStatuses;
 }
+
+export interface IEditCourse {
+    name: string;
+    startYear: number;
+    maximumStudentsCount: number;
+    semester: Semesters;
+    requirements: string;
+    annotations: string;
+    mainTeacherId: string;
+}
+
+export interface IEditCourseForTeacher {
+    requirements: string;
+    annotations: string;
+}

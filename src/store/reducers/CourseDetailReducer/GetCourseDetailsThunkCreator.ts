@@ -45,6 +45,7 @@ export const getCourseDetails = createAsyncThunk(
             if(request.loadUsers) {
                 responseUsers = (await CoursesService.usersForCourseCreation()).data;
             }
+
             console.log({course: responseCourse.data, myCourses: responseMyCourses.data, users: responseUsers});
 
             return {course: responseCourse.data, myCourses: responseMyCourses.data, users: responseUsers};

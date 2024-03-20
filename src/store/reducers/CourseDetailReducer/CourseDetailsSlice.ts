@@ -8,6 +8,7 @@ import {deleteCourseReducers} from "./DeleteCourseThunkCreator";
 import {editStudentMarkReducers} from "./EditStudentMarkThunkCreator";
 import {editStudentStatusReducers} from "./EditStudentStatusThunkCreator";
 import {signUpToCourseReducers} from "./SignUpToCourseThunkCreator";
+import {editCourseReducers} from "./EditCourseInfoThunkCreator";
 
 export enum courseModalType {
     addTeacher,
@@ -15,6 +16,7 @@ export enum courseModalType {
     changeCourseStatus,
     editStudentMidtermMark,
     editStudentFinalMark,
+    editCourse,
 }
 
 export interface ICourseDetailsState {
@@ -40,7 +42,7 @@ export interface ICourseDetailsState {
     signUpingToCourse: {
         loading: boolean;
         error: IErrorResponse | null;
-    }
+    },
     course: ICourseDetails | null;
     myCourse: ICourse [];
 }
@@ -108,6 +110,7 @@ export const courseDetailsSlice = createSlice({
         editStudentMarkReducers(builder);
         editStudentStatusReducers(builder);
         signUpToCourseReducers(builder);
+        editCourseReducers(builder);
     },
 });
 
