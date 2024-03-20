@@ -1,7 +1,7 @@
 import React from 'react';
 import {List, Typography} from "antd";
-import MyButton from "../../UI/MyButton/MyButton";
-import MyGroupItem from "../../UI/MyGroupItem/MyGroupItem";
+import MyButton from "../../UI/others/MyButton/MyButton";
+import MyGroupItem from "../../UI/listItems/MyGroupItem/MyGroupItem";
 import classes from './Groups.module.css'
 import {useGroups} from "./useGroups";
 import MyModalFormGroup, {ModalGroupType} from "../../UI/modals/MyModalFormGroup/MyModalFormGroup";

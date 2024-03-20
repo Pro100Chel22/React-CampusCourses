@@ -1,10 +1,10 @@
 import React, {FC} from 'react';
 import classes from './MyStudentInfo.module.css'
-import {IStudent, StudentMarks, StudentStatuses} from "../../../types/types";
-import MyResultStatusStudent from "../MyResultStatusStudent/MyResultStatusStudent";
-import MyButton from "../MyButton/MyButton";
-import {IRolesThisCourse} from "../../pages/CourseDetail/useCourseDetail";
-import {studentStatuses} from "../../consts/consts";
+import {IStudent, StudentMarks, StudentStatuses} from "../../../../types/types";
+import MyResultStatusStudent from "../../others/MyResultStatusStudent/MyResultStatusStudent";
+import MyButton from "../../others/MyButton/MyButton";
+import {IRolesThisCourse} from "../../../pages/CourseDetail/useCourseDetail";
+import {studentStatuses} from "../../../consts/consts";
 
 export interface IMyStudentInfo {
     student: IStudent;

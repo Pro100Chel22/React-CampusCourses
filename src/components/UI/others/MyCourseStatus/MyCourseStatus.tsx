@@ -1,8 +1,8 @@
 import React, {FC} from 'react';
-import {CourseStatuses} from "../../../types/types";
+import {CourseStatuses} from "../../../../types/types";
 import classes from './MyCourseStatus.module.css'
 import {Tag} from "antd";
-import {statuses} from "../../consts/consts";
+import {statuses} from "../../../consts/consts";
 
 export interface IMyCourseStatus {
     status: CourseStatuses

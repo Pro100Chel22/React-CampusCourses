@@ -1,6 +1,6 @@
 import React from 'react';
 import {Form, Input, Typography} from 'antd';
-import MyButton from '../../UI/MyButton/MyButton';
+import MyButton from '../../UI/others/MyButton/MyButton';
 import classes from './Login.module.css'
 import {emailRules, passwordRules} from "./Validations";
 import {useLogin} from "./useLogin";

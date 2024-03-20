@@ -3,12 +3,12 @@ import {useCourseDetail} from "./useCourseDetail";
 import classes from './CourseDetail.module.css'
 import './TabsStyles.css'
 import {List, Typography} from "antd";
-import MyButton from "../../UI/MyButton/MyButton";
-import MyCourseInfoItem from "../../UI/MyCourseInfoItem/MyCourseInfoItem";
-import MyCourseInfoTabs from "../../UI/MyCourseInfoTabs/MyCourseInfoTabs";
+import MyButton from "../../UI/others/MyButton/MyButton";
+import MyCourseInfoItem from "../../UI/listItems/MyCourseInfoItem/MyCourseInfoItem";
+import MyCourseInfoTabs from "../../UI/panels/MyCourseInfoTabs/MyCourseInfoTabs";
 import FetchingResult from '../../hoc/FetchingResult';
 import LoadingLayer from '../../hoc/LoadingLayer';
-import MyCourseUsersTabs from "../../UI/MyCourseUsersTabs/MyCourseUsersTabs";
+import MyCourseUsersTabs from "../../UI/panels/MyCourseUsersTabs/MyCourseUsersTabs";
 import MyModalFormAddTeacher from "../../UI/modals/MyModalFormAddTeacher/MyModalFormAddTeacher";
 import MyModalFormCreateNotification from "../../UI/modals/MyModalFormCreateNotification/MyModalFormCreateNotification";
 import MyModalFormChangeStatus from "../../UI/modals/MyModalFormChangeStatus/MyModalFormChangeStatus";

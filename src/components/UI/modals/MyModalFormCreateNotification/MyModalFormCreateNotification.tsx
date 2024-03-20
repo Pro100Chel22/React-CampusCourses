@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {Checkbox, Form, FormInstance, Input, Modal} from "antd";
 import classes from './MyModalFormCreateNotification.module.css';
-import MyButton from "../../MyButton/MyButton";
+import MyButton from "../../others/MyButton/MyButton";
 import {courseModalType} from "../../../../store/reducers/CourseDetailReducer/CourseDetailsSlice";
 import {notificationTextRules} from "./Validations";
 

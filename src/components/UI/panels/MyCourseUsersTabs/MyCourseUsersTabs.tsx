@@ -1,12 +1,12 @@
 import React, {FC} from 'react';
 import {Tabs} from "antd";
 import './MyCourseUsersTabs.css'
-import {IStudent, ITeacher, StudentMarks} from "../../../types/types";
-import MyTeacherInfo from "../MyTeacherInfo/MyTeacherInfo";
+import {IStudent, ITeacher, StudentMarks} from "../../../../types/types";
+import MyTeacherInfo from "../../listItems/MyTeacherInfo/MyTeacherInfo";
 import classes from "./MyCourseUsersTabs.module.css";
-import MyButton from "../MyButton/MyButton";
-import MyStudentInfo from "../MyStudentInfo/MyStudentInfo";
-import {IRolesThisCourse} from "../../pages/CourseDetail/useCourseDetail";
+import MyButton from "../../others/MyButton/MyButton";
+import MyStudentInfo from "../../listItems/MyStudentInfo/MyStudentInfo";
+import {IRolesThisCourse} from "../../../pages/CourseDetail/useCourseDetail";
 
 export interface IMyCourseUsersTabs {
     students: IStudent[];

@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import classes from './MyModalFormAddTeacher.module.css';
 import {Form, FormInstance, Modal, Select} from "antd";
-import MyButton from "../../MyButton/MyButton";
+import MyButton from "../../others/MyButton/MyButton";
 import {IUser} from "../../../../types/types";
 import {useMyModalFormAddTeacher} from "./useMyModalFormAddTeacher";
 import {courseModalType} from "../../../../store/reducers/CourseDetailReducer/CourseDetailsSlice";

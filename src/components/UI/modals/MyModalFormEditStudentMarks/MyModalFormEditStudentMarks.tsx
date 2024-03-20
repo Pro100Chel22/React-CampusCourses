@@ -4,7 +4,7 @@ import {StudentMarks} from "../../../../types/types";
 import {Form, FormInstance, Modal, Radio} from "antd";
 import {courseModalType} from "../../../../store/reducers/CourseDetailReducer/CourseDetailsSlice";
 import {marks} from "../../../consts/consts";
-import MyButton from "../../MyButton/MyButton";
+import MyButton from "../../others/MyButton/MyButton";
 
 export interface IMyModalFormEditStudentMarks {
     modalTypeOpen: courseModalType | null;

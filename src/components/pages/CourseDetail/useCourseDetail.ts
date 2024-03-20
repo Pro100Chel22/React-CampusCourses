@@ -45,7 +45,7 @@ export const useCourseDetail = () => {
     const [creatNotificationModalForm] = useForm<IFormCreateNotification>();
     const [changeStatusModalForm] = useForm<IFormChangeStatus>();
     const [editMarkModalForm] = useForm<IFormEditStudentMarks>();
-    let navigate = useNavigate();
+    const navigate = useNavigate();
 
     const rolesThisCourse: IRolesThisCourse = {
         isTeacherOrAdminThisCourse: !!course?.teachers.find(teacher => teacher.email === profile?.email) || roles.isAdmin,

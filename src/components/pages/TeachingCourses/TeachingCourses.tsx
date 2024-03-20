@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from "./TeachingCourses.module.css";
 import FetchingResult from "../../hoc/FetchingResult";
-import MyCoursesList from "../../UI/MyCoursesList/MyCoursesList";
+import MyCoursesList from "../../UI/panels/MyCoursesList/MyCoursesList";
 import {useTeachingCourses} from "./useTeachingCourses";
 
 const TeachingCourses = () => {

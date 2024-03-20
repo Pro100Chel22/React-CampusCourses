@@ -1,9 +1,9 @@
 import React, {FC} from 'react';
 import classes from './MyCoursesList.module.css';
 import {List} from "antd";
-import MyCourseStatus from "../MyCourseStatus/MyCourseStatus";
-import {ICourse} from "../../../types/types";
-import {semesters} from "../../consts/consts";
+import MyCourseStatus from "../../others/MyCourseStatus/MyCourseStatus";
+import {ICourse} from "../../../../types/types";
+import {semesters} from "../../../consts/consts";
 import {Link} from "react-router-dom";
 
 export interface IMyCoursesList {

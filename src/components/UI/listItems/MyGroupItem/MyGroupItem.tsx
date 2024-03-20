@@ -1,8 +1,8 @@
 import React, {FC} from 'react';
-import MyButton from "../MyButton/MyButton";
+import MyButton from "../../others/MyButton/MyButton";
 import {List, Popconfirm} from "antd";
 import classes from "./MyGroupItem.module.css";
-import {IGroup} from "../../../types/types";
+import {IGroup} from "../../../../types/types";
 import {Link} from "react-router-dom";
 import {QuestionCircleOutlined} from "@ant-design/icons";
 

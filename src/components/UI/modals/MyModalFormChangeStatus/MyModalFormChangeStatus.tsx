@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import {Form, FormInstance, Modal, Radio} from "antd";
 import {courseModalType} from "../../../../store/reducers/CourseDetailReducer/CourseDetailsSlice";
 import classes from "./MyModalFormChangeStatus.module.css";
-import MyButton from "../../MyButton/MyButton";
+import MyButton from "../../others/MyButton/MyButton";
 import {CourseStatuses} from "../../../../types/types";
 import {statuses} from "../../../consts/consts";
 import {statusRules} from "./Validations";

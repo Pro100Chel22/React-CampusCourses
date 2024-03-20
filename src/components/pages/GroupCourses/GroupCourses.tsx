@@ -2,10 +2,10 @@ import React, {FC} from 'react';
 import {useGroupCourses} from "./useGroupCourses";
 import classes from './GroupCourses.module.css'
 import {Typography} from "antd";
-import MyButton from "../../UI/MyButton/MyButton";
+import MyButton from "../../UI/others/MyButton/MyButton";
 import FetchingResult from "../../hoc/FetchingResult";
 import LoadingLayer from "../../hoc/LoadingLayer";
-import MyCoursesList from "../../UI/MyCoursesList/MyCoursesList";
+import MyCoursesList from "../../UI/panels/MyCoursesList/MyCoursesList";
 import MyModalFormGroupCreation from "../../UI/modals/MyModalFormGroupCreation/MyModalFormGroupCreation";
 
 const {Title} = Typography;

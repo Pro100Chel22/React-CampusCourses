@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import classes from "./MyResultStatusStudent.module.css";
-import {StudentMarks} from "../../../types/types";
-import {marks} from "../../consts/consts";
+import {StudentMarks} from "../../../../types/types";
+import {marks} from "../../../consts/consts";
 import {Tag} from "antd";
 
 export interface IMyResultStatusStudent {

@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import classes from './MyTeacherInfo.module.css'
-import {ITeacher} from "../../../types/types";
+import {ITeacher} from "../../../../types/types";
 import {Tag} from "antd";
 
 export interface IMyTeacherInfo {

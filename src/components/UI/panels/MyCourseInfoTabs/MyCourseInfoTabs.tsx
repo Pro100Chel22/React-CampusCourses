@@ -1,10 +1,10 @@
 import React, {FC} from 'react';
 import {Badge, Tabs} from "antd";
-import MyButton from "../MyButton/MyButton";
+import MyButton from "../../others/MyButton/MyButton";
 import classes from "./MyCourseInfoTabs.module.css"
 import './MyCourseInfoTabs.css'
-import MyNotification from "../MyNotification/MyNotification";
-import {INotification} from "../../../types/types";
+import MyNotification from "../../others/MyNotification/MyNotification";
+import {INotification} from "../../../../types/types";
 // @ts-ignore
 import ReactHtmlParser from 'html-react-parser';
 
