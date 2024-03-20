@@ -146,3 +146,7 @@ export interface IStudentMark {
     markType: MarkType;
     mark: StudentMarks
 }
+
+export interface IStudentStatus {
+    status: StudentStatuses;
+}

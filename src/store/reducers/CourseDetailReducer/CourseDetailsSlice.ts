@@ -6,6 +6,7 @@ import {createNotificationReducers} from "./CreateNotificationThunkCreator";
 import {changeCourseStatusReducers} from "./ChangeStatusThunkCreator";
 import {deleteCourseReducers} from "./DeleteCourseThunkCreator";
 import {editStudentMarkReducers} from "./EditStudentMarkThunkCreator";
+import {editStudentStatusReducers} from "./EditStudentStatusThunkCreator";
 
 export enum courseModalType {
     addTeacher,
@@ -31,6 +32,10 @@ export interface ICourseDetailsState {
         studentId: string;
         lastMark: StudentMarks | null;
     };
+    editingStudentStatus: {
+        loading: boolean;
+        error: IErrorResponse | null;
+    };
     course: ICourseDetails | null;
 }
 
@@ -49,6 +54,10 @@ const initialState: ICourseDetailsState = {
         markType: null,
         studentId: "",
         lastMark: null,
+    },
+    editingStudentStatus: {
+        loading: false,
+        error: null,
     },
     course: null,
 }
@@ -86,6 +95,7 @@ export const courseDetailsSlice = createSlice({
         changeCourseStatusReducers(builder);
         deleteCourseReducers(builder);
         editStudentMarkReducers(builder);
+        editStudentStatusReducers(builder);
     },
 });
 

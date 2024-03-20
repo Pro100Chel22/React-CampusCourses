@@ -16,6 +16,7 @@ import {changeStatusCourse} from "../../../store/reducers/CourseDetailReducer/Ch
 import {deleteCourseDetail} from "../../../store/reducers/CourseDetailReducer/DeleteCourseThunkCreator";
 import {IFormEditStudentMarks} from "../../UI/modals/MyModalFormEditStudentMarks/MyModalFormEditStudentMarks";
 import {editStudentMark} from "../../../store/reducers/CourseDetailReducer/EditStudentMarkThunkCreator";
+import {editStudentStatus} from "../../../store/reducers/CourseDetailReducer/EditStudentStatusThunkCreator";
 
 export interface IRolesThisCourse {
     isTeacherOrAdminThisCourse: boolean;
@@ -26,7 +27,13 @@ export interface IRolesThisCourse {
 }
 
 export const useCourseDetail = () => {
-    const {course, fetchingCourse, modal, editingStudentMark} = useAppSelector(state => state.courseDetailReducer);
+    const {
+        course,
+        fetchingCourse,
+        modal,
+        editingStudentMark,
+        editingStudentStatus
+    } = useAppSelector(state => state.courseDetailReducer);
     const dispatch = useAppDispatch();
     const {id} = useParams();
     const {roles, profile} = useAuth();
@@ -116,16 +123,26 @@ export const useCourseDetail = () => {
         modalForm: editMarkModalForm,
         startValue: editingStudentMark.lastMark,
     }
+    const editStatus = {
+        acceptStudent: (courseId: string, studentId: string) => {
+            dispatch(editStudentStatus({status: StudentStatuses.Accepted, courseId, studentId}));
+        },
+        declineStudent: (courseId: string, studentId: string) => {
+            dispatch(editStudentStatus({status: StudentStatuses.Declined, courseId, studentId}));
+        },
+        loading: editingStudentStatus.loading,
+        courseId: id ?? "",
+    };
 
     const deleteCourse = () => {
         dispatch(deleteCourseDetail({courseId: id ?? "", callbackRedirect: () => { navigate("/groups"); }}))
-    }
+    };
 
     useEffect(() => {
         dispatch(getCourseDetails({courseId: id ?? "", loadUsers: rolesThisCourse.isMainTeacherOrAdminThisCourse}));
     }, []);
 
-    return {fetchCourse, addTeacherModal, creatNotification, changeCourseStatus, editMark, deleteCourse, modalTypeOpen: modal.modalTypeOpen,};
+    return {fetchCourse, addTeacherModal, creatNotification, changeCourseStatus, editMark, editStatus, deleteCourse, modalTypeOpen: modal.modalTypeOpen,};
 }
 
 const courseToCourseDetail = (course: ICourseDetails | null) => {
@@ -137,7 +154,7 @@ const courseToCourseDetail = (course: ICourseDetails | null) => {
         maximumStudentsCount: course?.maximumStudentsCount.toString() ?? "",
         acceptedStudents: course?.students.filter(student => student.status === StudentStatuses.Accepted).length.toString() ?? "",
         inQueueStudents: course?.students.filter(student => student.status !== StudentStatuses.InQueue).length.toString() ?? "",
-        notifications: course?.notifications ?? [],
+        notifications: [...(course?.notifications ?? [])].reverse(),
         requirements: course?.requirements ?? "",
         annotations: course?.annotations ?? "",
         students: course?.students ?? [],

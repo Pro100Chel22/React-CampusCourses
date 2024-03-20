@@ -12,9 +12,23 @@ export interface IMyStudentInfo {
     thisCourseRoles: IRolesThisCourse;
     showFinalMarkModal: (studentId: string, currentMark: StudentMarks) => void;
     showMidtermMarkModal: (studentId: string, currentMark: StudentMarks) => void;
+    acceptStudent: (courseId: string, studentId: string) => void;
+    declineStudent: (courseId: string, studentId: string) => void;
+    editingStudentStatus: boolean;
+    courseId: string;
 }
 
-const MyStudentInfo: FC<IMyStudentInfo> = ({student, isLast, thisCourseRoles, showMidtermMarkModal, showFinalMarkModal}) => {
+const MyStudentInfo: FC<IMyStudentInfo> = ({
+    student,
+    isLast,
+    thisCourseRoles,
+    showMidtermMarkModal,
+    showFinalMarkModal,
+    declineStudent,
+    acceptStudent,
+    editingStudentStatus,
+    courseId,
+}) => {
     const showMarks = student.status === StudentStatuses.Accepted &&
         (!thisCourseRoles.isTeacherOrAdminThisCourse ? thisCourseRoles.userEmail === student.email : true);
     const showButtons = student.status === StudentStatuses.InQueue;
@@ -23,14 +37,16 @@ const MyStudentInfo: FC<IMyStudentInfo> = ({student, isLast, thisCourseRoles, sh
         <div className={classes.studentMainContainer + " " + (!isLast ? classes.bottomBorder : "")}>
             <div className={classes.studentInfoContainer}>
                 <div className={classes.studentName}>{student.name}</div>
-                <div className={classes.studentStatus}>Статус - <span style={{color: studentStatuses[student.status].color}}>{studentStatuses[student.status].message}</span></div>
+                <div className={classes.studentStatus}>Статус - <span
+                    style={{color: studentStatuses[student.status].color}}>{studentStatuses[student.status].message}</span>
+                </div>
                 <div className={classes.studentEmail}>{student.email}</div>
             </div>
             <div className={classes.studentMarksContainer + " " + (showMarks ? "" : classes.displayNone)}>
                 <div className={classes.studentMarkContainer + " " + classes.studentMarkRightMargin}>
                     <p className={classes.studentMarkWrapper}>
                         <span
-                            className={thisCourseRoles.isTeacherOrAdminThisCourse? classes.resultTitle : ""}
+                            className={thisCourseRoles.isTeacherOrAdminThisCourse ? classes.resultTitle : ""}
                             onClick={() => showMidtermMarkModal(student.id, student.midtermResult)}
                         >
                             Промежуточная аттестация
@@ -42,7 +58,7 @@ const MyStudentInfo: FC<IMyStudentInfo> = ({student, isLast, thisCourseRoles, sh
                 <div className={classes.studentMarkContainer}>
                     <p className={classes.studentMarkWrapper}>
                         <span
-                            className={thisCourseRoles.isTeacherOrAdminThisCourse? classes.resultTitle : ""}
+                            className={thisCourseRoles.isTeacherOrAdminThisCourse ? classes.resultTitle : ""}
                             onClick={() => showFinalMarkModal(student.id, student.finalResult)}
                         >
                             Финальная аттестацияя
@@ -53,8 +69,20 @@ const MyStudentInfo: FC<IMyStudentInfo> = ({student, isLast, thisCourseRoles, sh
                 </div>
             </div>
             <div className={classes.buttonsContainer + " " + (showButtons ? "" : classes.displayNone)}>
-                <MyButton className={classes.acceptStudentButton}>Принять</MyButton>
-                <MyButton className={classes.rejectStudentButton}>Отклонить</MyButton>
+                <MyButton
+                    className={classes.acceptStudentButton}
+                    onClick={() => acceptStudent(courseId, student.id)}
+                    loading={editingStudentStatus}
+                >
+                    Принять
+                </MyButton>
+                <MyButton
+                    className={classes.rejectStudentButton}
+                    onClick={() => declineStudent(courseId, student.id)}
+                    loading={editingStudentStatus}
+                >
+                    Отклонить
+                </MyButton>
             </div>
         </div>
     );

@@ -24,6 +24,7 @@ const CourseDetail = () => {
         changeCourseStatus,
         modalTypeOpen,
         editMark,
+        editStatus,
         deleteCourse,
     } = useCourseDetail();
 
@@ -100,6 +101,10 @@ const CourseDetail = () => {
                                     showAddTeacherModal={addTeacherModal.showModal}
                                     showFinalMarkModal={editMark.showFinalMarkModal}
                                     showMidtermMarkModal={editMark.showMidtermMarkModal}
+                                    acceptStudent={editStatus.acceptStudent}
+                                    declineStudent={editStatus.declineStudent}
+                                    editingStudentStatus={editStatus.loading}
+                                    courseId={editStatus.courseId}
                                 />
                             </div>
                         </FetchingResult>

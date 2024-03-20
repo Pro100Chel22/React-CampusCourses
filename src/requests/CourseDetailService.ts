@@ -1,6 +1,12 @@
 import axiosInstanceFactory from "./AxiosInstance";
 import {AxiosPromise} from "axios";
-import {CourseStatuses, ICourseDetails, INotification, IStudentMark} from "../types/types";
+import {
+    CourseStatuses,
+    ICourseDetails,
+    INotification,
+    IStudentMark,
+    StudentStatuses
+} from "../types/types";
 
 const axios = axiosInstanceFactory();
 
@@ -32,6 +38,12 @@ const setMarks = async (courseId: string, studentId: string, mark: IStudentMark)
     return axios.post<ICourseDetails>(`courses/${courseId}/marks/${studentId}`, mark);
 }
 
+const setStatus = async (courseId: string, studentId: string, status: StudentStatuses):  Promise<AxiosPromise<ICourseDetails>> => {
+    return axios.post<ICourseDetails>(`courses/${courseId}/student-status/${studentId}`, {
+        status: status,
+    });
+}
+
 export const CourseDetailService = {
     courseDetails,
     addTeacherToCourse,
@@ -39,4 +51,5 @@ export const CourseDetailService = {
     changeStatusCourse,
     deleteCourse,
     setMarks,
+    setStatus,
 }

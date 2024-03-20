@@ -15,9 +15,24 @@ export interface IMyCourseUsersTabs {
     showAddTeacherModal: any;
     showFinalMarkModal: (studentId: string, currentMark: StudentMarks) => void;
     showMidtermMarkModal: (studentId: string, currentMark: StudentMarks) => void;
+    acceptStudent: (courseId: string, studentId: string) => void;
+    declineStudent: (courseId: string, studentId: string) => void;
+    editingStudentStatus: boolean;
+    courseId: string;
 }
 
-const MyCourseUsersTabs: FC<IMyCourseUsersTabs> = ({students, teachers, thisCourseRoles, showAddTeacherModal, showMidtermMarkModal, showFinalMarkModal}) => {
+const MyCourseUsersTabs: FC<IMyCourseUsersTabs> = ({
+    students,
+    teachers,
+    thisCourseRoles,
+    showAddTeacherModal,
+    showMidtermMarkModal,
+    showFinalMarkModal,
+    acceptStudent,
+    editingStudentStatus,
+    declineStudent,
+    courseId
+}) => {
     const tabs = [
         {
             label: "Преподаватели",
@@ -25,7 +40,8 @@ const MyCourseUsersTabs: FC<IMyCourseUsersTabs> = ({students, teachers, thisCour
             children: (
                 <>
                     {thisCourseRoles.isMainTeacherOrAdminThisCourse ?
-                        <MyButton className={classes.addTeacherButton} onClick={showAddTeacherModal}>Добавить преподавателя</MyButton>
+                        <MyButton className={classes.addTeacherButton} onClick={showAddTeacherModal}>Добавить
+                            преподавателя</MyButton>
                         :
                         <></>
                     }
@@ -47,10 +63,14 @@ const MyCourseUsersTabs: FC<IMyCourseUsersTabs> = ({students, teachers, thisCour
                             key={index}
                             showFinalMarkModal={showFinalMarkModal}
                             showMidtermMarkModal={showMidtermMarkModal}
+                            acceptStudent={acceptStudent}
+                            declineStudent={declineStudent}
+                            editingStudentStatus={editingStudentStatus}
+                            courseId={courseId}
                         />)}
                     {students.length === 0 ?
                         <div className={classes.noStudents}>В этом курсе еще нет студентов</div>
-                    :
+                        :
                         <></>
                     }
                 </>
