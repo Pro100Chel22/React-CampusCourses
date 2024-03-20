@@ -37,6 +37,9 @@ const MyGroupItem : FC<IMyGroupItem> = ({group, isAdmin, onGroupDelete, disabled
                                 onConfirm={confirm}
                                 title={`Удаление группы "${group.name}"`}
                                 description="Вы уверены, что хотите удалить эту группу?"
+                                okType="danger"
+                                okText="Удалить"
+                                cancelText="Отмена"
                                 icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
                             >
                                 <MyButton

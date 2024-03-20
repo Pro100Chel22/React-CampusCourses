@@ -2,7 +2,7 @@ import React from 'react';
 import {useCourseDetail} from "./useCourseDetail";
 import classes from './CourseDetail.module.css'
 import './TabsStyles.css'
-import {List, Typography} from "antd";
+import {List, Popconfirm, Typography} from "antd";
 import MyButton from "../../UI/others/MyButton/MyButton";
 import MyCourseInfoItem from "../../UI/listItems/MyCourseInfoItem/MyCourseInfoItem";
 import MyCourseInfoTabs from "../../UI/panels/MyCourseInfoTabs/MyCourseInfoTabs";
@@ -14,6 +14,7 @@ import MyModalFormCreateNotification from "../../UI/modals/MyModalFormCreateNoti
 import MyModalFormChangeStatus from "../../UI/modals/MyModalFormChangeStatus/MyModalFormChangeStatus";
 import MyModalFormEditStudentMarks from "../../UI/modals/MyModalFormEditStudentMarks/MyModalFormEditStudentMarks";
 import MyModalFormEditCourse from "../../UI/modals/MyModalFormEditCourse/MyModalFormEditCourse";
+import {QuestionCircleOutlined} from "@ant-design/icons";
 
 const {Title} = Typography;
 
@@ -49,7 +50,17 @@ const CourseDetail = () => {
                                         <></>
                                     }
                                     {fetchCourse.rolesThisCourse.isAdmin ?
-                                        <MyButton className={classes.deleteButton} size="large" onClick={deleteCourse}>Удалить</MyButton>
+                                        <Popconfirm
+                                            onConfirm={deleteCourse}
+                                            title={`Удаление курса`}
+                                            description="Вы уверены, что хотите удалить этот курс?"
+                                            okType="danger"
+                                            okText="Удалить"
+                                            cancelText="Отмена"
+                                            icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+                                        >
+                                            <MyButton className={classes.deleteButton} size="large">Удалить</MyButton>
+                                        </Popconfirm>
                                         :
                                         <></>
                                     }

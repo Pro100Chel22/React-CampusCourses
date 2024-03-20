@@ -1,5 +1,5 @@
 import {useNavigate, useParams} from "react-router-dom";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
 import {getCourseDetails} from "../../../store/reducers/CourseDetailReducer/GetCourseDetailsThunkCreator";
 import {semesters, statuses} from "../../consts/consts";
@@ -51,8 +51,8 @@ export const useCourseDetail = () => {
     const [editCourseModalForm] = useForm<ICourseFormValues>();
     const [editCourseForTeacherModalForm] = useForm<ICourseFormForTeacherValues>();
     const navigate = useNavigate();
+    const [isFirstCall, setIsFirstCall] = useState(true);
 
-    let isFirstCall = true;
     const setFieldsCallback = () => {
         if (rolesThisCourse.isAdmin) {
             editCourseModalForm.setFieldsValue({
@@ -62,6 +62,7 @@ export const useCourseDetail = () => {
                 semester: course?.semester,
                 requirements: course?.requirements,
                 annotations: course?.annotations,
+                mainTeacherId: undefined,
             });
         } else {
             editCourseForTeacherModalForm.setFieldsValue({
@@ -168,7 +169,7 @@ export const useCourseDetail = () => {
     const editCourse = {
         showModal() {
             if (!isFirstCall) setFieldsCallback();
-            isFirstCall = false;
+            setIsFirstCall(false);
             dispatch(actions.setCourseModal({modalTypeOpen: courseModalType.editCourse}));
         },
         cancelModalHandler: () => {
