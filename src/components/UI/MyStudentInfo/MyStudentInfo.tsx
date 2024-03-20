@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import classes from './MyStudentInfo.module.css'
-import {IStudent, StudentStatuses} from "../../../types/types";
+import {IStudent, StudentMarks, StudentStatuses} from "../../../types/types";
 import MyResultStatusStudent from "../MyResultStatusStudent/MyResultStatusStudent";
 import MyButton from "../MyButton/MyButton";
 import {IRolesThisCourse} from "../../pages/CourseDetail/useCourseDetail";
@@ -9,9 +9,11 @@ export interface IMyStudentInfo {
     student: IStudent;
     isLast: boolean;
     thisCourseRoles: IRolesThisCourse;
+    showFinalMarkModal: (studentId: string, currentMark: StudentMarks) => void;
+    showMidtermMarkModal: (studentId: string, currentMark: StudentMarks) => void;
 }
 
-const MyStudentInfo: FC<IMyStudentInfo> = ({student, isLast, thisCourseRoles}) => {
+const MyStudentInfo: FC<IMyStudentInfo> = ({student, isLast, thisCourseRoles, showMidtermMarkModal, showFinalMarkModal}) => {
     const showMarks = student.status === StudentStatuses.Accepted &&
         (!thisCourseRoles.isTeacherOrAdminThisCourse ? thisCourseRoles.userEmail === student.email : true);
     const showButtons = student.status !== StudentStatuses.Accepted;
@@ -26,14 +28,24 @@ const MyStudentInfo: FC<IMyStudentInfo> = ({student, isLast, thisCourseRoles}) =
             <div className={classes.studentMarksContainer + " " + (showMarks ? "" : classes.displayNone)}>
                 <div className={classes.studentMarkContainer}>
                     <p className={classes.studentMarkWrapper}>
-                        <span className={thisCourseRoles.isTeacherOrAdminThisCourse? classes.resultTitle : ""}>Промежуточная аттестация</span>
+                        <span
+                            className={thisCourseRoles.isTeacherOrAdminThisCourse? classes.resultTitle : ""}
+                            onClick={() => showMidtermMarkModal(student.id, student.midtermResult)}
+                        >
+                            Промежуточная аттестация
+                        </span>
                         <span> - </span>
                         <MyResultStatusStudent status={student.midtermResult}/>
                     </p>
                 </div>
                 <div className={classes.studentMarkContainer}>
                     <p className={classes.studentMarkWrapper}>
-                        <span className={thisCourseRoles.isTeacherOrAdminThisCourse? classes.resultTitle : ""}>Финальная аттестацияя</span>
+                        <span
+                            className={thisCourseRoles.isTeacherOrAdminThisCourse? classes.resultTitle : ""}
+                            onClick={() => showFinalMarkModal(student.id, student.finalResult)}
+                        >
+                            Финальная аттестацияя
+                        </span>
                         <span> - </span>
                         <MyResultStatusStudent status={student.finalResult}/>
                     </p>

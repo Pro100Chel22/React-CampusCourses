@@ -1,0 +1,9 @@
+.editMarkModalButtonContainer {
+    display: flex;
+    justify-content: end;
+    margin: 0;
+}
+
+.editMarkModalButtonSave {
+    margin-left: 6px;
+}

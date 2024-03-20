@@ -23,6 +23,10 @@ const MyModalFormChangeStatus: FC<IMyModalFormChangeStatus> = ({modalTypeOpen, c
     const title = "Изменение статуса курса";
     const buttonText = "Сохранить";
 
+    const OpenForAssigningDisabled = startValue === CourseStatuses.Started || startValue === CourseStatuses.Finished;
+    const StartedDisabled = startValue === CourseStatuses.Finished;
+    const FinishedDisabled = false;
+
     return (
         <>
             <Modal
@@ -42,9 +46,9 @@ const MyModalFormChangeStatus: FC<IMyModalFormChangeStatus> = ({modalTypeOpen, c
                         rules={statusRules}
                         initialValue={startValue === CourseStatuses.Created ? null : startValue}>
                         <Radio.Group>
-                            <Radio value="OpenForAssigning">{statuses[CourseStatuses.OpenForAssigning].message}</Radio>
-                            <Radio value="Started">{statuses[CourseStatuses.Started].message}</Radio>
-                            <Radio value="Finished">{statuses[CourseStatuses.Finished].message}</Radio>
+                            <Radio value="OpenForAssigning" disabled={OpenForAssigningDisabled}>{statuses[CourseStatuses.OpenForAssigning].message}</Radio>
+                            <Radio value="Started" disabled={StartedDisabled}>{statuses[CourseStatuses.Started].message}</Radio>
+                            <Radio value="Finished" disabled={FinishedDisabled}>{statuses[CourseStatuses.Finished].message}</Radio>
                         </Radio.Group>
                     </Form.Item>
                     <Form.Item className={classes.changeStatusModalButtonContainer}>

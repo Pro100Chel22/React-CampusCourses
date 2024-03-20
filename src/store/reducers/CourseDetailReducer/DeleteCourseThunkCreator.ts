@@ -17,12 +17,11 @@ export const deleteCourseReducers = (builder: ActionReducerMapBuilder<ICourseDet
 
         customNotifications.loading({massage: 'Удаление курса...', key: 'createNotification'});
     });
-    builder.addCase(deleteCourseDetail.fulfilled.type, (state, action: PayloadAction<any>) => {
+    builder.addCase(deleteCourseDetail.fulfilled.type, (state) => {
         state.modal.loading = false;
         state.modal.error = null;
         state.modal.modalTypeOpen = null;
         state.course = null;
-        action.payload();
 
         customNotifications.success({massage: 'Курс успешно удален!', key: 'createNotification'});
     });
@@ -41,8 +40,9 @@ export const deleteCourseDetail = createAsyncThunk(
         try {
             const responseCourse = await CourseDetailService.deleteCourse(request.courseId);
             console.log(responseCourse.data);
+            request.callbackRedirect();
 
-            return request.callbackRedirect;
+            return;
         } catch (error) {
             const err = error as AxiosError;
             return thunkAPI.rejectWithValue({status: err.response?.status, massage: ""});

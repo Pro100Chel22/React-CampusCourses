@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {Tabs} from "antd";
 import './MyCourseUsersTabs.css'
-import {IStudent, ITeacher} from "../../../types/types";
+import {IStudent, ITeacher, StudentMarks} from "../../../types/types";
 import MyTeacherInfo from "../MyTeacherInfo/MyTeacherInfo";
 import classes from "./MyCourseUsersTabs.module.css";
 import MyButton from "../MyButton/MyButton";
@@ -13,9 +13,11 @@ export interface IMyCourseUsersTabs {
     teachers: ITeacher[];
     thisCourseRoles: IRolesThisCourse;
     showAddTeacherModal: any;
+    showFinalMarkModal: (studentId: string, currentMark: StudentMarks) => void;
+    showMidtermMarkModal: (studentId: string, currentMark: StudentMarks) => void;
 }
 
-const MyCourseUsersTabs: FC<IMyCourseUsersTabs> = ({students, teachers, thisCourseRoles, showAddTeacherModal}) => {
+const MyCourseUsersTabs: FC<IMyCourseUsersTabs> = ({students, teachers, thisCourseRoles, showAddTeacherModal, showMidtermMarkModal, showFinalMarkModal}) => {
     const tabs = [
         {
             label: "Преподаватели",
@@ -38,7 +40,14 @@ const MyCourseUsersTabs: FC<IMyCourseUsersTabs> = ({students, teachers, thisCour
             children: (
                 <>
                     {students.map((student, index) =>
-                        <MyStudentInfo student={student} isLast={index === students.length - 1} thisCourseRoles={thisCourseRoles} key={index}/>)}
+                        <MyStudentInfo
+                            student={student}
+                            isLast={index === students.length - 1}
+                            thisCourseRoles={thisCourseRoles}
+                            key={index}
+                            showFinalMarkModal={showFinalMarkModal}
+                            showMidtermMarkModal={showMidtermMarkModal}
+                        />)}
                     {students.length === 0 ?
                         <div className={classes.noStudents}>В этом курсе еще нет студентов</div>
                     :

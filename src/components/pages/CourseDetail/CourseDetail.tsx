@@ -12,6 +12,7 @@ import MyCourseUsersTabs from "../../UI/MyCourseUsersTabs/MyCourseUsersTabs";
 import MyModalFormAddTeacher from "../../UI/modals/MyModalFormAddTeacher/MyModalFormAddTeacher";
 import MyModalFormCreateNotification from "../../UI/modals/MyModalFormCreateNotification/MyModalFormCreateNotification";
 import MyModalFormChangeStatus from "../../UI/modals/MyModalFormChangeStatus/MyModalFormChangeStatus";
+import MyModalFormEditStudentMarks from "../../UI/modals/MyModalFormEditStudentMarks/MyModalFormEditStudentMarks";
 
 const {Title} = Typography;
 
@@ -22,6 +23,7 @@ const CourseDetail = () => {
         creatNotification,
         changeCourseStatus,
         modalTypeOpen,
+        editMark,
         deleteCourse,
     } = useCourseDetail();
 
@@ -96,6 +98,8 @@ const CourseDetail = () => {
                                     teachers={fetchCourse.courseDetails.teachers}
                                     thisCourseRoles={fetchCourse.rolesThisCourse}
                                     showAddTeacherModal={addTeacherModal.showModal}
+                                    showFinalMarkModal={editMark.showFinalMarkModal}
+                                    showMidtermMarkModal={editMark.showMidtermMarkModal}
                                 />
                             </div>
                         </FetchingResult>
@@ -121,6 +125,13 @@ const CourseDetail = () => {
                 onFinishHandler={changeCourseStatus.onFinishHandler}
                 modalForm={changeCourseStatus.modalForm}
                 startValue={changeCourseStatus.startValue}
+            />
+            <MyModalFormEditStudentMarks
+                modalTypeOpen={modalTypeOpen}
+                cancelModalHandler={editMark.cancelModalHandler}
+                onFinishHandler={editMark.onFinishHandler}
+                modalForm={editMark.modalForm}
+                startValue={editMark.startValue}
             />
         </>
     );

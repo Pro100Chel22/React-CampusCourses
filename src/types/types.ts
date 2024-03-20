@@ -136,3 +136,13 @@ export interface ICourseDetails {
     teachers: ITeacher[];
     notifications: INotification[];
 }
+
+export enum MarkType {
+    Midterm,
+    Final
+}
+
+export interface IStudentMark {
+    markType: MarkType;
+    mark: StudentMarks
+}

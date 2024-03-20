@@ -1,5 +1,6 @@
 .ant-tabs-card > .ant-tabs-nav .ant-tabs-tab { /* For tabs border */
-    border-color: #d9d9d9;
+    border-color: #e6e6e6;
+    border-bottom-color: #d9d9d9;
     background: #f0f2f5;
     word-wrap: anywhere;
 }
