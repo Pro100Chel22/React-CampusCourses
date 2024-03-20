@@ -1,0 +1,9 @@
+.courseFormForTeacherButtonContainer {
+    display: flex;
+    justify-content: end;
+    margin: 0;
+}
+
+.courseFormForTeacherButtonSave {
+    margin-left: 6px;
+}

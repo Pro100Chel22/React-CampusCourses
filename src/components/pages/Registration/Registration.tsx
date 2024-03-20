@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {DatePicker, Form, Input, Typography} from 'antd';
 import dayjs from 'dayjs';
-import MyButton from '../../UI/MyButton/MyButton';
+import MyButton from '../../UI/others/MyButton/MyButton';
 import classes from './Registration.module.css'
 import {birthdayRules, confirmRules, emailRules, fullNameRules, passwordRules} from "./Validations";
 import {useRegistration} from "./useRegistration";

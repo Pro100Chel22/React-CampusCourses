@@ -3,13 +3,15 @@ import userReducer from "./reducers/UserReducer/UserSlice";
 import groupsReducer from "./reducers/GroupsReducer/GroupsSlice"
 import coursesReducer from "./reducers/GroupCoursesReducer/GroupCoursesSlice"
 import myAndTeachingCoursesReducer from "./reducers/MyAndTeachingCoursesReducer/MyAndTeachingCoursesSlice"
+import courseDetailReducer from "./reducers/CourseDetailReducer/CourseDetailsSlice"
 import {injectStoreToAxiosInstance} from "../requests/AxiosInstance";
 
 const rootReducer = combineReducers({
     userReducer,
     groupsReducer,
     coursesReducer,
-    myAndTeachingCoursesReducer
+    myAndTeachingCoursesReducer,
+    courseDetailReducer,
 });
 
 const setupStore = () => {

@@ -2,11 +2,11 @@ import React, {FC} from 'react';
 import {useGroupCourses} from "./useGroupCourses";
 import classes from './GroupCourses.module.css'
 import {Typography} from "antd";
-import MyButton from "../../UI/MyButton/MyButton";
+import MyButton from "../../UI/others/MyButton/MyButton";
 import FetchingResult from "../../hoc/FetchingResult";
 import LoadingLayer from "../../hoc/LoadingLayer";
-import MyCoursesList from "../../UI/MyCoursesList/MyCoursesList";
-import MyModalFormGroupCreation from "../../UI/MyModalFormGroupCreation/MyModalFormGroupCreation";
+import MyCoursesList from "../../UI/panels/MyCoursesList/MyCoursesList";
+import MyModalFormCourseCreation from "../../UI/modals/MyModalFormCourseCreation/MyModalFormCourseCreation";
 
 const {Title} = Typography;
 
@@ -32,7 +32,7 @@ const GroupCourses: FC = () => {
                     </LoadingLayer>
                 </div>
             </div>
-            <MyModalFormGroupCreation
+            <MyModalFormCourseCreation
                 modalCourseCreation={modalCourseCreation}
                 cancelModalHandler={cancelCourseCreationModalHandler}
                 courseOnFinishHandler={courseCreationOnFinishHandler}

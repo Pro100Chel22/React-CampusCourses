@@ -37,3 +37,9 @@
     padding: 0 48px;
     height: 100%;
 }
+
+@media (max-width: 576px) {
+    .mainContent {
+        padding: 0 12px;
+    }
+}

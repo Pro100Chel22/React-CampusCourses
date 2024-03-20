@@ -7,7 +7,7 @@ import {deleteGroup} from "../../../store/reducers/GroupsReducer/DeleteGroupThun
 import {editGroup} from "../../../store/reducers/GroupsReducer/EditeGroupThunkCreater";
 import {useForm} from "antd/es/form/Form";
 import {actions} from "../../../store/reducers/GroupsReducer/GroupsSlice";
-import {IGroupModalForm, ModalGroupType} from "../../UI/MyModalFormGroup/MyModalFormGroup";
+import {IGroupModalForm, ModalGroupType} from "../../UI/modals/MyModalFormGroup/MyModalFormGroup";
 import {createGroups} from "../../../store/reducers/GroupsReducer/CreateGroupThunkCreater";
 
 export const useGroups = () => {

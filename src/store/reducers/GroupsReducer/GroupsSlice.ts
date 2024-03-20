@@ -3,7 +3,7 @@ import {IErrorResponse, IGroup} from "../../../types/types";
 import {groupsReducers} from "./GetGroupsThunkCreater";
 import {deleteGroupReducers} from "./DeleteGroupThunkCreater";
 import {editGroupReducers} from "./EditeGroupThunkCreater";
-import {ModalGroupType} from "../../../components/UI/MyModalFormGroup/MyModalFormGroup";
+import {ModalGroupType} from "../../../components/UI/modals/MyModalFormGroup/MyModalFormGroup";
 import {createGroupReducers} from "./CreateGroupThunkCreater";
 
 export interface IGroupsState {

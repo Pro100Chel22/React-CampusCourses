@@ -1,0 +1,84 @@
+.studentMainContainer {
+   display: flex;
+   padding-bottom: 5px;
+   padding-top: 2px;
+}
+
+.studentInfoContainer {
+   flex: 1;
+   margin-right: 5px;
+}
+
+.studentName {
+   font-weight: 500;
+   font-size: 1rem;
+}
+
+.studentStatus {
+   color: #727272;
+   font-size: 0.9rem;
+}
+
+.studentEmail {
+   color: #727272;
+   font-size: 0.9rem;
+}
+
+.studentMarksContainer {
+   flex: 2;
+   display: flex;
+}
+
+.studentMarkContainer {
+   flex: 1;
+   display: flex;
+}
+
+.studentMarkRightMargin {
+   margin-right: 12px;
+}
+
+.bottomBorder {
+   border-bottom: 1px solid #d9d9d9;
+}
+
+.displayNone {
+   display: none;
+}
+
+.resultTitle {
+   color: #007bff; /* Цвет текста, похожий на цвет ссылки */
+   text-decoration: underline; /* Подчеркивание */
+   cursor: pointer; /* Курсор, указывающий на ссылку */
+   transition: color 0.3s; /* Плавное изменение цвета при наведении */
+}
+
+.resultTitle:hover {
+   color: #0056b3; /* Изменение цвета текста при наведении курсора */
+}
+
+.studentMarkWrapper {
+   margin: 2px 0;
+}
+
+.buttonsContainer {
+   margin-right: 10px;
+   padding: 8px 0;
+}
+
+.acceptStudentButton {
+   margin-right: 5px;
+   height: 100%;
+   background: #007bff !important;
+}
+
+.rejectStudentButton {
+   height: 100%;
+   background: #e12222 !important;
+}
+
+@media (max-width: 768px) {
+   .studentMainContainer {
+      display: block;
+   }
+}

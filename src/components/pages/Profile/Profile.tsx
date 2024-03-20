@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './Profile.module.css'
 import {DatePicker, Form, Input, Typography} from "antd";
-import MyButton from "../../UI/MyButton/MyButton";
+import MyButton from "../../UI/others/MyButton/MyButton";
 import dayjs from "dayjs";
 import {birthdayRules, fullNameRules} from "./Validations";
 import {useProfile} from "./useProfile";

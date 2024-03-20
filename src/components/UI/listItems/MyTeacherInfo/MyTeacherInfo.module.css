@@ -1,0 +1,40 @@
+.teacherInfoContainer {
+    padding-bottom: 10px;
+    padding-top: 5px;
+}
+
+.topTeacherInfoContainer {
+    display: flex;
+}
+
+.bottomTeacherInfoContainer {
+
+}
+
+.teacherName {
+    font-weight: 640;
+    font-size: 1rem;
+}
+
+.teacherRole {
+    margin-left: 5px;
+}
+
+.teacherEmail {
+    color: #727272;
+    font-size: 0.95rem;
+}
+
+.bottomBorder {
+    border-bottom: 1px solid #d9d9d9;
+}
+
+@media (max-width: 470px) {
+    .topTeacherInfoContainer {
+        display: block;
+    }
+
+    .teacherRole {
+        margin-left: 0;
+    }
+}
