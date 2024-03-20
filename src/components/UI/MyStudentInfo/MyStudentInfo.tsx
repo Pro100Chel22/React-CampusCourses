@@ -4,6 +4,7 @@ import {IStudent, StudentMarks, StudentStatuses} from "../../../types/types";
 import MyResultStatusStudent from "../MyResultStatusStudent/MyResultStatusStudent";
 import MyButton from "../MyButton/MyButton";
 import {IRolesThisCourse} from "../../pages/CourseDetail/useCourseDetail";
+import {studentStatuses} from "../../consts/consts";
 
 export interface IMyStudentInfo {
     student: IStudent;
@@ -16,17 +17,17 @@ export interface IMyStudentInfo {
 const MyStudentInfo: FC<IMyStudentInfo> = ({student, isLast, thisCourseRoles, showMidtermMarkModal, showFinalMarkModal}) => {
     const showMarks = student.status === StudentStatuses.Accepted &&
         (!thisCourseRoles.isTeacherOrAdminThisCourse ? thisCourseRoles.userEmail === student.email : true);
-    const showButtons = student.status !== StudentStatuses.Accepted;
+    const showButtons = student.status === StudentStatuses.InQueue;
 
     return (
         <div className={classes.studentMainContainer + " " + (!isLast ? classes.bottomBorder : "")}>
             <div className={classes.studentInfoContainer}>
                 <div className={classes.studentName}>{student.name}</div>
-                <div className={classes.studentStatus}>Статус - {student.status}</div>
+                <div className={classes.studentStatus}>Статус - <span style={{color: studentStatuses[student.status].color}}>{studentStatuses[student.status].message}</span></div>
                 <div className={classes.studentEmail}>{student.email}</div>
             </div>
             <div className={classes.studentMarksContainer + " " + (showMarks ? "" : classes.displayNone)}>
-                <div className={classes.studentMarkContainer}>
+                <div className={classes.studentMarkContainer + " " + classes.studentMarkRightMargin}>
                     <p className={classes.studentMarkWrapper}>
                         <span
                             className={thisCourseRoles.isTeacherOrAdminThisCourse? classes.resultTitle : ""}

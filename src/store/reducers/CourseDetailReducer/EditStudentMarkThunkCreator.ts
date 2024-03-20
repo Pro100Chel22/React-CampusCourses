@@ -24,7 +24,7 @@ export const editStudentMarkReducers = (builder: ActionReducerMapBuilder<ICourse
         state.modal.loading = false;
         state.modal.error = action.payload;
 
-        customNotifications.success({massage: 'Произошла неизвестная ошибка!', key: 'editMark'});
+        customNotifications.error({massage: 'Произошла неизвестная ошибка!', key: 'editMark'});
     });
 }
 

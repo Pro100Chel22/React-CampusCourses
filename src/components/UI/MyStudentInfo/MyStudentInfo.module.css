@@ -32,7 +32,10 @@
 .studentMarkContainer {
    flex: 1;
    display: flex;
-   margin-right: 5px;
+}
+
+.studentMarkRightMargin {
+   margin-right: 12px;
 }
 
 .bottomBorder {

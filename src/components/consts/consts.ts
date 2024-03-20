@@ -1,4 +1,4 @@
-import {CourseStatuses, Semesters, StudentMarks} from "../../types/types";
+import {CourseStatuses, Semesters, StudentMarks, StudentStatuses} from "../../types/types";
 
 export const viewDateFormat = "DD.MM.YYYY";
 export const serverDateFormat = "YYYY-MM-DD";
@@ -20,4 +20,10 @@ export const marks = {
     [StudentMarks.Failed]: {color: "#e12222", message: "зафейлена"},
     [StudentMarks.Passed]: {color: "#87d068", message: "успешно пройдена"},
     [StudentMarks.NotDefined]: {color: "#737373", message: "отметки нет"},
+}
+
+export const studentStatuses  = {
+    [StudentStatuses.InQueue]: {color: "#108ee9", message: "в очереди"},
+    [StudentStatuses.Accepted]: {color: "#87d068", message: "принят в группу"},
+    [StudentStatuses.Declined]: {color: "#e12222", message: "отклонен"},
 }
